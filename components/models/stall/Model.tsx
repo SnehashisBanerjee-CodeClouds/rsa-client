@@ -1,0 +1,144 @@
+"use client";
+
+import React, { useEffect, useRef, useState } from "react";
+import { Canvas } from "@react-three/fiber";
+import { Environment } from "@react-three/drei";
+import { useAppDispatch, useAppSelector } from "@/hooks/useStore";
+
+import RoomSwitcher from "@/components/models/RoomSwitcher";
+import ModelSwitcher from "@/components/models/ModelSwitcher";
+import OrbitAnimation from "@/components/models/OrbitAnimation";
+import CameraControls from "@/components/models/stall/CameraControls";
+import { usePathname } from "next/navigation";
+import { uploadCanvasAsImage } from "@/lib/slices/roomSlice";
+import { View } from "@/types/model";
+
+export default function Model() {
+  const dispatch = useAppDispatch();
+  const pathname = usePathname();
+  // Pulsate
+  const [pulsate, setPulsate] = useState(false);
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const [orbitControls, setOrbitControls] = useState(false);
+  const [canvasLoaded, setCanvasLoaded] = useState(false);
+  const { selectedRoom, rooms } = useAppSelector((state) => state.room);
+  const {
+    noOfStalls,
+    stallColor,
+    stallConfig,
+    adaToiletPosition,
+    standardDepth,
+    alcoveDepth,
+    adaDepth,
+    cameraControls: { view, position, zoom },
+    layout,
+    overallRoomWidth,
+    overallRoomFraction,
+  } = rooms[selectedRoom.roomIndex].stall;
+  useEffect(() => {
+    if (pathname === "/calculate-measurements") {
+      setPulsate(true);
+      setTimeout(() => {
+        setPulsate(false);
+      }, 3000);
+    }
+  }, [pathname]);
+
+  // Effect for Capturing Canvas Image
+  useEffect(() => {
+    if (pathname === "/calculate-measurements") {
+      const debounce = setTimeout(() => {
+        if (canvasRef.current) {
+          const canvasCapture = canvasRef.current.toDataURL("image/png");
+          // Dispaching Canvas Image
+          dispatch(
+            uploadCanvasAsImage({
+              view: view,
+              canvasImage: canvasCapture,
+              modelType: "stall",
+            })
+          );
+        }
+      }, 1000);
+
+      return () => clearTimeout(debounce);
+    }
+  }, [
+    selectedRoom,
+    view,
+    stallConfig,
+    stallColor,
+    standardDepth,
+    adaDepth,
+    overallRoomWidth,
+  ]);
+
+  return (
+    <>
+      {canvasLoaded && (
+        <>
+          <RoomSwitcher
+            selectedRoom={selectedRoom}
+            rooms={rooms}
+            view={view}
+          />
+          <ModelSwitcher
+            view={view}
+            setOrbitControls={setOrbitControls}
+            pulsate={pulsate}
+          />
+        </>
+      )}
+      {noOfStalls > 0 && (
+        <Canvas
+          gl={{ preserveDrawingBuffer: true }}
+          onCreated={({ gl }) => {
+            canvasRef.current = gl.domElement;
+            setCanvasLoaded(true); // Capture the canvas DOM element
+          }}
+          ref={canvasRef}
+          className="px-2 h-full cursor-pointer"
+          fallback={
+            <div className="flex items-center justify-center h-full w-full mx-2 bg-gray-100 rounded-lg">
+              <span>Unable to load 3D Model...</span>
+            </div>
+          }
+          camera={{ fov: 75, near: 0.1, far: 1000, position, zoom }}
+          shadows
+        >
+          {/* Lights */}
+          <ambientLight intensity={Math.PI / 2} />
+          <spotLight
+            position={[100, 100, 100]}
+            angle={360}
+            penumbra={1}
+            decay={0}
+            intensity={Math.PI}
+          />
+          <pointLight position={[0, -10, -100]} decay={0} intensity={Math.PI} />
+          <Environment preset="forest" />
+          {/* Camera Controls */}
+          <CameraControls
+            position={position}
+            adaToiletPosition={adaToiletPosition ?? layout.layoutDirection}
+            stallConfig={stallConfig}
+            stallColor={stallColor}
+            standardDepth={standardDepth}
+            alcoveDepth={alcoveDepth}
+            adaDepth={adaDepth}
+            overallRoomWidth={overallRoomWidth}
+            overallRoomFraction={overallRoomFraction}
+            zoom={zoom}
+            layout={layout}
+            view={view}
+            pulsate={pulsate}
+          />
+          {/* OrbitControls */}
+          {orbitControls && (
+            <OrbitAnimation layoutDirection={layout.layoutDirection} />
+          )}
+        </Canvas>
+      )}
+    </>
+  );
+}
