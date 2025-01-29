@@ -13,8 +13,8 @@ function Step4() {
     <div className="form_content">
       <fieldset>
         <div className="fieldset_inr">
-          <h2 className="fs-title">Share Contact Details</h2>
-          <h3 className="fs-title-sm">Contact Details</h3>
+          <h2 className="fs-title">Project Details</h2>
+          {/* <h3 className="fs-title-sm">Contact Details</h3> */}
           <Contacts />
         </div>
       </fieldset>

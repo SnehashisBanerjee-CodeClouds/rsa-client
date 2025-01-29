@@ -157,7 +157,7 @@ export default function ModelSwitcher({
         </div>
       </div>
       {allowedMeasurements && (
-        <div className="z-10 absolute bottom-0 right-0">
+        <div className="z-10 absolute top-0 left-0 stallToSelect">
           <div
             className={`px-4 py-3 inline-flex font-[family-name:var(--font-manrope)]`}
           >

@@ -375,9 +375,17 @@ export default function Measurements() {
                 </h5>
               </div>
             )}
+
+            <div className="contactDetails contactDetails-step-3 ">
+              <h2>Questions? Contact Us</h2>
+              <p className="phoneHolder"><a href="tel:1-8448178255">1-844-81-STALL</a></p>
+              <p className="emailHolder"><a href="mailto:service@restroomstallsandall.com">service@restroomstallsandall.com</a></p>
+            </div>
           </div>
         </div>
       </div>
+      
+
       <RoomOptions
         isStallWidthExceed={isWidthExceed}
         isRoomDepthExceed={isDepthExceed || isAlcoveError}

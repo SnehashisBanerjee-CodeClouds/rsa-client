@@ -58,10 +58,7 @@ export default function Modal({
               <button
                 type="button"
                 className={`absolute -top-3 -end-2.5 text-white bg-[#3fab3b] rounded-full w-7 h-7 p-1 ms-auto inline-flex justify-center items-center z-50`}
-                onClick={() => {
-                  if (cancelHandler) cancelHandler();
-                  setModal(false);
-                }}
+                onClick={() => setModal(false)}
               >
                 <X />
                 <span className="sr-only">Close modal</span>

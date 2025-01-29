@@ -18,7 +18,7 @@ function Step5() {
     <div className="form_content">
       <fieldset className="fieldset_inr_full">
         <div className="fieldset_inr" style={{ width: "100%" }}>
-          <h2 className="fs-title">Choose Materials</h2>
+          <h2 className="fs-title">Material and Color Selections</h2>
           <Material />
         </div>
         <div className="mobile_btn">

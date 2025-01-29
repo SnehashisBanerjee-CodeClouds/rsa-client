@@ -21,8 +21,8 @@ function MaterialSkeleton() {
           ))}
         </ul>
       </div>
-      <div className="row items-center">
-        <div className="select_color row lg:justify-between items-center pr-4 mt-6 xl:mt-10 w-full lg:w-2/5">
+      <div className="row items-center justify-center">
+        <div className="select_color row lg:justify-between justify-center items-center pr-4 mt-6 xl:mt-20 w-full lg:w-2/5">
           <div className="select_color_all flex flex-col">
             <h3
               className="bg-gray-100 rounded-md animate-pulse block w-[60%]"
@@ -43,7 +43,7 @@ function MaterialSkeleton() {
               View Model
             </button>
           </div>
-          <div className="clr-box_holder mt-6 lg:mt-0">
+          <div className="clr-box_holder ">
             <div className="clr-box mb-2 !bg-gray-100 animate-pulse !border-none rounded-md"></div>
             <span className="bg-gray-100 rounded-md p-1 text-transparent animate-pulse">
               Green

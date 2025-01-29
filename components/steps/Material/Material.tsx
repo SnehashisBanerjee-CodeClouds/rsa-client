@@ -17,8 +17,23 @@ import {
 } from "@/lib/slices/stepSlice";
 import { updateInitialStall } from "@/lib/slices/roomSlice";
 import { updateContact } from "@/lib/slices/contactSlice";
+import { ChevronDown, ChevronRight, CircleHelp } from "lucide-react";
+import Tooltip from "@/components/ui/Tooltip";
+import { Maximize2, Minimize2, Pointer } from "lucide-react";
+
 
 function Material() {
+  // pulsate for Animation
+  const [pulsateArrow, setPulsateArrow] = useState(false);
+  const [pulsateColor, setPulsateColor] = useState<OutlineColor | string>(
+    "transparent"
+  );
+    const [showTooltip, setShowTooltip] = useState({
+      index: -1,
+      tooltip_1: false,
+      tooltip_2: false,
+      tooltip_3: false,
+    });
   const [param, setParam] = useState<string | null>(null);
   // const searchParams = useSearchParams();
   // const quotationId = searchParams.get("id");
@@ -158,12 +173,43 @@ function Material() {
         <ul className="grid grid-cols-2 md:grid-cols-5 gap-x-6 xl:gap-x-8">
           {materialData.map((data) => (
             <li key={data.id}>
-              <div className="material_name">{data.name}</div>
+              <div className="material_name">
+                {data.name}
+                <span>
+                <Tooltip
+                  isTooltipOpen={showTooltip.tooltip_1}
+                  toolTipIndex={showTooltip.index}
+                  stallId={data.id}
+                  tooltipMessage="Please select material"
+                >
+                  <div
+                    onMouseEnter={() =>
+                      setShowTooltip({
+                        index: data.id,
+                        tooltip_1: true,
+                        tooltip_2: false,
+                        tooltip_3: false,
+                      })
+                    }
+                    onMouseLeave={() =>
+                      setShowTooltip({
+                        index: -1,
+                        tooltip_1: false,
+                        tooltip_2: false,
+                        tooltip_3: false,
+                      })
+                    }
+                  >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                  </div>
+                </Tooltip>
+                </span>
+              </div>
               <Label htmlFor={data.id.toString()}>
                 <Image
                   alt="Material"
                   className={`w-full ${
-                    +selectedId === data.id ? "border-4 border-[#3FAB3B]" : ""
+                    +selectedId === data.id ? "border-6 border-[#4fd84b]" : ""
                   }`}
                   width={159.47}
                   height={130.72}
@@ -185,10 +231,10 @@ function Material() {
           ))}
         </ul>
       </div>
-      <div className="row items-center">
-        <div className="select_color row lg:justify-between items-center pr-4 mt-6 xl:mt-10 w-full lg:w-2/5">
+      <div className="row items-center justify-center">
+        <div className="select_color row lg:justify-between justify-center pr-4 mt-6 xl:mt-20 w-full gap-5">
           <div className="select_color_all flex flex-col">
-            <h3>Select a Color*</h3>
+            {/* <h3>Select a Color*</h3> */}
             <ColorModal
               isDisabled={!selectedId}
               setLoadingUpdateColor={setLoadingUpdateColor}
@@ -197,14 +243,14 @@ function Material() {
             <ModelOnModal isDisabled={!selectedId} />
           </div>
           {loadingUpdateColor ? (
-            <div className="clr-box_holder mt-6 lg:mt-0">
+            <div className="clr-box_holder">
               <div className="clr-box mb-2 !bg-gray-100 animate-pulse !border-none rounded-md"></div>
               <span className="bg-gray-100 rounded-md p-1 text-transparent animate-pulse">
                 Green
               </span>
             </div>
           ) : (
-            <div className="clr-box_holder mt-6 lg:mt-0">
+            <div className="clr-box_holder">
               <div
                 className="clr-box mb-2"
                 style={{ backgroundColor: selectedData.color }}
@@ -228,6 +274,21 @@ function Material() {
           </a>
         </div>
       </div>
+
+      <div className="z-10 absolute bottom-0 right-0 chooseMaterial">
+          <div
+            className={`px-4 py-3 inline-flex font-[family-name:var(--font-manrope)]`}
+          >
+            <button
+            style={{
+              backgroundColor: pulsateColor,
+              color: pulsateColor === "transparent" ? "black" : "white",
+            }}
+              className={`font-bold text-black text-sm rounded-s-md rounded-e-md px-1 py-2 `}
+            >
+              <Pointer className="inline h-5 w-5 ml-1" /> Click to choose material</button>
+          </div>
+        </div>
     </>
   );
 }

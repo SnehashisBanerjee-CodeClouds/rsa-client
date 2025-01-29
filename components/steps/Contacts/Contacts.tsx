@@ -80,7 +80,8 @@ function Contacts() {
         return {
           ...rest,
           hasUrinalScreens: hasUrinalScreens === "not-selected" ? false : true,
-          image_3D: `${process.env.NEXT_PUBLIC_API_BASE}/uploads/images/room3D.png`,
+          image_3D:
+            "https://rsa-api-kappa.vercel.app/api/uploads/images/room3D.png",
           image_2D: stall.canvas2DImage,
           stall: {
             type: handleStallType(stall.layout.layoutOption),
@@ -110,7 +111,8 @@ function Contacts() {
               ? {
                   noOfUrinalScreens: urinalScreen.noOfUrinalScreens,
                   cameraControls: urinalScreen.cameraControls,
-                  urinal_3D: `${process.env.NEXT_PUBLIC_API_BASE}/uploads/images/urinal3D.png`,
+                  urinal_3D:
+                    "https://rsa-api-kappa.vercel.app/api/uploads/images/urinal3D.png",
                   urinal_2D: urinalScreen.screens2DImage,
                   urinalScreenConfig: urinalScreen.urinalScreenConfig.map(
                     ({ isOpened, ...rest }) => {
@@ -314,7 +316,7 @@ function Contacts() {
       </h3>
       <div className="mobile_btn">
         <PrevStep />
-        <NextStep type="submit" loadingButton={loadingContactButton} />
+        <NextStep title="Get Quote" type="submit" loadingButton={loadingContactButton} />
       </div>
     </form>
   );

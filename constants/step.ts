@@ -33,7 +33,7 @@ export const STEPS: Step = {
     },
     {
       path: "/choose-materials",
-      title: "Selections",
+      title: "Purchase",
     },
   ],
 };
