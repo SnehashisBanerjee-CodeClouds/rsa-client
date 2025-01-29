@@ -73,6 +73,10 @@ export default function UrinalScreens() {
       router.push("/select-a-layout");
     }, 1000);
   }, []);
+    // Skip handler
+    const handleSkip = useCallback(() => {
+      router.push("/select-a-layout"); // Navigate to the next step or a relevant route
+    }, []);
 
   // Checking for Urinal Screen Option
   useEffect(() => {
@@ -144,6 +148,14 @@ export default function UrinalScreens() {
       </Select>
       <div className="mobile_btn">
         <PrevStep />
+        <button
+          name="Skip"
+          type="button"
+          onClick={handleSkip}
+          className="skip_btn"
+        >
+        Skip
+       </button>
         <NextStep
           isDisabled={isSubmitting || isValidating}
           type="submit"

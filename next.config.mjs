@@ -2,13 +2,7 @@
 const nextConfig = {
   reactStrictMode: false,
   images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "rsa-api-kappa.vercel.app",
-        pathname: "**",
-      },
-    ],
+    domains: ["rsa-api-kappa.vercel.app"],
   },
 };
 

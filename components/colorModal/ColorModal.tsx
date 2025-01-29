@@ -31,9 +31,9 @@ export default function ColorModal({
         type="button"
         disabled={isDisabled}
         onClick={() => setIsOpened(true)}
-        className="custom_btn y_btn mt-4 my-1 !px-10 disabled:opacity-35"
+        className="custom_btn y_btn mt-0 my-1 !px-10 disabled:opacity-35"
       >
-        View all Colors
+        Select Color
       </button>
       {isOpened && (
         <Modal
@@ -43,7 +43,8 @@ export default function ColorModal({
           hasConfirm={false}
           hasCancel={false}
         >
-          <h3 className="mb-3">Select a Color*</h3>
+          <div className="disclaimer">Colors may vary slightly from colors shown on screen.</div>
+          <h3 className="mb-3 mt-4">Select a Color*</h3>
           <div className="space-y-3">
          
  <div  className="grid grid-cols-4 md:grid-cols-8 gap-3">

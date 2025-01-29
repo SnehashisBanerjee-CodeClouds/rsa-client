@@ -217,6 +217,11 @@ function Project() {
           </div>
         </div>
       )}
+      <div className="contactDetails">
+        <h2>Questions? Contact Us</h2>
+        <p className="phoneHolder"><a href="tel:1-8448178255">1-844-81-STALL</a></p>
+        <p className="emailHolder"><a href="mailto:service@restroomstallsandall.com">service@restroomstallsandall.com</a></p>
+      </div>
       {urinalScreenModal && (
         <Modal
           confirmHandler={urinalScreenAcceptHandler}

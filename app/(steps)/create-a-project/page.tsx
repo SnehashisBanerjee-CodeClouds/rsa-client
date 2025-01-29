@@ -12,7 +12,10 @@ export default function Step1() {
     <div className="form_content">
       <fieldset>
         <div className="fieldset_inr">
-          <h2 className="fs-title">Create a Project</h2>
+          <div className="fs-title-step-1">
+            <h2 className="fs-title">Create a Quote</h2>
+            <p>Skip the wait! Get instant pricing with our innovative bathroom partitions tool now!</p>
+          </div>
           <h3 className="fs-subtitle">
             Please complete the following steps to customize your bathroom
             layout for your first room. You will have the option to add

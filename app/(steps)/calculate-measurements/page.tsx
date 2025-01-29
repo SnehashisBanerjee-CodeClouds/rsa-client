@@ -12,7 +12,7 @@ export default function Step3() {
     <form className="form_content">
       <fieldset>
         <div className="fieldset_inr">
-          <h2 className="fs-title">Calculate Measurements</h2>
+          <h2 className="fs-title">Select Measurements</h2>
           <Measurements />
         </div>
       </fieldset>
