@@ -71,7 +71,7 @@ export default function StallModel({
   // Measurements View | Only visible in 2D mode
   const measurementsView = useMemo(() => (allowedMeasurements && view === "2D"), [isOpened, view, isSelected, allowedMeasurements]);
   // Stall Numbers View
-  const stallNumbersView = useMemo(() => (allowedMeasurements && !isOpened), [isOpened, allowedMeasurements]);
+  // const stallNumbersView = useMemo(() => (allowedMeasurements && !isOpened), [isOpened, allowedMeasurements]);
   // Using Springs for Animations
   const stallSprings = useSpring({
     position: [position.x, position.y, position.z] as Vector3,
@@ -119,23 +119,23 @@ export default function StallModel({
       {/* Urinal */}
       {/* @ts-ignore: Spring type is Vector3 Type (Typescript return error on position) */}
       <animated.group position={toiletSprings.position} scale={1.2}>
-       {stallNumbersView && (
+    
           <Text
             position={[-3.3, 1.6, 0.10]}
             rotation={[1.55, -3.1, -1.55]}
             fontSize={0.9}
             fontWeight={800}
-            color={OutlineColor.Default}
+            color={isOpened ? OutlineColor.Selected : OutlineColor.Default}
             anchorX="center"
             anchorY="middle"
           >
             {stallId + 1}
           </Text>
-        )}
+        
         <animated.mesh geometry={nodes.Toilet.geometry} material={materials['Toilet.001']} position={[-3.372, 0.83, 0.09]} scale={[0.463, 0.143, 0.318]}>
              {/* <Edges color={OutlineColor.Default} /> */}
           <animated.mesh geometry={nodes.ToiletCover001.geometry} material={materials['Toilet.001']} position={[0, -1.18, 0]} scale={1.032}>
-            <AnimatedMeshDistortMaterial speed={0} distort={0} color={stallSprings.baseColor} />
+            <AnimatedMeshDistortMaterial speed={0} distort={0} color={"white"} />
             <Edges color={OutlineColor.Default} />
           </animated.mesh>
           <animated.mesh geometry={nodes.ToiletInnerCover.geometry} material={materials['Toilet.001']} position={[0.047, -0.708, 0]} scale={1.085}>

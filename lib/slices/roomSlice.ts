@@ -121,6 +121,27 @@ export const roomSlice = createSlice({
       state.selectedRoom = initialState.selectedRoom;
       state.rooms = initialState.rooms;
     },
+    resetUrinalScreen: (state) => {
+      const roomIndex = state.selectedRoom.roomIndex;
+      const urinalScreen = state.rooms[roomIndex].urinalScreen;
+      urinalScreen.noOfUrinalScreens = 1;
+      (urinalScreen.urinalScreensDepth = "24"),
+        (urinalScreen.screens2DImage = ""),
+        (urinalScreen.screens3DImage = ""),
+        (urinalScreen.urinalScreenConfig = [
+          {
+            x: 2,
+            y: -4.5,
+            z: 0,
+            isOpened: true,
+          },
+        ]),
+        (urinalScreen.cameraControls = {
+          view: "2D",
+          position: [10, 100, 0],
+          zoom: isDesktop ? 15 : 14,
+        });
+    },
     updateNoOfStalls: (state, action: PayloadAction<number>) => {
       const { payload: noOfStalls } = action;
       const roomIndex = state.selectedRoom.roomIndex;
@@ -146,8 +167,11 @@ export const roomSlice = createSlice({
       // Updating Stall State
       state.rooms[roomIndex] = room;
     },
-    updateNoOfUrinalScreens: (state, action: PayloadAction<{val:number,device:string}>) => {
-     const {val:noOfUrinalScreens,device}=action.payload
+    updateNoOfUrinalScreens: (
+      state,
+      action: PayloadAction<{ val: number; device: string }>
+    ) => {
+      const { val: noOfUrinalScreens, device } = action.payload;
       const roomIndex = state.selectedRoom.roomIndex;
       const urinalScreen = state.rooms[roomIndex].urinalScreen;
 
@@ -159,7 +183,7 @@ export const roomSlice = createSlice({
       );
 
       // Updating Zoom
-      const zoom = calculateUrinalScreenZoom(noOfUrinalScreens,device);
+      const zoom = calculateUrinalScreenZoom(noOfUrinalScreens, device);
       urinalScreen.cameraControls = {
         ...urinalScreen.cameraControls,
         zoom,
@@ -377,7 +401,6 @@ export const roomSlice = createSlice({
         case "OverallRoomFraction":
           stall.overallRoomFraction = value as string;
           break;
-       
       }
 
       // Updating Stall State
@@ -595,6 +618,7 @@ export const {
   updateInitialView,
   updateStep,
   updateInitialStall,
+  resetUrinalScreen,
 } = roomSlice.actions;
 // Exporting Reducer
 export default roomSlice.reducer;

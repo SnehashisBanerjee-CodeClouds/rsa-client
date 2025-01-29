@@ -35,6 +35,7 @@ function Layout() {
     adaStall,
     layout: { layoutOption },
   } = rooms[selectedRoom.roomIndex].stall;
+  const { hasUrinalScreens } = rooms[selectedRoom.roomIndex];
   const {
     register,
     reset,
@@ -63,7 +64,7 @@ function Layout() {
   const handleSecondStepData = useCallback(() => {
     dispatch(handleStepLoading({ stepName: "layout", isLoading: true }));
     setTimeout(() => {
-      dispatch(stepSubmit({ stepName: "layout" }));  
+      dispatch(stepSubmit({ stepName: "layout" }));
       router.push("/calculate-measurements");
       dispatch(handleStepLoading({ stepName: "layout", isLoading: false }));
     }, 1000);
@@ -107,7 +108,7 @@ function Layout() {
                   dispatch(changeLayout(e.target.value as LayoutOption));
                   setSelectedImage(e.target.value);
                   dispatch(updatePulsate({ pulsateBool: true }));
-                  dispatch(updateQuotationValue({isQuote:true}))
+                  dispatch(updateQuotationValue({ isQuote: true }));
                   if (e.target.value.startsWith("alcove") && adaStall) {
                     dispatch(
                       changeRoomConfig({ config: "StandardDepth", value: "62" })
@@ -171,7 +172,7 @@ function Layout() {
                   onChange={(e) => {
                     dispatch(toggleAdaStall());
                     dispatch(updatePulsate({ pulsateBool: true }));
-                    dispatch(updateQuotationValue({isQuote:true}))
+                    dispatch(updateQuotationValue({ isQuote: true }));
                     if (
                       layoutOption.startsWith("alcove") &&
                       e.target.value === "true"
@@ -246,7 +247,7 @@ function Layout() {
         All configurations are floor mounted and overhead braced.
       </h3>
       <div className="mobile_btn">
-        <PrevStep />
+        <PrevStep hasUrinalScreen={hasUrinalScreens} />
         <NextStep type="submit" loadingButton={loadingLayoutButton} />
       </div>
     </form>
