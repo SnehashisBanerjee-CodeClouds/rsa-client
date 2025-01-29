@@ -44,7 +44,8 @@ function Input({
         {...register(fieldName, {
           onChange: onChange,
           required: {
-            value: fieldName !== "restroom_name",
+            value:
+              fieldName !== "restroom_name" || fieldName !== "project_name",
             message: message,
           },
           pattern: {

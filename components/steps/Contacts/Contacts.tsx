@@ -22,9 +22,8 @@ function Contacts() {
   const router = useRouter();
   // dispatch action//
   const dispatch = useAppDispatch();
-  const { first_name, last_name, email, phone_number } = useAppSelector(
-    (state) => state.contacts
-  );
+  const { first_name, last_name, email, phone_number, project_name } =
+    useAppSelector((state) => state.contacts);
   const { isQuotationCreate, materialRoute } = useAppSelector(
     (state) => state.step
   );
@@ -38,6 +37,7 @@ function Contacts() {
     formState: { errors },
   } = useForm({
     defaultValues: {
+      project_name: "",
       first_name: "",
       last_name: "",
       email: "",
@@ -48,6 +48,7 @@ function Contacts() {
   useEffect(() => {
     setTimeout(() => {
       reset({
+        project_name: project_name,
         first_name: first_name,
         last_name: last_name,
         email: email,
@@ -62,6 +63,7 @@ function Contacts() {
     dispatch(handleStepLoading({ stepName: "contact", isLoading: true }));
     dispatch(
       updateContact({
+        project_name: data.project_name,
         first_name: data.first_name,
         last_name: data.last_name,
         email: data.email,
@@ -235,6 +237,25 @@ function Contacts() {
   }
   return (
     <form className="flex flex-wrap" onSubmit={handleSubmit(handleContactData)}>
+      <div className="flex-initial w-full">
+        <Label className="fieldlabels font-bold text-black text-[20px] mt-[27px] block mb-[15px]">
+          Project Name
+        </Label>
+        <Input
+          type="text"
+          register={register}
+          error={errors.project_name}
+          onChange={(e) => {
+            setValue("project_name", e.target.value);
+            dispatch(updateQuotationValue({ isQuote: true }));
+          }}
+          patternRegex={/^.{1,30}$/}
+          patternMessage="Project name must be at most 30 characters"
+          fieldName="project_name"
+          placeholder="Project Name"
+          className="border border-[#707070] h-[47px] bg-white"
+        />
+      </div>
       <div className="flex-initial w-full lg:w-1/2 lg:pr-4">
         <Label className="fieldlabels font-bold text-black text-[20px] mt-[27px] block mb-[15px]">
           First Name*
@@ -316,7 +337,11 @@ function Contacts() {
       </h3>
       <div className="mobile_btn">
         <PrevStep />
-        <NextStep title="Get Quote" type="submit" loadingButton={loadingContactButton} />
+        <NextStep
+          title="Get Quote"
+          type="submit"
+          loadingButton={loadingContactButton}
+        />
       </div>
     </form>
   );

@@ -4,6 +4,15 @@ import React from "react";
 function ContactSkeleton() {
   return (
     <form className="flex flex-wrap">
+      <div className="flex-initial w-full">
+        <Label
+          className="fieldlabels rounded-md font-bold text-black bg-gray-100 
+      md:w-[35%] w-[40%] h-[30px] text-[16px] md:text-[20px] mt-[27px] block mb-[15px] text-transparent  animate-pulse"
+        >
+          Project Name
+        </Label>
+        <div className="rounded-md h-[47px] bg-gray-100 animate-pulse md:w-full w-[100%]" />
+      </div>
       <div className="flex-initial w-full lg:w-1/2 lg:pr-4">
         <Label
           className="fieldlabels rounded-md font-bold text-black bg-gray-100 

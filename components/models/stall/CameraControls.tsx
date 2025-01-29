@@ -40,7 +40,7 @@ export default function CameraControls({
   layout,
   view,
   overallRoomFraction,
-  pulsate
+  pulsate,
 }: {
   position: [number, number, number];
   adaToiletPosition: AdaToiletPosition;
@@ -54,7 +54,7 @@ export default function CameraControls({
   zoom: number;
   layout: Layout;
   view: View;
-  pulsate: boolean
+  pulsate: boolean;
 }) {
   // Get Camera
   const { camera, size } = useThree();
@@ -71,12 +71,20 @@ export default function CameraControls({
     const result = +overallRoomWidth + +overallRoomFraction;
     return result.toString();
   }, [overallRoomWidth, overallRoomFraction]);
-  const { allStallSelected, startingPoint, endingPoint, arrowRadius, arrowHeight } = useMemo(() => {
+  const {
+    allStallSelected,
+    startingPoint,
+    endingPoint,
+    arrowRadius,
+    arrowHeight,
+  } = useMemo(() => {
     let allStallSelected =
-      view === "2D" && pathname === "/calculate-measurements";
+      view === "2D" &&
+      (pathname === "/calculate-measurements" ||
+        pathname === "/share-contact-details");
     let startingPoint = 0;
     let endingPoint = 0;
-    let arrowRadius = 0.15 + (+overallRoomWidth / 1000);
+    let arrowRadius = 0.15 + +overallRoomWidth / 1000;
     if (stallConfig.length < 1) allStallSelected = false;
     stallConfig.forEach((stall, idx) => {
       if (stall.stallWidth) {
@@ -86,12 +94,12 @@ export default function CameraControls({
             startingPoint +=
               2.5 +
               (+stall.stallWidth - 27) *
-              (stall.stallWidth > "60" ? 0.06 : 0.094);
+                (stall.stallWidth > "60" ? 0.06 : 0.094);
           else
             startingPoint += -(
               2.5 +
               (+stall.stallWidth - 27) *
-              (stall.stallWidth > "60" ? 0.06 : 0.084)
+                (stall.stallWidth > "60" ? 0.06 : 0.084)
             );
         }
         if (idx === stallConfig.length - 1) {
@@ -105,12 +113,14 @@ export default function CameraControls({
         const stall = stallConfig[0];
         if (stall.stallWidth) {
           if (layout.layoutDirection === "Left") {
-            if (stall.stallWidth > "60") startingPoint -= (+stall.stallWidth - 90) * 0.035;
+            if (stall.stallWidth > "60")
+              startingPoint -= (+stall.stallWidth - 90) * 0.035;
             endingPoint += (+stall.stallWidth - 60) * 0.065;
             startingPoint -= 0.4;
             endingPoint += 0.3;
           } else {
-            if (stall.stallWidth > "60") startingPoint += (+stall.stallWidth - 90) * 0.025;
+            if (stall.stallWidth > "60")
+              startingPoint += (+stall.stallWidth - 90) * 0.025;
             endingPoint -= (+stall.stallWidth - 60) * 0.065;
             startingPoint += 0.4;
             endingPoint -= 1;
@@ -120,7 +130,13 @@ export default function CameraControls({
       if (!stall.isSelected) allStallSelected = false;
     });
     let arrowHeight = arrowRadius * 2;
-    return { allStallSelected, startingPoint, endingPoint, arrowRadius, arrowHeight };
+    return {
+      allStallSelected,
+      startingPoint,
+      endingPoint,
+      arrowRadius,
+      arrowHeight,
+    };
   }, [pathname, stallConfig, view, layout, overallRoomWidth]);
 
   // Update Camera Controls
@@ -147,12 +163,18 @@ export default function CameraControls({
       }, stepTime);
 
       // Calculating Zoom
-      camera.zoom = calculateZoom(size.width, stallConfig, standardDepth, layout.layoutOption.startsWith("alcove"),device);
+      camera.zoom = calculateZoom(
+        size.width,
+        stallConfig,
+        standardDepth,
+        layout.layoutOption.startsWith("alcove"),
+        device
+      );
       camera.updateProjectionMatrix();
     }, 0);
 
     return () => clearTimeout(animation);
-  }, [camera, size, position, zoom, stallConfig, standardDepth,device]);
+  }, [camera, size, position, zoom, stallConfig, standardDepth, device]);
   return (
     <>
       {stallConfig.map((stall, idx) =>
@@ -176,15 +198,23 @@ export default function CameraControls({
             standardDepth={standardDepth}
             adaDepth={adaDepth}
             doorOpening={stall.doorOpening}
-            isOpened={pathname === "/calculate-measurements" && stall.isOpened}
-            isSelected={
-              pathname === "/calculate-measurements" && stall.isSelected
+            isOpened={
+              (pathname === "/calculate-measurements" ||
+                pathname === "/share-contact-details") &&
+              stall.isOpened
             }
-            allowedMeasurements={pathname === "/calculate-measurements"}
+            isSelected={
+              (pathname === "/calculate-measurements" ||
+                pathname === "/share-contact-details") &&
+              stall.isSelected
+            }
+            allowedMeasurements={
+              pathname === "/calculate-measurements" ||
+              pathname === "/share-contact-details"
+            }
             selectStallHandler={selectStallHandler}
             pulsate={pulsate}
             alcoveDepth={alcoveDepth}
-       
           />
         ) : (
           <StallModel
@@ -205,61 +235,108 @@ export default function CameraControls({
             standardDepth={standardDepth}
             alcoveDepth={alcoveDepth}
             doorOpening={stall.doorOpening}
-            isOpened={pathname === "/calculate-measurements" && stall.isOpened}
-            isSelected={
-              pathname === "/calculate-measurements" && stall.isSelected
+            isOpened={
+              (pathname === "/calculate-measurements" ||
+                pathname === "/share-contact-details") &&
+              stall.isOpened
             }
-            allowedMeasurements={pathname === "/calculate-measurements"}
+            isSelected={
+              (pathname === "/calculate-measurements" ||
+                pathname === "/share-contact-details") &&
+              stall.isSelected
+            }
+            allowedMeasurements={
+              pathname === "/calculate-measurements" ||
+              pathname === "/share-contact-details"
+            }
             selectStallHandler={selectStallHandler}
             pulsate={pulsate}
           />
         )
       )}
-      {allStallSelected && pathname === "/calculate-measurements" && (
-        <>
-          <animated.group position={[-9.2 - (+overallRoomWidth > 56 ? arrowRadius : 0), 0, 0]}>
-            <Line
-              position={[2.75, 4.25, 0]}
-              points={[
-                [0, -4, endingPoint],
-                [0, -4, startingPoint],
+      {allStallSelected &&
+        (pathname === "/calculate-measurements" ||
+          pathname === "/share-contact-details") && (
+          <>
+            <animated.group
+              position={[
+                -9.2 - (+overallRoomWidth > 56 ? arrowRadius : 0),
+                0,
+                0,
               ]}
-              color={OutlineColor.Back}
-              lineWidth={3} />
-            {/* <animated.group position={[0, 0, startingPoint]}> */}
-            <Cone args={[arrowRadius, arrowHeight, 3]} position={[2.748, 0.26, layout.layoutDirection === "Left" ? startingPoint : endingPoint]} rotation={[1.57, 0, 0]}>
-              <meshStandardMaterial attach="material" color={OutlineColor.Back} />
-            </Cone>
-            {/* </animated.group> */}
-            {/* <animated.group position={[0, 0, 0]}> */}
-            <Cone args={[arrowRadius, arrowHeight, 3]} position={[2.748, 0.26, layout.layoutDirection === "Left" ? endingPoint : startingPoint]} rotation={[-1.57, 0, 0]}>
-              <meshStandardMaterial attach="material" color={OutlineColor.Back} />
-            </Cone>
-            {/* </animated.group> */}
-            <animated.group position={[3.45 - (arrowRadius - 0.1), 0.3, 0.14]} rotation={[-1.57, 0, 1.57]}>
-              <animated.mesh position={[0, 1.35, 0]}>
-                <Background
-                  width={4.2 + (arrowRadius * 6.5)}
-                  height={0.8 + arrowRadius}
-                  radius={0.1}
-                  color={"white"}
-                  borderColor={OutlineColor.Back}
+            >
+              <Line
+                position={[2.75, 4.25, 0]}
+                points={[
+                  [0, -4, endingPoint],
+                  [0, -4, startingPoint],
+                ]}
+                color={OutlineColor.Back}
+                lineWidth={3}
+              />
+              {/* <animated.group position={[0, 0, startingPoint]}> */}
+              <Cone
+                args={[arrowRadius, arrowHeight, 3]}
+                position={[
+                  2.748,
+                  0.26,
+                  layout.layoutDirection === "Left"
+                    ? startingPoint
+                    : endingPoint,
+                ]}
+                rotation={[1.57, 0, 0]}
+              >
+                <meshStandardMaterial
+                  attach="material"
+                  color={OutlineColor.Back}
                 />
-                <Text
-                  position={[0, 0, 0.1]}
-                  color="black"
-                  fontSize={0.55 + arrowRadius}
-                  fontWeight={800}
-                  anchorX="center"
-                  anchorY="middle"
-                >
-                  {widthWithFraction}&rdquo;
-                </Text>
-              </animated.mesh>
+              </Cone>
+              {/* </animated.group> */}
+              {/* <animated.group position={[0, 0, 0]}> */}
+              <Cone
+                args={[arrowRadius, arrowHeight, 3]}
+                position={[
+                  2.748,
+                  0.26,
+                  layout.layoutDirection === "Left"
+                    ? endingPoint
+                    : startingPoint,
+                ]}
+                rotation={[-1.57, 0, 0]}
+              >
+                <meshStandardMaterial
+                  attach="material"
+                  color={OutlineColor.Back}
+                />
+              </Cone>
+              {/* </animated.group> */}
+              <animated.group
+                position={[3.45 - (arrowRadius - 0.1), 0.3, 0.14]}
+                rotation={[-1.57, 0, 1.57]}
+              >
+                <animated.mesh position={[0, 1.35, 0]}>
+                  <Background
+                    width={4.2 + arrowRadius * 6.5}
+                    height={0.8 + arrowRadius}
+                    radius={0.1}
+                    color={"white"}
+                    borderColor={OutlineColor.Back}
+                  />
+                  <Text
+                    position={[0, 0, 0.1]}
+                    color="black"
+                    fontSize={0.55 + arrowRadius}
+                    fontWeight={800}
+                    anchorX="center"
+                    anchorY="middle"
+                  >
+                    {widthWithFraction}&rdquo;
+                  </Text>
+                </animated.mesh>
+              </animated.group>
             </animated.group>
-          </animated.group>
-        </>
-      )}
+          </>
+        )}
     </>
   );
 }

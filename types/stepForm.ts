@@ -27,6 +27,7 @@ export interface StepType {
 }
 
 export interface ContactDetailsType {
+  project_name: string;
   first_name: string;
   last_name: string;
   email: string;
@@ -77,20 +78,20 @@ export interface DoorSwingObject {
   doorSwingValue: DoorSwing | string;
 }
 interface SelectedMaterialType {
-  id?:string,
-  material_id?:string,
-  color?:string
+  id?: string;
+  material_id?: string;
+  color?: string;
 }
 interface SubmittedDataType {
-  first_name: string,
-  last_name: string,
-  email: string,
-  phone_number: string,
-  rooms:Room
+  first_name: string;
+  last_name: string;
+  email: string;
+  phone_number: string;
+  rooms: Room;
 }
 export interface StepInput {
-  isQuotationCreate:boolean,
-  materialRoute:string
+  isQuotationCreate: boolean;
+  materialRoute: string;
   maxNumberOfStalls: Array<MaxNumberOfStalls | string>;
   maxNumberOfScreens: Array<MaxNumberOfScreens | string>;
   installationQuote?: ShowType;
@@ -105,10 +106,10 @@ export interface StepInput {
   stallDoorOpening: Array<DoorOpening | string>;
   maxRoomNumber: number;
   materialData: Array<MaterialDataObject>;
-  submittedData?:SubmittedDataType,
-  quotationId:string;
+  submittedData?: SubmittedDataType;
+  quotationId: string;
   materials: MaterialImagesType;
-  colorData:Array<StallColor>;
+  colorData: Array<StallColor>;
   loadingState?: boolean;
   loadingMaterialData: boolean;
   error?: string | null;
@@ -116,7 +117,7 @@ export interface StepInput {
 
 export interface FetchDataObject {
   id: string;
-  step: "project" | "layout" | "measurement"|"color";
+  step: "project" | "layout" | "measurement" | "color";
   config: {
     maximum_number_of_stalls: MaxNumberOfStalls;
     maximum_number_of_urinal_screens: MaxNumberOfScreens;
@@ -137,6 +138,6 @@ export interface FetchDataObject {
     standard_stall_min_door_opening: DoorOpening;
     standard_stall_max_door_opening: DoorOpening;
     maximum_room_no: number;
-    colors:Array<StallColor>
+    colors: Array<StallColor>;
   };
 }

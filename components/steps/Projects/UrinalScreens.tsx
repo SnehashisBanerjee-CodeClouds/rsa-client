@@ -5,8 +5,10 @@ import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 import {
   handleStepLoading,
+  resetUrinalScreen,
   stepSubmit,
   updateNoOfUrinalScreens,
+  updateUrinalScreens,
   updateUrinalScreensDepth,
 } from "@/lib/slices/roomSlice";
 import { useAppDispatch, useAppSelector } from "@/hooks/useStore";
@@ -23,7 +25,7 @@ import { UrinalScreenDepth } from "@/types/model";
 import useDeviceDetection from "@/utils/useDeviceDetection";
 
 export default function UrinalScreens() {
-  const device=useDeviceDetection()
+  const device = useDeviceDetection();
   const router = useRouter();
   const dispatch = useAppDispatch();
   const { selectedRoom, rooms, loadingProjectButton } = useAppSelector(
@@ -73,16 +75,22 @@ export default function UrinalScreens() {
       router.push("/select-a-layout");
     }, 1000);
   }, []);
-    // Skip handler
-    const handleSkip = useCallback(() => {
-      router.push("/select-a-layout"); // Navigate to the next step or a relevant route
-    }, []);
+  // Skip handler
+  const handleSkip = useCallback(() => {
+    dispatch(updateUrinalScreens("not-selected"));
+
+    setTimeout(() => {
+      dispatch(resetUrinalScreen());
+      router.push("/select-a-layout");
+    }, 1000);
+    // Navigate to the next step or a relevant route
+  }, []);
 
   // Checking for Urinal Screen Option
-  useEffect(() => {
-    if (!hasUrinalScreens || hasUrinalScreens === "not-selected")
-      router.replace("/");
-  }, [hasUrinalScreens]);
+  // useEffect(() => {
+  //   if (!hasUrinalScreens || hasUrinalScreens === "not-selected")
+  //     router.replace("/");
+  // }, [hasUrinalScreens]);
 
   if (isLoading || !hasUrinalScreens || hasUrinalScreens === "not-selected") {
     return <ProjectSkeleton />;
@@ -97,7 +105,11 @@ export default function UrinalScreens() {
         message="Screen number is required*"
         error={errors.screens_number}
         register={register}
-        onChange={(e) => dispatch(updateNoOfUrinalScreens({val:+e.target.value,device:device}))}
+        onChange={(e) =>
+          dispatch(
+            updateNoOfUrinalScreens({ val: +e.target.value, device: device })
+          )
+        }
         fieldName="screens_number"
         defaultValue={noOfUrinalScreens}
       >
@@ -154,8 +166,8 @@ export default function UrinalScreens() {
           onClick={handleSkip}
           className="skip_btn"
         >
-        Skip
-       </button>
+          Skip
+        </button>
         <NextStep
           isDisabled={isSubmitting || isValidating}
           type="submit"
