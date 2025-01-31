@@ -4,27 +4,22 @@ import Button from "@/components/ui/Button";
 import { useAppSelector } from "@/hooks/useStore";
 import { FormEvent, useEffect, useState } from "react";
 import axiosInstance from "@/utils/axios";
+import { StallColorOption } from "@/types/ColorDialog";
 
 function CheckoutButton({
-  title = "Checkout",
-  isDisabled,
+  title = "Add to Cart",
   type,
-  submitForm,
-  loadingButton,
+  selectedData,
+  selectedId,
 }: {
   title?: string;
-  isDisabled?: boolean;
   type?: "button" | "reset" | "submit" | undefined;
-  submitForm?: () => void;
-  loadingButton?: boolean;
+  selectedData: StallColorOption;
+  selectedId: number;
 }) {
   const { rooms } = useAppSelector((state) => state.room);
   const { materials, quotationId } = useAppSelector((state) => state.step);
-  const [loadingCheckout,setLoadingCheckout]=useState<boolean>(false)
-  const [selectedId, setSelectedId] = useState(0);
-  useEffect(()=>{
-    setSelectedId(+materials?.id);
-  },[materials])
+  const [loadingCheckout, setLoadingCheckout] = useState<boolean>(false);
   async function handleCheckout(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const payload = {
@@ -34,16 +29,15 @@ function CheckoutButton({
         return { room_id: data.id.toString(), name: data.stall.stallColor };
       }),
     };
-    setLoadingCheckout(true)
+    setLoadingCheckout(true);
     await axiosInstance
       .post(`/quotation/generatePaymentLink`, payload)
       .then((res) => {
         if (res.data.status === true) {
-          setLoadingCheckout(false)
-          setTimeout(()=>{
+          setLoadingCheckout(false);
+          setTimeout(() => {
             window.open(res.data.checkoutUrl, "_self");
-          },1000)
-         
+          }, 1000);
         }
       })
       .catch((err) => {
@@ -52,8 +46,16 @@ function CheckoutButton({
   }
   return (
     <form onSubmit={(e) => handleCheckout(e)}>
-      <Button type={type}   isActionButton isDisabled={!selectedId||loadingCheckout}>
-       {loadingCheckout?"Redirecting...":title}
+      <Button
+        type={type}
+        className="custom_btn y_btn mt-0 my-1 !px-10 disabled:opacity-35 min-w-32"
+        isDisabled={
+          !selectedId ||
+          (selectedId !== 4 ? selectedData.id === "" : false) ||
+          loadingCheckout
+        }
+      >
+        {loadingCheckout ? "Redirecting..." : title}
       </Button>
     </form>
   );

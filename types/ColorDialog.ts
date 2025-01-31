@@ -13,8 +13,8 @@ interface ColorsType {
 }
 
 export interface StallColorOption {
-  id: string|undefined;
-  color: StallColor;
+  id: string | undefined;
+  color: StallColor | string | undefined;
 }
 
 export type BlockColorsType = Array<ColorsType>;
