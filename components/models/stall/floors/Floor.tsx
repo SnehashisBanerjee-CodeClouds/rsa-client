@@ -83,7 +83,7 @@ export default function Floor({
 
     // If it's ADA Stall, set initial matrixs
     if (isAda) {
-      matrix.positionX = -0.61;
+      matrix.positionX = -0.46;
       matrix.positionY = 0.036;
       matrix.positionZ = 0.020;
       matrix.rotationX = 3.142;
@@ -92,7 +92,7 @@ export default function Floor({
       matrix.scaleX = calculateScaleX(1, 45, stallWidth);
 
       // Calculating scaleZ according to adaDepth
-      matrix.scaleZ = parseFloat((1 + (+adaDepth - 67) * 0.02).toFixed(3));
+      matrix.scaleZ = parseFloat((1 + (+adaDepth - 67) * 0.03).toFixed(3));
       if (+adaDepth > 62 && +adaDepth <= 66) matrix.scaleZ = parseFloat((1 + (+adaDepth - 68) * 0.02).toFixed(3));
       if (+adaDepth > 66 && +adaDepth < 70) matrix.scaleZ = parseFloat((1 + (+adaDepth - 69) * 0.02).toFixed(3));
       if (+adaDepth >= 70 && +adaDepth <= 74) matrix.scaleZ = parseFloat((1 + (+adaDepth - 70) * 0.02).toFixed(3));

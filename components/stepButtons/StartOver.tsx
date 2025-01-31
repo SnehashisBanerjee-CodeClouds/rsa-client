@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { Info, RotateCw } from "lucide-react";
 import { STEPS } from "@/constants/step";
@@ -15,6 +15,19 @@ function StartOver() {
   const pathName = usePathname();
   const dispatch = useAppDispatch();
   const [confirmModal, setConfirmModal] = useState(false);
+  const [param, setParam] = useState<string | null>(null);
+  const [param2, setParam2] = useState<string | null>(null);
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const paramValue = urlParams.get("abandoned");
+    const paramValue2 = urlParams.get("id");
+    if (paramValue !== null) {
+      setParam(paramValue);
+    }
+    if (paramValue2 !== null) {
+      setParam2(paramValue2);
+    }
+  }, []);
   const startOverHandler = useCallback(() => {
     dispatch(startOver());
     dispatch(startOverContact(""));
@@ -24,7 +37,14 @@ function StartOver() {
   return (
     <React.Fragment>
       <button
-        className={pathName === "/create-a-project" ? "hidden" : "start-over"}
+        className={
+          pathName === "/create-a-project" ||
+          (pathName === "/choose-materials" &&
+            param !== null &&
+            param2 !== null)
+            ? "hidden"
+            : "start-over"
+        }
         type="button"
         onClick={() => setConfirmModal(true)}
       >

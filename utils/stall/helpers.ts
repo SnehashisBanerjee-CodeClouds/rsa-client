@@ -33,7 +33,7 @@ export const calculateZoom = (
       case "desktop":
        zoomsArr= [
           0.50,
-          isAlcove ? 1.0 : 0.82,
+          isAlcove ? 1.0 : 0.78,
           isAlcove ? 1.10 : 1.07,
           isAlcove ? 1.01 : 1.3,
           1.35,
@@ -214,7 +214,7 @@ export const calculateStallConfig = (
       z: zbase,
       stallWidth: "36",
       stallFraction: "0",
-      doorOpening: "22",
+      doorOpening: "24",
       doorSwing: "rightIn",
     });
   // Looping
@@ -228,7 +228,7 @@ export const calculateStallConfig = (
       z,
       stallWidth: "36",
       stallFraction: "0",
-      doorOpening: "22",
+      doorOpening: "24",
       doorSwing: "rightIn",
     });
   }

@@ -20,7 +20,8 @@ import { updateContact } from "@/lib/slices/contactSlice";
 import { ChevronDown, ChevronRight, CircleHelp } from "lucide-react";
 import Tooltip from "@/components/ui/Tooltip";
 import { Maximize2, Minimize2, Pointer } from "lucide-react";
-
+import PrevStep from "@/components/stepButtons/PrevStep";
+import CheckoutButton from "@/components/stepButtons/CheckoutButton";
 
 function Material() {
   // pulsate for Animation
@@ -28,12 +29,12 @@ function Material() {
   const [pulsateColor, setPulsateColor] = useState<OutlineColor | string>(
     "transparent"
   );
-    const [showTooltip, setShowTooltip] = useState({
-      index: -1,
-      tooltip_1: false,
-      tooltip_2: false,
-      tooltip_3: false,
-    });
+  const [showTooltip, setShowTooltip] = useState({
+    index: -1,
+    tooltip_1: false,
+    tooltip_2: false,
+    tooltip_3: false,
+  });
   const [param, setParam] = useState<string | null>(null);
   // const searchParams = useSearchParams();
   // const quotationId = searchParams.get("id");
@@ -53,8 +54,8 @@ function Material() {
   const [loadingUpdateColor, setLoadingUpdateColor] = useState(false);
   const [isMounted, setIsMounted] = useState(true);
   const [selectedData, setSelectedData] = useState<StallColorOption>({
-    id: "Red",
-    color: StallColor.Red,
+    id: "",
+    color: "",
   });
   const [selectedId, setSelectedId] = useState(0);
   const [param2, setParam2] = useState<string | null>(null);
@@ -73,14 +74,12 @@ function Material() {
     if (param != null) {
       dispatch(fetchMaterialDataById({ id: param }));
       dispatch(updateQuotationId({ id: param }));
-      const selectedIdx = colorData.find(
-        (sColor) => sColor === stallColor
-      );
-      const hexName=stallColors.find((dat)=>dat.color===selectedIdx)
-      setSelectedData({
-        id: hexName?.id,
-        color: stallColor,
-      });
+      // const selectedIdx = colorData.find((sColor) => sColor === stallColor);
+      // const hexName = stallColors.find((dat) => dat.color === selectedIdx);
+      // setSelectedData({
+      //   id: hexName?.id,
+      //   color: stallColor,
+      // });
       setSelectedId(+materials?.id);
       setIsMounted(false);
     }
@@ -160,6 +159,10 @@ function Material() {
     const price = materialArr[0]?.price;
     const image = materialArr[0]?.src;
     setSelectedId(+e.currentTarget.value);
+    setSelectedData({
+      id: "",
+      color: "",
+    });
     dispatch(
       updateMaterial({ id: id, name: name, price: price, materialImage: image })
     );
@@ -176,33 +179,47 @@ function Material() {
               <div className="material_name">
                 {data.name}
                 <span>
-                <Tooltip
-                  isTooltipOpen={showTooltip.tooltip_1}
-                  toolTipIndex={showTooltip.index}
-                  stallId={data.id}
-                  tooltipMessage="Please select material"
-                >
-                  <div
-                    onMouseEnter={() =>
-                      setShowTooltip({
-                        index: data.id,
-                        tooltip_1: true,
-                        tooltip_2: false,
-                        tooltip_3: false,
-                      })
-                    }
-                    onMouseLeave={() =>
-                      setShowTooltip({
-                        index: -1,
-                        tooltip_1: false,
-                        tooltip_2: false,
-                        tooltip_3: false,
-                      })
-                    }
+                  <Tooltip
+                    isTooltipOpen={showTooltip.tooltip_1}
+                    toolTipIndex={showTooltip.index}
+                    stallId={data.id}
+                    tooltipMessage="Please select material"
                   >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-                  </div>
-                </Tooltip>
+                    <div
+                      onMouseEnter={() =>
+                        setShowTooltip({
+                          index: data.id,
+                          tooltip_1: true,
+                          tooltip_2: false,
+                          tooltip_3: false,
+                        })
+                      }
+                      onMouseLeave={() =>
+                        setShowTooltip({
+                          index: -1,
+                          tooltip_1: false,
+                          tooltip_2: false,
+                          tooltip_3: false,
+                        })
+                      }
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="15"
+                        height="15"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="#000000"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="16" x2="12" y2="12"></line>
+                        <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                      </svg>
+                    </div>
+                  </Tooltip>
                 </span>
               </div>
               <Label htmlFor={data.id.toString()}>
@@ -218,7 +235,9 @@ function Material() {
                 />
               </Label>
 
-              <div className="material_price">${data.price}</div>
+              <div className="material_price">
+                ${Number(data.price).toLocaleString()}
+              </div>
               <input
                 type="radio"
                 id={data.id.toString()}
@@ -236,11 +255,15 @@ function Material() {
           <div className="select_color_all flex flex-col">
             {/* <h3>Select a Color*</h3> */}
             <ColorModal
-              isDisabled={!selectedId}
+              selectedId={selectedId}
               setLoadingUpdateColor={setLoadingUpdateColor}
               setSelectedData={setSelectedData}
             />
-            <ModelOnModal isDisabled={!selectedId} />
+            <CheckoutButton
+              type="submit"
+              selectedData={selectedData}
+              selectedId={selectedId}
+            />
           </div>
           {loadingUpdateColor ? (
             <div className="clr-box_holder">
@@ -253,9 +276,19 @@ function Material() {
             <div className="clr-box_holder">
               <div
                 className="clr-box mb-2"
-                style={{ backgroundColor: selectedData.color }}
+                style={{
+                  backgroundColor:
+                    selectedData.id !== "" ? selectedData.color : "#9FA6B2",
+                  cursor: selectedData.id !== "" ? "default" : "not-allowed",
+                  opacity:
+                    selectedId !== 4 ? (selectedData.id !== "" ? 1 : 0.3) : 0.3,
+                }}
               ></div>
-              <span>{selectedData.id}</span>
+              <span>
+                {selectedData.id !== ""
+                  ? selectedData.id
+                  : "Please select a color"}
+              </span>
             </div>
           )}
         </div>
@@ -276,19 +309,24 @@ function Material() {
       </div>
 
       <div className="z-10 absolute bottom-0 right-0 chooseMaterial">
-          <div
-            className={`px-4 py-3 inline-flex font-[family-name:var(--font-manrope)]`}
-          >
-            <button
+        <div
+          className={`px-4 py-3 inline-flex font-[family-name:var(--font-manrope)]`}
+        >
+          <button
             style={{
               backgroundColor: pulsateColor,
               color: pulsateColor === "transparent" ? "black" : "white",
             }}
-              className={`font-bold text-black text-sm rounded-s-md rounded-e-md px-1 py-2 `}
-            >
-              <Pointer className="inline h-5 w-5 ml-1" /> Click to choose material</button>
-          </div>
+            className={`font-bold text-black text-sm rounded-s-md rounded-e-md px-1 py-2 `}
+          >
+            <Pointer className="inline h-5 w-5 ml-1" /> Click to choose material
+          </button>
         </div>
+      </div>
+      <div className="mobile_btn">
+        <PrevStep />
+        <ModelOnModal />
+      </div>
     </>
   );
 }

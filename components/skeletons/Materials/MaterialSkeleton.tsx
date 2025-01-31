@@ -22,19 +22,19 @@ function MaterialSkeleton() {
         </ul>
       </div>
       <div className="row items-center justify-center">
-        <div className="select_color row lg:justify-between justify-center items-center pr-4 mt-6 xl:mt-20 w-full lg:w-2/5">
+        <div className="select_color row lg:justify-between justify-center pr-4 mt-6 xl:mt-20 w-full gap-5">
           <div className="select_color_all flex flex-col">
-            <h3
+            {/* <h3
               className="bg-gray-100 rounded-md animate-pulse block w-[60%]"
               style={{ color: "transparent" }}
             >
               Select a Color*
-            </h3>
+            </h3> */}
             <button
               type="button"
-              className="custom_btn y_btn mt-4 my-1 !px-10 disabled:opacity-35 !bg-gray-100 !text-transparent animate-pulse pointer-events-none"
+              className="custom_btn y_btn mt-0 my-1 !px-10 disabled:opacity-35 !bg-gray-100 !text-transparent animate-pulse pointer-events-none"
             >
-              View all Colors
+              Select Color
             </button>
             <button
               type="button"
