@@ -74,14 +74,14 @@ function Layout() {
   }
   return (
     <form
-      className="layouttwo_area"
+      className="layouttwo_area pt-2"
       onSubmit={handleSubmit(handleSecondStepData)}
     >
       <ul className="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-10 layout_select">
         {layouts.map((layout: LayoutObject) => (
           <li key={layout.id}>
             <Label
-              className={`lyout_box bg-white h-[140px] flex items-center justify-center mb-[16px] 2xl:p-0 p-4 ${
+              className={`lyout_box bg-white h-[140px] flex items-center justify-center mb-[16px] 2xl:p-0 p-4 rounded-md ${
                 selectedImage === layout.layoutId
                   ? `border-4 border-[#3FAB3B]`
                   : `border border-[#707070]`
@@ -155,8 +155,8 @@ function Layout() {
       <ErrorMessage error={errors.layoutId} />
       {showHandicapStall === "Yes" && (
         <div className="checkbox_area mb-[28px]">
-          <Label className="fieldlabels font-bold text-black text-[16px] md:text-[20px] mt-[27px] block mb-[15px] lg:text-left text-center">
-            Does this include a handicap accessible stall?*
+          <Label className="fieldlabels text-[16px] md:text-[20px] mt-[27px] block mb-[15px] lg:text-left text-center">
+            Does your Layout include a handicap accessible stall?<span>*</span>
           </Label>
           <div className="radio_check flex items-center gap-x-24 text-center justify-center lg:justify-start">
             {secondRadioList?.map((radioData) => (
@@ -242,10 +242,6 @@ function Layout() {
           <ErrorMessage error={errors.interest2} />
         </div>
       )}
-
-      <h3 className="fs-subtitle">
-        All configurations are floor mounted and overhead braced.
-      </h3>
       <div className="mobile_btn">
         <PrevStep hasUrinalScreen={hasUrinalScreens} />
         <NextStep type="submit" loadingButton={loadingLayoutButton} />

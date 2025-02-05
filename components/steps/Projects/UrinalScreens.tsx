@@ -97,7 +97,7 @@ export default function UrinalScreens() {
   }
   return (
     <form className="form-card" onSubmit={handleSubmit(handleFirstStepData)}>
-      <Label className="fieldlabels font-bold text-black text-[20px] mt-[27px] block mb-[15px]">
+      <Label className="fieldlabels text-[20px] mt-[27px] block mb-[15px]">
         How many urinal screens?
       </Label>
       <Select
@@ -135,7 +135,7 @@ export default function UrinalScreens() {
         <Option value="19">19</Option>
         <Option value="20">20</Option> */}
       </Select>
-      <Label className="fieldlabels font-bold text-black text-[20px] mt-[27px] block mb-[15px]">
+      <Label className="fieldlabels text-[20px] mt-[27px] block mb-[15px]">
         How much urinal screens depth?
       </Label>
       <Select

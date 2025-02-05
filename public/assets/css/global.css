@@ -37,6 +37,7 @@ body {
 .logo {
   border-radius: 6px;
   overflow: hidden;
+  max-width: 300px;
 }
 .call_us {
   line-height: 1.2;
@@ -101,7 +102,7 @@ body {
   text-align: center;
 }
 .main-wrap {
-  padding: 211px 0 0 0;
+  padding: 132px 0 0 0;
 }
 
 #notComplete,
@@ -166,7 +167,9 @@ body {
 }
 .fieldset_inr form .fieldlabels {
   margin: 20px 0 10px;
+  color: #3d58a4;
 }
+.fieldset_inr form .fieldlabels span{color: #ff0000;}
 fieldset.fieldset_inr_full[style="display: block; left: 0%; opacity: 1;"]
   .fieldset_inr {
   width: 100%;
@@ -203,20 +206,24 @@ fieldset.fieldset_inr_full[style="display: block; left: 0%; opacity: 1;"]
   font-family: "Manrope", sans-serif;
   color: #484848;
   font-size: 16px;
-  border-radius: 0;
+  border-radius:8px;
 }
+#msform .pro_details .fieldlabels{width:130px;margin: 0;}
+#msform .pro_details input{margin: 0;max-width: 400px;}
+#msform .pro_details .relative .text-red-400{position: absolute;left: 130px;bottom: -8px;}
+
+
 #msform input:focus,
 #msform textarea:focus,
 #msform select:focus {
-  padding: 8px 15px;
+  /* padding: 8px 15px;
   border: 1px solid #707070;
   width: 100%;
   margin-bottom: 10px;
   box-sizing: border-box;
   font-family: "Manrope", sans-serif;
   color: #484848;
-  font-size: 16px;
-  border-radius: 0;
+  font-size: 16px; */
   outline: none;
 }
 #msform select.custom_select {
@@ -300,9 +307,7 @@ fieldset.fieldset_inr_full[style="display: block; left: 0%; opacity: 1;"]
   position: absolute;
   top: -105px;
   left: 0;
-  width: 270px;
-  padding: 0px 13px 10px;
-  background: #cbe4f4;
+  width: 240px;
 }
 .fs-title-step-1 .fs-title {
   position: static;
@@ -318,7 +323,7 @@ fieldset.fieldset_inr_full[style="display: block; left: 0%; opacity: 1;"]
   font-size: 34px;
   margin-top: 2px;
   font-weight: 700;
-  color: #000;
+  color: #3fab3b;
   margin-bottom: 10px;
   position: absolute;
   top: -100px;
@@ -332,12 +337,13 @@ fieldset.fieldset_inr_full[style="display: block; left: 0%; opacity: 1;"]
 }
 .fs-subtitle {
   font-weight: 700;
-  font-size: 18px;
-  color: #484848;
   margin-bottom: 20px;
   font-family: "Manrope", sans-serif;
-  max-width: 540px;
+  /* max-width: 540px; */
+  font-size: 20px;color: #3d58a4;
 }
+.pro_details .fs-subtitle{font-size: 18px;color: #484848;}
+
 /*progressbar*/
 .mobile-steps {
   display: none;
@@ -622,6 +628,13 @@ a {
   cursor: pointer;
   padding-left: 30px;
 }
+/* new Changes */
+.head_btm{display: none;}
+.call_us,.quote{display: none;}
+.sameLine{display: flex;align-items: center;}
+#msform .sameLine select{width: 150px;margin: 0;}
+.fieldset_inr form .sameLine .fieldlabels{margin:0;padding-right: 15px;}
+
 @media (max-width: 480px) {
   .checkbox_area .radio_check label {
     position: relative;
@@ -781,12 +794,13 @@ a {
 }
 .all_room {
   position: absolute;
-  bottom: -90px;
-  left: 170px;
-  width: 68%;
+  top: -95px;
+  right: 0;
+  /* width: 68%;
   min-width: 60%;
-  min-height: 67px;
+  min-height: 67px; */
 }
+.all_room_select{min-width: 110px;margin:0!important}
 .slider {
   overflow-x: auto;
 }
@@ -846,6 +860,7 @@ a {
 .chooseMaterial button {
   cursor: unset;
 }
+.chooseMaterial button svg{transform: rotate(180deg);}
 .stallToSelect button svg {
   transform: rotate(180deg);
 }
@@ -869,22 +884,23 @@ a {
 }
 .contactDetails {
   width: 260px;
-  margin: -5px auto 0;
+  margin: 0 auto;
   text-align: center;
   font-style: italic;
   letter-spacing: 0.5px;
   background: #fff;
-  padding: 15px 0 20px;
+  padding: 5px 0 10px;
   border-radius: 4px;
 }
 .contactDetails.contactDetails-step-3 {
   margin-top: 30px;
 }
 .contactDetails h2 {
-  font-size: 19px;
+  font-size:1.2rem;
   font-weight: 500;
   color: #000;
 }
+.contactDetails p{line-height: 1.3;}
 .phoneHolder a {
   font-weight: 700;
   color: #3d58a4;
@@ -920,9 +936,12 @@ a {
     opacity: 1;
   }
 }
+@media (min-width:1200px) {
+.materials{margin-top: 30px;}
+}
 @media (min-width: 1551px) {
   .main-wrap {
-    padding: 240px 0 0 0;
+    padding: 142px 0 0 0;
   }
   .color_list {
     width: 5rem;
@@ -935,7 +954,7 @@ a {
     padding: 0 20px;
   }
   .logo {
-    max-width: 320px;
+    max-width: 270px;
   }
 }
 @media (max-width: 1410px) {
@@ -948,10 +967,6 @@ a {
   }
 }
 @media (max-width: 1380px) {
-  .all_room {
-    width: 65%;
-    min-width: 65%;
-  }
   .color_list {
     width: 5rem;
     height: 5rem;
@@ -959,20 +974,16 @@ a {
 }
 @media (max-width: 1360px) {
   .main-wrap {
-    padding-top: 185px;
+    padding-top: 122px;
   }
   .logo {
-    max-width: 250px;
+    max-width: 240px;
   }
   .top_text {
     font-size: 18px;
   }
   .quote a {
     font-size: 22px;
-  }
-  .all_room {
-    width: 60%;
-    min-width: 60%;
   }
   .color_list {
     width: 5rem;
@@ -1000,6 +1011,7 @@ a {
   .clr-box {
     width: 170px;
   }
+  .all_room .custom_btn{padding: 10px 5px 10px 15px;font-size: 16px;}
 }
 @media (max-width: 1200px) {
   .logo {
@@ -1037,10 +1049,6 @@ a {
   .slider {
     max-width: 100%;
     overflow-x: auto;
-  }
-  .all_room {
-    max-width: 100%;
-    width: 100%;
   }
   .header .item-center {
     order: 3;
@@ -1377,7 +1385,8 @@ a {
     font-size: 16px;
   }
   .all_room {
-    position: static;
+    top: 15px;
+    right: 15px;
   }
   .contactDetails {
     margin-top: 0px;
@@ -1388,12 +1397,10 @@ a {
     margin-left: auto;
     margin-right: 10px;
   }
+  .stepthree_area{margin-top: 40px;}
+  .selectMaterial.fs-title{margin-top: 30px;}
 }
 @media (max-width: 1024px) {
-  .all_room {
-    width: 58%;
-    min-width: 58%;
-  }
   .clr-box {
     width: 130px;
   }
@@ -1422,10 +1429,6 @@ a {
   .slider {
     max-width: 100%;
     overflow-x: auto;
-  }
-  .all_room {
-    max-width: 100%;
-    width: 100%;
   }
   .header .item-center {
     order: 3;
@@ -1756,9 +1759,6 @@ a {
     font-family: "Manrope", sans-serif;
     font-size: 16px;
   }
-  .all_room {
-    position: static;
-  }
 }
 #accordion-collapse {
   max-height: 600px;
@@ -1829,9 +1829,6 @@ a {
   .checkbox_area .radio_check {
     padding-left: 0;
   }
-  .all_room {
-    flex-direction: column;
-  }
   .custom_btn {
     margin-top: 8px;
   }
@@ -1857,11 +1854,6 @@ a {
     font-size: 14px;
   }
 }
-@media (max-width: 675px) {
-  .all_room .custom_btn {
-    margin-left: -25px;
-  }
-}
 @media (max-width: 649px) {
   .checkbox_area .radio_check {
     display: flex;
@@ -1869,12 +1861,13 @@ a {
     min-width: 100%;
   }
   /* .all_room .group+.group{padding-left: 15px;} */
-  .all_room .group {
-    padding-top: 15px;
+}
+@media (max-width:600px) {
+  .all_room {
+    position: static;
   }
-  .all_room .custom_btn {
-    margin-left: -40px;
-    margin-top: 30px;
+  .stepthree_area {
+    margin-top: 10px;
   }
 }
 @media (max-width: 480px) {
@@ -1899,9 +1892,6 @@ a {
     width: 19px;
     height: 19px;
     left: 3px;
-  }
-  .all_room .custom_btn {
-    margin-left: -35px;
   }
   #msform .action-button {
     padding: 10px 10px;

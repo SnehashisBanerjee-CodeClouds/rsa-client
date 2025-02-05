@@ -320,7 +320,7 @@ function Material() {
         </div> */}
       </div>
 
-      <div className="z-10 absolute bottom-0 right-0 chooseMaterial">
+      <div className="z-10 absolute top-0 left-0 chooseMaterial">
         <div
           className={`px-4 py-3 inline-flex font-[family-name:var(--font-manrope)]`}
         >
@@ -342,8 +342,6 @@ function Material() {
           param={param}
           buttonColor="secondary"
         />
-
-        <ModelOnModal />
       </div>
     </>
   );
