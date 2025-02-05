@@ -4,7 +4,7 @@ import { animated, useSpring } from "@react-spring/three";
 import { ADADepth, AlcoveDepth, DoorOpening, GLTFAdaStall, GLTFStall, Layout, OutlineColor, StallADAWidth, StallColor, StallWidth, StandardDepth } from "@/types/model";
 import { calcPosXByPads, calculatePads, calculateSupportMatrix } from "@/utils/calculations/models/support";
 import { useAppSelector } from "@/hooks/useStore";
-
+import * as THREE from 'three';
 export default function SupportLeft({
   nodesData,
   stallId,
@@ -18,6 +18,7 @@ export default function SupportLeft({
   standardDepth,
   alcoveDepth,
   doorOpening,
+  bgTexture
 }: {
   nodesData: GLTFStall | GLTFAdaStall;
   stallId: number;
@@ -31,6 +32,7 @@ export default function SupportLeft({
   standardDepth: StandardDepth;
   alcoveDepth?: AlcoveDepth;
   doorOpening?: DoorOpening;
+  bgTexture:THREE.Texture|null;
 }) {
   const { nodes, materials } = nodesData;
   const { layoutDirection, layoutOption } = layout;
@@ -223,6 +225,7 @@ export default function SupportLeft({
         <meshStandardMaterial color={stallColor} />
         {/* <Edges color={OutlineColor.Default} /> */}
       </animated.mesh>
+     
       <animated.group>
         <animated.mesh
           geometry={nodes.SupportLeftBelowDesign.geometry}

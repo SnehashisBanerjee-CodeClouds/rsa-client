@@ -109,9 +109,10 @@ export interface StepInput {
   submittedData?: SubmittedDataType;
   quotationId: string;
   materials: MaterialImagesType;
-  colorData: Array<StallColor>;
+  colorData: any;
   loadingState?: boolean;
   loadingMaterialData: boolean;
+  loadingColorsData:boolean;
   error?: string | null;
 }
 

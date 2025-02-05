@@ -4,7 +4,7 @@ import { ADADepth, AlcoveDepth, DoorOpening, GLTFAdaStall, GLTFStall, Layout, St
 
 import SupportLeft from "@/components/models/stall/supports/SupportLeft";
 import SupportRight from "@/components/models/stall/supports/SupportRight";
-
+import * as THREE from 'three';
 export default function Support({
   nodesData,
   stallId,
@@ -18,6 +18,7 @@ export default function Support({
   standardDepth,
   alcoveDepth,
   doorOpening,
+  bgTexture
 }: {
   nodesData: GLTFStall | GLTFAdaStall;
   stallId: number;
@@ -31,6 +32,7 @@ export default function Support({
   standardDepth: StandardDepth;
   alcoveDepth?: AlcoveDepth;
   doorOpening?: DoorOpening;
+    bgTexture:THREE.Texture|null;
 }) {
   return (
     <animated.group>
@@ -41,6 +43,7 @@ export default function Support({
         isFirst={isFirst}
         isLast={isLast}
         layout={layout}
+        bgTexture={bgTexture}
         isAda={isAda}
         adaDepth={adaDepth}
         stallWidth={stallWidth}

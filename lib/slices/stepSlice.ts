@@ -83,6 +83,17 @@ export const fetchMaterialDataById = createAsyncThunk(
     }
   }
 );
+
+export const fetchMaterialColors=createAsyncThunk('step/fetchMaterialColors',async(args,thunkAPI)=>{
+  try {
+    const response = await axiosInstance.get('/app-setting/colors');
+    return {
+      colorData: response.data.data,
+    };
+  } catch (error) {
+    return thunkAPI.rejectWithValue("Something went wrong");
+  }
+})
 const initialStepInput: StepInput = {
   isQuotationCreate: false,
   materialRoute:"",
@@ -108,6 +119,7 @@ const initialStepInput: StepInput = {
   },
   loadingState: false,
   loadingMaterialData: false,
+  loadingColorsData:false
 };
 export const stepSlice = createSlice({
   name: "step",
@@ -166,7 +178,6 @@ export const stepSlice = createSlice({
         const measurementData = data?.filter(
           (measurementDat) => measurementDat.step === "measurement"
         );
-        const colorData = data?.filter((colorDat) => colorDat.step === "color");
         if (projectData.length > 0) {
           const {
             maximum_number_of_stalls,
@@ -300,10 +311,6 @@ export const stepSlice = createSlice({
           state.stallDoorOpening = arrStallDoorOpening;
           state.maxRoomNumber = maximum_room_no;
         }
-        if (colorData.length > 0) {
-          const { colors } = colorData[0].config;
-          state.colorData = colors;
-        }
       })
       .addCase(fetchStepInputData.rejected, (state, action) => {
         state.loadingState = false;
@@ -335,7 +342,18 @@ export const stepSlice = createSlice({
       .addCase(fetchMaterialDataById.rejected, (state, action) => {
         state.loadingMaterialData = false;
         state.error = (action.payload as string) || "Failed to fetch data";
-      });
+      }).addCase(fetchMaterialColors.pending,(state)=>{
+        state.loadingColorsData = true;
+        state.colorData=[];
+        state.error=null;
+      }).addCase(fetchMaterialColors.fulfilled,(state,action)=>{
+        state.loadingColorsData = false;
+        state.colorData=action.payload?.colorData;
+        state.error=null;
+      }).addCase(fetchMaterialColors.rejected,(state, action) => {
+        state.loadingColorsData = false;
+        state.error = (action.payload as string) || "Failed to fetch data";
+      })
   },
 });
 

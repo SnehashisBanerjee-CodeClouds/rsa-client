@@ -48,14 +48,14 @@ function CheckoutButton({
     <form onSubmit={(e) => handleCheckout(e)}>
       <Button
         type={type}
-        className="custom_btn y_btn mt-0 my-1 !px-10 disabled:opacity-35 min-w-32"
+        className="custom_btn y_btn mt-0 my-1 !px-10 disabled:opacity-35 min-w-[150px]"
         isDisabled={
           !selectedId ||
-          (selectedId !== 4 ? selectedData.id === "" : false) ||
+          (selectedId !== 4 ? selectedData.name === "" : false) ||
           loadingCheckout
         }
       >
-        {loadingCheckout ? "Redirecting..." : title}
+        {loadingCheckout ? "Redirecting" : title}
       </Button>
     </form>
   );

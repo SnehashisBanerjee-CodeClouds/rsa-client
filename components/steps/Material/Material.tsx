@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { useAppDispatch, useAppSelector } from "@/hooks/useStore";
-import { StallColorOption } from "@/types/ColorDialog";
+import { StallColorOption, StallTextureOption } from "@/types/ColorDialog";
 import { OutlineColor, StallColor } from "@/types/model";
 import { stallColors } from "@/constants/step";
 import Label from "@/components/ui/Label";
@@ -10,12 +10,13 @@ import ColorModal from "@/components/colorModal/ColorModal";
 import ModelOnModal from "@/components/colorModal/ModelOnModal";
 import MaterialSkeleton from "@/components/skeletons/Materials/MaterialSkeleton";
 import {
+  fetchMaterialColors,
   fetchMaterialDataById,
   fetchStepInputData,
   updateMaterial,
   updateQuotationId,
 } from "@/lib/slices/stepSlice";
-import { updateInitialStall } from "@/lib/slices/roomSlice";
+import { changeColor, updateInitialStall } from "@/lib/slices/roomSlice";
 import { updateContact } from "@/lib/slices/contactSlice";
 import { ChevronDown, ChevronRight, CircleHelp } from "lucide-react";
 import Tooltip from "@/components/ui/Tooltip";
@@ -43,20 +44,26 @@ function Material() {
   const {
     materialData,
     loadingMaterialData,
+    loadingColorsData,
     materials,
     submittedData,
     colorData,
     loadingState,
   } = useAppSelector((state) => state.step);
-  const {
-    stall: { stallColor },
-  } = useAppSelector((state) => state.room.rooms[roomIndex]);
   const [loadingUpdateColor, setLoadingUpdateColor] = useState(false);
   const [isMounted, setIsMounted] = useState(true);
+  const [colorAPIData,setColorAPIData]=useState([])
   const [selectedData, setSelectedData] = useState<StallColorOption>({
-    id: "",
+    name: "",
     color: "",
   });
+  const [selectedTexture, setSelectedTexture] = useState<StallTextureOption>({
+    name: "",
+    imageName: "",
+  });
+  const {
+    stall: { wallTexture },
+  } = useAppSelector((state) => state.room.rooms[roomIndex]);
   const [selectedId, setSelectedId] = useState(0);
   const [param2, setParam2] = useState<string | null>(null);
   useEffect(() => {
@@ -80,17 +87,11 @@ function Material() {
       //   id: hexName?.id,
       //   color: stallColor,
       // });
+      dispatch(fetchMaterialColors())
       setSelectedId(+materials?.id);
       setIsMounted(false);
     }
   }, [param]);
-  useEffect(() => {
-    dispatch(
-      fetchStepInputData({
-        stepValue: ["color"],
-      })
-    );
-  }, []);
   useEffect(() => {
     if (submittedData && param2 !== null) {
       const rooms: any = submittedData?.rooms;
@@ -108,6 +109,7 @@ function Material() {
             adaDepth: data.stall.adaDepth,
             overallRoomWidth: data.stall.overallRoomWidth,
             stallColor: data.stall.stallColor,
+            wallTexture:wallTexture,
             floorColor: OutlineColor.FloorSelected,
             standardDepth: data.stall.standardDepth,
             stallConfig: data.stall.stallConfig.map((stalldata: any) => {
@@ -160,14 +162,19 @@ function Material() {
     const image = materialArr[0]?.src;
     setSelectedId(+e.currentTarget.value);
     setSelectedData({
-      id: "",
+      name: "",
       color: "",
     });
+    setSelectedTexture({
+      name: "",
+      imageName: "",
+    });
+    dispatch(changeColor(StallColor.LightBlue));
     dispatch(
       updateMaterial({ id: id, name: name, price: price, materialImage: image })
     );
   }
-  if (loadingMaterialData || isMounted || loadingState) {
+  if (loadingMaterialData || isMounted || loadingState||loadingColorsData) {
     return <MaterialSkeleton />;
   }
   return (
@@ -203,21 +210,7 @@ function Material() {
                         })
                       }
                     >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="15"
-                        height="15"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="#000000"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      >
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <line x1="12" y1="16" x2="12" y2="12"></line>
-                        <line x1="12" y1="8" x2="12.01" y2="8"></line>
-                      </svg>
+                         <CircleHelp className="w-5 h-5 bg-green-600 text-white rounded-full cursor-pointer" />
                     </div>
                   </Tooltip>
                 </span>
@@ -258,6 +251,9 @@ function Material() {
               selectedId={selectedId}
               setLoadingUpdateColor={setLoadingUpdateColor}
               setSelectedData={setSelectedData}
+              selectedData={selectedData}
+              selectedTexture={selectedTexture}
+              setSelectedTexture={setSelectedTexture}
             />
             <CheckoutButton
               type="submit"
@@ -277,22 +273,35 @@ function Material() {
               <div
                 className="clr-box mb-2"
                 style={{
-                  backgroundColor:
-                    selectedData.id !== "" ? selectedData.color : "#9FA6B2",
-                  cursor: selectedData.id !== "" ? "default" : "not-allowed",
+                  background:
+                    selectedData.name !== ""
+                      ? selectedData.color
+                      : selectedTexture.name !== ""
+                      ? `url(${process.env.NEXT_PUBLIC_API_BASE}/uploads/textures/${selectedTexture.imageName})`
+                      : "#9FA6B2",
+                  cursor:
+                    selectedData.name !== "" || selectedTexture.name !== ""
+                      ? "default"
+                      : "not-allowed",
                   opacity:
-                    selectedId !== 4 ? (selectedData.id !== "" ? 1 : 0.3) : 0.3,
+                    selectedId !== 4
+                      ? selectedData.name !== ""
+                        ? 1
+                        : 0.3
+                      : 0.3,
                 }}
               ></div>
               <span>
-                {selectedData.id !== ""
-                  ? selectedData.id
+                {selectedData.name !== ""
+                  ? selectedData.name
+                  : selectedTexture.name !== ""
+                  ? selectedTexture.name
                   : "Please select a color"}
               </span>
             </div>
           )}
         </div>
-        <div className="select_color_right mt-6 xl:mt-10 pl-4 w-full lg:w-3/5">
+        {/* <div className="select_color_right mt-6 xl:mt-10 pl-4 w-full lg:w-3/5">
           <h4>
             These galvanized metal partitions are finished with a powder coating
             that is highly resistant to stains, corrosion, and more.
@@ -305,7 +314,7 @@ function Material() {
           >
             Learn more
           </a>
-        </div>
+        </div> */}
       </div>
 
       <div className="z-10 absolute bottom-0 right-0 chooseMaterial">
