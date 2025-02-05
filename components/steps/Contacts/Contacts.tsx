@@ -245,11 +245,12 @@ function Contacts() {
   }
   console.log("Laouy", layouts);
   return (
-    <form className="flex flex-wrap pro_details" onSubmit={handleSubmit(handleContactData)}>
-      <div className="flex-initial w-full flex items-center mt-[27px] block pb-[15px] relative">
-        <Label className="fieldlabels  text-[20px]">
-          Project Name
-        </Label>
+    <form
+      className="flex flex-wrap pro_details"
+      onSubmit={handleSubmit(handleContactData)}
+    >
+      <div className="flex-initial w-full flex items-center mt-[27px] pb-[15px] relative">
+        <Label className="fieldlabels  text-[20px]">Project Name</Label>
         <Input
           type="text"
           register={register}
@@ -266,7 +267,7 @@ function Contacts() {
           className="border border-[#707070] h-[47px] bg-white"
         />
       </div>
-      <div className="flex-initial w-full flex items-center mt-[27px] block pb-[15px] relative">
+      <div className="flex-initial w-full flex items-center mt-[27px] pb-[15px] relative">
         <Label className="fieldlabels  text-[20px]">
           First Name<span>*</span>
         </Label>
@@ -284,7 +285,7 @@ function Contacts() {
           className="border border-[#707070] h-[47px] bg-white"
         />
       </div>
-      <div className="flex-initial w-full flex items-center mt-[27px] block pb-[15px] relative">
+      <div className="flex-initial w-full flex items-center mt-[27px] pb-[15px] relative">
         <Label className="fieldlabels  text-[20px]">
           Last Name<span>*</span>
         </Label>
@@ -302,7 +303,7 @@ function Contacts() {
           className="border border-[#707070] h-[47px] bg-white"
         />
       </div>
-      <div className="flex-initial w-full flex items-center mt-[27px] block pb-[15px] relative">
+      <div className="flex-initial w-full flex items-center mt-[27px] pb-[15px] relative">
         <Label className="fieldlabels  text-[20px]">
           Email<span>*</span>
         </Label>
@@ -322,7 +323,7 @@ function Contacts() {
           className="border border-[#707070] h-[47px] bg-white"
         />
       </div>
-      <div className="flex-initial w-full flex items-center mt-[27px] block pb-[15px] relative">
+      <div className="flex-initial w-full flex items-center mt-[27px] pb-[15px] relative">
         <Label className="fieldlabels  text-[20px]">
           Phone Number<span>*</span>
         </Label>
