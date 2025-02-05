@@ -26,12 +26,13 @@ import StallModel from "@/components/models/stall/StallModel";
 import AdaStallModel from "@/components/models/stall/AdaStallModel";
 import Background from "@/components/models/stall/measurements/Background";
 import useDeviceDetection from "@/utils/useDeviceDetection";
-
+import * as THREE from 'three';
 export default function CameraControls({
   position,
   adaToiletPosition,
   stallConfig,
   stallColor,
+  bgTexture,
   standardDepth,
   alcoveDepth,
   adaDepth,
@@ -46,6 +47,7 @@ export default function CameraControls({
   adaToiletPosition: AdaToiletPosition;
   stallConfig: StallConfig[];
   stallColor: StallColor;
+  bgTexture:THREE.Texture|null;
   standardDepth: StandardDepth;
   alcoveDepth: AlcoveDepth;
   adaDepth: ADADepth;
@@ -227,6 +229,7 @@ export default function CameraControls({
             }}
             doorSwing={stall.doorSwing}
             stallColor={stallColor}
+            bgTexture={bgTexture}
             isFirst={idx === 0}
             isLast={idx + 1 === stallConfig.length}
             layout={layout}

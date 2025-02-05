@@ -17,7 +17,7 @@ import {
 import { useEffect, useMemo } from "react";
 import { calculateDoorSwingMatrix } from "@/utils/calculations/models/doorSwing";
 import { calcPosXByPads } from "@/utils/calculations/models/support";
-
+import * as THREE from 'three';
 export default function Door({
   nodesData,
   swing,
@@ -46,9 +46,11 @@ export default function Door({
   stallWidth: StallWidth | StallADAWidth;
   standardDepth: StandardDepth;
   alcoveDepth?: AlcoveDepth;
+
 }) {
   const { nodes, materials } = nodesData;
   const { layoutDirection, layoutOption } = layout;
+
   // If the Layout is in Alcove option
   const isAlcove = useMemo(() => layoutOption.startsWith("alcove"), [layoutOption]);
   // Calculating Door Scale
@@ -543,8 +545,6 @@ export default function Door({
     doorHandleY,
     doorHandleZ
   ]);
-
-
   return (
     // @ts-ignore: Spring type is Vector3 Type (Typescript return error on position)
     <animated.group position={position} rotation={rotation}>
@@ -553,11 +553,13 @@ export default function Door({
       <animated.group position={doorPosition}>
         {/* @ts-ignore: Spring type is Vector3 Type (Typescript return error on position) */}
         <animated.mesh geometry={nodes.Door.geometry} material={nodes.Door.material} position={doorSprings.position} rotation={doorSprings.rotation} scale={doorSprings.scale}>
-          <meshStandardMaterial color={stallColor} />
+     <meshStandardMaterial color={stallColor} />
+       <meshStandardMaterial color={stallColor} />
+       
         </animated.mesh>
         {/* @ts-ignore: Spring type is Vector3 Type (Typescript return error on position) */}
         <animated.mesh geometry={nodes.DoorDesign.geometry} material={nodes.DoorDesign.material} position={doorDesignSprings.position} rotation={doorDesignSprings.rotation} scale={doorDesignSprings.scale}>
-          <meshStandardMaterial color={stallColor} />
+        <meshStandardMaterial color={stallColor} />
           <Edges color={edgeColor} />
         </animated.mesh>
       </animated.group>

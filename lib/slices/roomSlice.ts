@@ -36,6 +36,7 @@ const initialStall: Stall = {
   noOfStalls: 1,
   adaStall: false,
   stallColor: StallColor.LightBlue,
+  wallTexture: '/assets/images/15.png',
   floorColor: OutlineColor.FloorSelected,
   overallRoomWidth: "60",
   overallRoomFraction: "",
@@ -234,6 +235,21 @@ export const roomSlice = createSlice({
       state.rooms = state.rooms.map((room) => ({
         ...room,
         stall: { ...room.stall, stallColor },
+      }));
+    },
+    changeTexture: (state, action: PayloadAction<string>) => {
+      const { payload: wallTexture } = action;
+      // const roomIndex = state.selectedRoom.roomIndex;
+      // const stall = state.rooms[roomIndex].stall;
+
+      // stall.wallTexture = wallTexture;
+      // // Updating Stall State
+      // state.rooms[roomIndex].stall = stall;
+
+      // Changing Texture For All Rooms
+      state.rooms = state.rooms.map((room) => ({
+        ...room,
+        stall: { ...room.stall, wallTexture },
       }));
     },
     changeView: (state, action: PayloadAction<View>) => {
@@ -603,6 +619,7 @@ export const {
   updateUrinalScreensDepth,
   toggleAdaStall,
   changeColor,
+  changeTexture,
   changeView,
   changeLayout,
   changeStallConfig,

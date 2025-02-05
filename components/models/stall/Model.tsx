@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Environment } from "@react-three/drei";
 import { useAppDispatch, useAppSelector } from "@/hooks/useStore";
@@ -12,7 +12,7 @@ import CameraControls from "@/components/models/stall/CameraControls";
 import { usePathname } from "next/navigation";
 import { uploadCanvasAsImage } from "@/lib/slices/roomSlice";
 import { View } from "@/types/model";
-
+import * as THREE from 'three';
 export default function Model() {
   const dispatch = useAppDispatch();
   const pathname = usePathname();
@@ -21,10 +21,13 @@ export default function Model() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [orbitControls, setOrbitControls] = useState(false);
   const [canvasLoaded, setCanvasLoaded] = useState(false);
+  const [backgroundChoice, setBackgroundChoice] = useState("color");
+  const [bgTexture, setBgTexture] = useState<THREE.Texture|null>(null);
   const { selectedRoom, rooms } = useAppSelector((state) => state.room);
   const {
     noOfStalls,
     stallColor,
+    wallTexture,
     stallConfig,
     adaToiletPosition,
     standardDepth,
@@ -43,7 +46,26 @@ export default function Model() {
       }, 3000);
     }
   }, [pathname]);
+useEffect(() =>{
+  if(wallTexture!=="" || wallTexture!==undefined) {
+    setBackgroundChoice("texture")
+  } else {
+    setBackgroundChoice("color")
+  }
+},[wallTexture])
+const loadBackground = () => {
+  if (backgroundChoice === "texture") {
+    const texture = new THREE.TextureLoader().load(wallTexture);
+    setBgTexture(texture);
+  } else {
+    setBgTexture(null);  // Use default solid color background
+  }
+};
 
+// Call the function to load the background when backgroundChoice changes
+useEffect(() => {
+  loadBackground();
+}, [backgroundChoice,wallTexture]);
   // Effect for Capturing Canvas Image
   useEffect(() => {
     if (pathname === "/calculate-measurements") {
@@ -68,6 +90,7 @@ export default function Model() {
     view,
     stallConfig,
     stallColor,
+    wallTexture,
     standardDepth,
     adaDepth,
     overallRoomWidth,
@@ -123,6 +146,8 @@ export default function Model() {
             adaToiletPosition={adaToiletPosition ?? layout.layoutDirection}
             stallConfig={stallConfig}
             stallColor={stallColor}
+            bgTexture={bgTexture}
+            
             standardDepth={standardDepth}
             alcoveDepth={alcoveDepth}
             adaDepth={adaDepth}

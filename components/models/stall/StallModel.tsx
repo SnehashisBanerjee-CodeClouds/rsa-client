@@ -22,7 +22,7 @@ import Door from "@/components/models/stall/doors/Door";
 import StallWall from "@/components/models/stall/walls/StallWall";
 import Support from "@/components/models/stall/supports/Support";
 import Headrail from "@/components/models/stall/headrails/Headrail";
-
+import * as THREE from 'three';
 
 const AnimatedMeshDistortMaterial = animated(MeshDistortMaterial);
 
@@ -44,6 +44,7 @@ export default function StallModel({
   allowedMeasurements,
   selectStallHandler,
   pulsate,
+  bgTexture
 }: {
   stallId: number;
   position: Position;
@@ -62,6 +63,7 @@ export default function StallModel({
   allowedMeasurements?: boolean,
   selectStallHandler: (stallId: number) => void,
   pulsate?: boolean;
+   bgTexture:THREE.Texture|null;
 }) {
   const nodesData = useGLTF("/models/stall-updated-25-NOV-24.glb") as GLTFStall;
   const { nodes, materials } = nodesData;
@@ -119,18 +121,18 @@ export default function StallModel({
       {/* Urinal */}
       {/* @ts-ignore: Spring type is Vector3 Type (Typescript return error on position) */}
       <animated.group position={toiletSprings.position} scale={1.2}>
-    
-          <Text
+    <Text
             position={[-3.3, 1.6, 0.10]}
             rotation={[1.55, -3.1, -1.55]}
             fontSize={0.9}
             fontWeight={800}
-            color={isOpened ? OutlineColor.Selected : OutlineColor.Default}
+            color={view==="2D"?isOpened ? OutlineColor.Selected : OutlineColor.Default:OutlineColor.Default}
             anchorX="center"
             anchorY="middle"
           >
             {stallId + 1}
           </Text>
+        
         
         <animated.mesh geometry={nodes.Toilet.geometry} material={materials['Toilet.001']} position={[-3.372, 0.83, 0.09]} scale={[0.463, 0.143, 0.318]}>
              {/* <Edges color={OutlineColor.Default} /> */}
@@ -175,6 +177,7 @@ export default function StallModel({
         isFirst={isFirst}
         isLast={isLast}
         layout={layout}
+        bgTexture={bgTexture}
         stallWidth={stallWidth}
         standardDepth={standardDepth}
         alcoveDepth={alcoveDepth}

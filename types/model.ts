@@ -1,6 +1,6 @@
 import { AnimationAction, Mesh, MeshStandardMaterial } from "three";
 import { GLTF } from "three-stdlib";
-
+import * as THREE from "three";
 // Stall Type
 export type StallType = "single" | "ada";
 // Stall Width
@@ -211,6 +211,7 @@ export interface Stall {
   standardDepth: StandardDepth;
   stallConfig: StallConfig[];
   stallColor: StallColor;
+  wallTexture:string;
   floorColor: OutlineColor;
   canvas2DImage: string;
   canvas3DImage: string;
