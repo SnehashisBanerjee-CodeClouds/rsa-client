@@ -90,6 +90,7 @@ function Contacts() {
             noOfStalls: stall.noOfStalls,
             adaStall: stall.adaStall,
             stallColor: stall.stallColor,
+            wallTexture: stall.wallTexture,
             overallRoomWidth: (
               +stall.overallRoomWidth + +stall.overallRoomFraction
             ).toString(),
