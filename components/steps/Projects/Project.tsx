@@ -113,7 +113,7 @@ function Project() {
   }
   return (
     <form className="form-card" onSubmit={handleSubmit(handleFirstStepData)}>
-      <Label className="fieldlabels font-bold text-black text-[20px] mt-[27px] block mb-[15px]">
+      <Label className="fieldlabels text-[20px] mt-[27px] block mb-[15px]">
         Room Name
       </Label>
       <input
@@ -128,72 +128,74 @@ function Project() {
         className="border border-[rgb(112,112,112)] h-[47px] bg-white"
       />
       {errors.restroom_name && <ErrorMessage error={errors.restroom_name} />}
-      <Label className="fieldlabels font-bold text-black text-[20px] mt-[27px] block mb-[15px]">
-        Number of stalls*
-      </Label>
-      <Select
-        className="bg-white h-[47px] w-full custom_select"
-        message="Stall number is required*"
-        error={errors.stall_number}
-        register={register}
-        onChange={(e) => {
-          dispatch(updateNoOfStalls(+e.target.value));
-          dispatch(updatePulsate({ pulsateBool: true }));
-          dispatch(updateQuotationValue({isQuote:true}))
-          if (layout.layoutOption.startsWith("alcove") && adaStall) {
-            dispatch(
-              changeRoomConfig({ config: "StandardDepth", value: "62" })
-            );
-            dispatch(changeRoomConfig({ config: "AdaDepth", value: "112" }));
-          }
-          if (layout.layoutOption.startsWith("alcove") && !adaStall) {
-            dispatch(
-              changeRoomConfig({ config: "StandardDepth", value: "62" })
-            );
-            dispatch(changeRoomConfig({ config: "AdaDepth", value: "62" }));
-            dispatch(changeRoomConfig({ config: "AlcoveDepth", value: "98" }));
-          }
-          if (!layout.layoutOption.startsWith("alcove") && !adaStall) {
-            dispatch(
-              changeRoomConfig({ config: "StandardDepth", value: "62" })
-            );
-            dispatch(changeRoomConfig({ config: "AdaDepth", value: "62" }));
-          }
-          if (!layout.layoutOption.startsWith("alcove") && adaStall) {
-            dispatch(
-              changeRoomConfig({ config: "StandardDepth", value: "62" })
-            );
-            dispatch(changeRoomConfig({ config: "AdaDepth", value: "62" }));
-          }
-          // dispatch(changeRoomConfig({ config:"StandardDepth", value:"62" }))
-          // dispatch(changeRoomConfig({ config:"AdaDepth", value:"62" }))
-        }}
-        fieldName="stall_number"
-        defaultValue={noOfStalls}
-      >
-        {!loadingState ? (
-          <React.Fragment>
-            <Option value="" disabled={true}>
-              Please select
-            </Option>
-            {maxNumberOfStalls?.map((stallVal: string, idx: number) => (
-              <Option value={stallVal} key={idx}>
-                {stallVal}
+      <div className="sameLine mt-4 mb-[15px]">
+        <Label className="fieldlabels text-[20px] block">
+          Number of stalls<span>*</span>
+        </Label>
+        <Select
+          className="bg-white h-[47px] w-full custom_select"
+          message="Stall number is required*"
+          error={errors.stall_number}
+          register={register}
+          onChange={(e) => {
+            dispatch(updateNoOfStalls(+e.target.value));
+            dispatch(updatePulsate({ pulsateBool: true }));
+            dispatch(updateQuotationValue({isQuote:true}))
+            if (layout.layoutOption.startsWith("alcove") && adaStall) {
+              dispatch(
+                changeRoomConfig({ config: "StandardDepth", value: "62" })
+              );
+              dispatch(changeRoomConfig({ config: "AdaDepth", value: "112" }));
+            }
+            if (layout.layoutOption.startsWith("alcove") && !adaStall) {
+              dispatch(
+                changeRoomConfig({ config: "StandardDepth", value: "62" })
+              );
+              dispatch(changeRoomConfig({ config: "AdaDepth", value: "62" }));
+              dispatch(changeRoomConfig({ config: "AlcoveDepth", value: "98" }));
+            }
+            if (!layout.layoutOption.startsWith("alcove") && !adaStall) {
+              dispatch(
+                changeRoomConfig({ config: "StandardDepth", value: "62" })
+              );
+              dispatch(changeRoomConfig({ config: "AdaDepth", value: "62" }));
+            }
+            if (!layout.layoutOption.startsWith("alcove") && adaStall) {
+              dispatch(
+                changeRoomConfig({ config: "StandardDepth", value: "62" })
+              );
+              dispatch(changeRoomConfig({ config: "AdaDepth", value: "62" }));
+            }
+            // dispatch(changeRoomConfig({ config:"StandardDepth", value:"62" }))
+            // dispatch(changeRoomConfig({ config:"AdaDepth", value:"62" }))
+          }}
+          fieldName="stall_number"
+          defaultValue={noOfStalls}
+        >
+          {!loadingState ? (
+            <React.Fragment>
+              <Option value="" disabled={true}>
+                Please select
               </Option>
-            ))}
-            {/* <Option value="8">8</Option>
-            <Option value="9">9</Option>
-            <Option value="10">10</Option> */}
-          </React.Fragment>
-        ) : (
-          <Option value="" disabled={true}>
-            Loading stalls...
-          </Option>
-        )}
-      </Select>
+              {maxNumberOfStalls?.map((stallVal: string, idx: number) => (
+                <Option value={stallVal} key={idx}>
+                  {stallVal}
+                </Option>
+              ))}
+              {/* <Option value="8">8</Option>
+              <Option value="9">9</Option>
+              <Option value="10">10</Option> */}
+            </React.Fragment>
+          ) : (
+            <Option value="" disabled={true}>
+              Loading stalls...
+            </Option>
+          )}
+        </Select>
+      </div>
       {installationQuote === "Yes" && (
         <div className="checkbox_area mb-[28px] text-center md:text-left">
-          <Label className="fieldlabels font-bold text-black text-[16px] md:text-[20px] mt-[27px] block mb-[15px]">
+          <Label className="fieldlabels text-[16px] md:text-[20px] mt-[27px] block mb-[15px]">
             Are you interested in a material installation quote?*
           </Label>
           <div className="radio_check flex items-center gap-x-24 justify-center md:justify-start">
@@ -217,11 +219,6 @@ function Project() {
           </div>
         </div>
       )}
-      <div className="contactDetails">
-        <h2>Questions? Contact Us</h2>
-        <p className="phoneHolder"><a href="tel:1-8448178255">1-844-81-STALL</a></p>
-        <p className="emailHolder"><a href="mailto:service@restroomstallsandall.com">service@restroomstallsandall.com</a></p>
-      </div>
       {urinalScreenModal && (
         <Modal
           confirmHandler={urinalScreenAcceptHandler}

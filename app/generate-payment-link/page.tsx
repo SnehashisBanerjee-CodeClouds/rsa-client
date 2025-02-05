@@ -12,13 +12,15 @@ export default function GeneratePaymentLink() {
     <section className="form_section flex-1">
       <div id="msform">
         <div className="logo">
-          <Image
-            src="/assets/images/logo.gif"
-            alt="logo_img"
-            width={400}
-            height={136}
-            priority
-          />
+          <a href="https://restroomstallsandall.com" target="_blank">
+            <Image
+              src="/assets/images/logo.gif"
+              alt="logo_img"
+              width={400}
+              height={136}
+              priority
+            />
+          </a>
         </div>
 
         <div className="form_content generate_payment">

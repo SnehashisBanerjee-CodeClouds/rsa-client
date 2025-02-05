@@ -36,7 +36,7 @@ function StartOver() {
 
   return (
     <React.Fragment>
-      <button
+      {/* <button
         className={
           pathName === "/create-a-project" ||
           (pathName === "/choose-materials" &&
@@ -50,7 +50,8 @@ function StartOver() {
       >
         Start Over
         <RotateCw />
-      </button>
+      </button> */}
+
       {confirmModal && (
         <Modal
           confirmHandler={startOverHandler}

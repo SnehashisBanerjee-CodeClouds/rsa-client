@@ -27,9 +27,9 @@ export default function ModelOnModal() {
         isActionButton
         type="button"
         onClick={() => setIsOpened(true)}
-        className="y-btn absolute bottom-[-100px] left-0 right-0 !mx-auto !w-[200px] justify-center"
+        className="y-btn absolute top-[-100px] right-0 !mx-auto justify-center"
       >
-        View Model
+        View Model 
       </Button>
       {isOpened && (
         <Modal

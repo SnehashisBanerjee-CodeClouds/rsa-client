@@ -237,9 +237,9 @@ function Contacts() {
     dispatch(updateQuotationValue({ isQuote: true }));
   }
   return (
-    <form className="flex flex-wrap" onSubmit={handleSubmit(handleContactData)}>
-      <div className="flex-initial w-full">
-        <Label className="fieldlabels font-bold text-black text-[20px] mt-[27px] block mb-[15px]">
+    <form className="flex flex-wrap pro_details" onSubmit={handleSubmit(handleContactData)}>
+      <div className="flex-initial w-full flex items-center mt-[27px] block pb-[15px] relative">
+        <Label className="fieldlabels  text-[20px]">
           Project Name
         </Label>
         <Input
@@ -257,9 +257,9 @@ function Contacts() {
           className="border border-[#707070] h-[47px] bg-white"
         />
       </div>
-      <div className="flex-initial w-full lg:w-1/2 lg:pr-4">
-        <Label className="fieldlabels font-bold text-black text-[20px] mt-[27px] block mb-[15px]">
-          First Name*
+      <div className="flex-initial w-full flex items-center mt-[27px] block pb-[15px] relative">
+        <Label className="fieldlabels  text-[20px]">
+          First Name<span>*</span>
         </Label>
         <Input
           type="text"
@@ -275,9 +275,9 @@ function Contacts() {
           className="border border-[#707070] h-[47px] bg-white"
         />
       </div>
-      <div className="flex-initial w-full lg:w-1/2 lg:pl-4">
-        <Label className="fieldlabels font-bold text-black text-[20px] mt-[27px] block mb-[15px]">
-          Last Name*
+      <div className="flex-initial w-full flex items-center mt-[27px] block pb-[15px] relative">
+        <Label className="fieldlabels  text-[20px]">
+          Last Name<span>*</span>
         </Label>
         <Input
           type="text"
@@ -293,9 +293,9 @@ function Contacts() {
           className="border border-[#707070] h-[47px] bg-white"
         />
       </div>
-      <div className="flex-initial w-full lg:w-1/2 lg:pr-4">
-        <Label className="fieldlabels font-bold text-black text-[20px] mt-[27px] block mb-[15px]">
-          Email*
+      <div className="flex-initial w-full flex items-center mt-[27px] block pb-[15px] relative">
+        <Label className="fieldlabels  text-[20px]">
+          Email<span>*</span>
         </Label>
         <Input
           type="email"
@@ -313,9 +313,9 @@ function Contacts() {
           className="border border-[#707070] h-[47px] bg-white"
         />
       </div>
-      <div className="flex-initial w-full lg:w-1/2 lg:pl-4">
-        <Label className="fieldlabels font-bold text-black text-[20px] mt-[27px] block mb-[15px]">
-          Phone Number*
+      <div className="flex-initial w-full flex items-center mt-[27px] block pb-[15px] relative">
+        <Label className="fieldlabels  text-[20px]">
+          Phone Number<span>*</span>
         </Label>
         <Input
           type="text"

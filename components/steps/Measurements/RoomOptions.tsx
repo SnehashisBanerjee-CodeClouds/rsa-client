@@ -7,6 +7,8 @@ import { addRoom, stepSubmit, switchRoom } from "@/lib/slices/roomSlice";
 import Button from "@/components/ui/Button";
 import { ChevronRight } from "lucide-react";
 import Label from "@/components/ui/Label";
+import Select from "@/components/ui/Select";
+import Option from "@/components/ui/Option";
 
 export default function RoomOptions({
   isStallWidthExceed,
@@ -35,9 +37,21 @@ export default function RoomOptions({
     router.push("/");
   }, []);
   return (
-    <div className="checkbox_area">
-      <div className="all_room radio_check flex items-center gap-x-8 xl:gap-x-8">
-        <div className="flex flex-1 gap-x-8 xl:gap-x-8 slider">
+    <div className="">
+      <div className="all_room radio_check flex items-center gap-x-4 xl:gap-x-4">
+        <Button
+          type="button"
+          className={
+            rooms.length > maxRoomNumber || rooms.length === maxRoomNumber
+              ? "hidden"
+              : "custom_btn b_btn flex items-center"
+          }
+          onClick={addRoomHandler}
+          isDisabled={isStallWidthExceed || isRoomDepthExceed}
+        >
+          Add a Room <ChevronRight />
+        </Button>
+        <div className="flex flex-1 gap-y-4 slider">
           {/* {!isLoading && (
             <select
               value={selectedRoom.roomId}
@@ -53,37 +67,18 @@ export default function RoomOptions({
               ))}
             </select>
           )} */}
-          {!isLoading &&
-            rooms.map((room, idx) => (
-              <div key={idx} className="flex items-center group py-2 w-fit">
-                <input
-                  type="radio"
-                  name={`room-${room.id}`}
-                  id={`room-${room.id}`}
-                  checked={selectedRoom.roomId === room.id}
-                  onChange={() => dispatch(switchRoom({ roomId: room.id }))}
-                />
-                <Label
-                  htmlFor={`room-${room.id}`}
-                  className="whitespace-nowrap"
-                >
-                  {room.title ? room.title : `Room ${room.id}`}
-                </Label>
-              </div>
-            ))}
+           <div  className="flex flex-col group w-fit">
+            <Label className="fieldlabels text-[16px] md:text-[20px] block">
+            Your Rooms
+            </Label>
+            <select className="all_room_select rounded-md">
+              {!isLoading && rooms.map((room,idx) =>(
+
+              <option>{room.title?room.title:`Room ${room.id}`}</option>
+              ))}
+            </select>
+          </div>
         </div>
-        <Button
-          type="button"
-          className={
-            rooms.length > maxRoomNumber || rooms.length === maxRoomNumber
-              ? "hidden"
-              : "custom_btn b_btn flex items-center"
-          }
-          onClick={addRoomHandler}
-          isDisabled={isStallWidthExceed || isRoomDepthExceed}
-        >
-          Add a Room <ChevronRight />
-        </Button>
       </div>
     </div>
   );
