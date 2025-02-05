@@ -11,7 +11,11 @@ import {
   updatePulsate,
   updateUrinalScreens,
 } from "@/lib/slices/roomSlice";
-import { fetchStepInputData, updateLoadingState, updateQuotationValue } from "@/lib/slices/stepSlice";
+import {
+  fetchStepInputData,
+  updateLoadingState,
+  updateQuotationValue,
+} from "@/lib/slices/stepSlice";
 import { useAppDispatch, useAppSelector } from "@/hooks/useStore";
 import { StepType } from "@/types/stepForm";
 import { firstRadioList } from "@/constants/step";
@@ -53,6 +57,7 @@ function Project() {
   const {
     reset,
     register,
+    setValue,
     handleSubmit,
     formState: { isSubmitting, isValidating, errors },
   } = useForm<StepType>({
@@ -73,7 +78,7 @@ function Project() {
           stall_number: noOfStalls,
           interest: materialQuote,
         },
-        stepValue: ["project", "layout", "measurement" ],
+        stepValue: ["project", "layout", "measurement"],
       })
     );
 
@@ -102,32 +107,36 @@ function Project() {
       if (!hasUrinalScreens) setUrinalScreenModal(true);
       else {
         // If urinalScreens is not selected
-        if (hasUrinalScreens === "not-selected")
-          router.push("/select-a-layout");
-        else router.push("/select-urinal-screens"); // If urinalScreens has already been added
+        if (hasUrinalScreens === "not-selected") {
+          setUrinalScreenModal(true);
+        } else router.push("/select-urinal-screens"); // If urinalScreens has already been added
       }
     }, 1000);
   }, []);
   if (isMounted || loadingState) {
     return <ProjectSkeleton />;
   }
+  console.log(errors);
   return (
     <form className="form-card" onSubmit={handleSubmit(handleFirstStepData)}>
       <Label className="fieldlabels font-bold text-black text-[20px] mt-[27px] block mb-[15px]">
         Room Name
       </Label>
-      <input
+      <Input
         type="text"
+        register={register}
+        error={errors.restroom_name}
         placeholder="Ex: Men’s Restroom 1"
-        {...register("restroom_name", {
-          pattern: {
-            value: /^.{1,10}$/,
-            message: "Room name must be at most 10 characters",
-          },
-        })}
+        onChange={(e) => {
+          setValue("restroom_name", e.target.value);
+          dispatch(updateQuotationValue({ isQuote: true }));
+        }}
+        patternRegex={/^.{1,20}$/}
+        isRequired={false}
+        fieldName="restroom_name"
+        patternMessage="Room name must be at most 20 characters"
         className="border border-[rgb(112,112,112)] h-[47px] bg-white"
       />
-      {errors.restroom_name && <ErrorMessage error={errors.restroom_name} />}
       <Label className="fieldlabels font-bold text-black text-[20px] mt-[27px] block mb-[15px]">
         Number of stalls*
       </Label>
@@ -139,7 +148,7 @@ function Project() {
         onChange={(e) => {
           dispatch(updateNoOfStalls(+e.target.value));
           dispatch(updatePulsate({ pulsateBool: true }));
-          dispatch(updateQuotationValue({isQuote:true}))
+          dispatch(updateQuotationValue({ isQuote: true }));
           if (layout.layoutOption.startsWith("alcove") && adaStall) {
             dispatch(
               changeRoomConfig({ config: "StandardDepth", value: "62" })
@@ -219,8 +228,14 @@ function Project() {
       )}
       <div className="contactDetails">
         <h2>Questions? Contact Us</h2>
-        <p className="phoneHolder"><a href="tel:1-8448178255">1-844-81-STALL</a></p>
-        <p className="emailHolder"><a href="mailto:service@restroomstallsandall.com">service@restroomstallsandall.com</a></p>
+        <p className="phoneHolder">
+          <a href="tel:1-8448178255">1-844-81-STALL</a>
+        </p>
+        <p className="emailHolder">
+          <a href="mailto:service@restroomstallsandall.com">
+            service@restroomstallsandall.com
+          </a>
+        </p>
       </div>
       {urinalScreenModal && (
         <Modal

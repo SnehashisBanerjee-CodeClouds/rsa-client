@@ -40,11 +40,6 @@ export default function PrevStep({
       onClick={prevRedirectHandler}
       isActionButton
       type="button"
-      className={
-        pathName === "/choose-materials" && param !== null && param2 !== null
-          ? "invisible"
-          : ""
-      }
     >
       <ChevronLeft />
       Back

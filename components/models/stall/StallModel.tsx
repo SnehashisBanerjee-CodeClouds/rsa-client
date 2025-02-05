@@ -126,7 +126,7 @@ export default function StallModel({
             rotation={[1.55, -3.1, -1.55]}
             fontSize={0.9}
             fontWeight={800}
-            color={view==="2D"?isOpened ? OutlineColor.Selected : OutlineColor.Default:OutlineColor.Default}
+            color={isOpened ? OutlineColor.Selected : OutlineColor.Default}
             anchorX="center"
             anchorY="middle"
           >

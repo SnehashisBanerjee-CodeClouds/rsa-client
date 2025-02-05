@@ -9,10 +9,10 @@ import UrinalScreensModelView from "@/components/modelViews/UrinalScreensModelVi
 
 function Main({
   modelType,
-  children
+  children,
 }: {
-  modelType: ModelType
-  children: ReactNode
+  modelType: ModelType;
+  children: ReactNode;
 }) {
   return (
     <section className="form_section flex-1">
@@ -26,10 +26,13 @@ function Main({
             priority
           />
         </div>
-        <StartOver />
         <Stepper />
         {children}
-        {modelType === "stalls" ? <StallModelView /> : <UrinalScreensModelView />}
+        {modelType === "stalls" ? (
+          <StallModelView />
+        ) : (
+          <UrinalScreensModelView />
+        )}
       </div>
     </section>
   );
