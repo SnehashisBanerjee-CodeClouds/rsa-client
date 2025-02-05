@@ -12,15 +12,17 @@ function Header() {
     <section className="sec_header">
       <div className="head_top">
         <div className="header_inr flex justify-between items-center">
-          <div className="logo pointer-events-none">
-            <Image
-              src="/assets/images/logo.gif"
-              alt="logo_img"
-              width={400}
-              height={136}
-              priority
-              unoptimized
-            />
+          <div className="logo">
+            <Link href="https://restroomstallsandall.com" target="_blank">
+              <Image
+                src="/assets/images/logo.gif"
+                alt="logo_img"
+                width={400}
+                height={136}
+                priority
+                unoptimized
+              />
+            </Link>
           </div>
           <div className="top_text">
             SOUTHEAST'S <span>LARGEST</span> AND <span>BEST</span> TOILET
@@ -53,6 +55,17 @@ function Header() {
               >
                 Get Your Quote
               </Button>
+            </div>
+            <div className="contactDetails">
+              <h2>Questions? Contact Us</h2>
+              <p className="phoneHolder">
+                <a href="tel:1-8448178255">1-844-81-STALL</a>
+              </p>
+              <p className="emailHolder">
+                <a href="mailto:service@restroomstallsandall.com">
+                  service@restroomstallsandall.com
+                </a>
+              </p>
             </div>
           </div>
         </div>

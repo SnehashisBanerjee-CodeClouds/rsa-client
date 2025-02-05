@@ -2,6 +2,8 @@ import Material from "@/components/steps/Material/Material";
 
 import { Metadata } from "next";
 import React from "react";
+import Button from "@/components/ui/Button";
+import ModelOnModal from "@/components/colorModal/ModelOnModal";
 export const metadata: Metadata = {
   title: "Choose Materials | Restroom Stalls and All",
   description:
@@ -12,7 +14,8 @@ function Step5() {
     <div className="form_content">
       <fieldset className="fieldset_inr_full">
         <div className="fieldset_inr" style={{ width: "100%" }}>
-          <h2 className="fs-title">Select Material & Colors</h2>
+          <h2 className="fs-title selectMaterial">Select Material & Colors</h2>
+        <ModelOnModal />
           <Material />
         </div>
       </fieldset>
