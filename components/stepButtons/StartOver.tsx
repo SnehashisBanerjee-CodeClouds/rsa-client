@@ -9,25 +9,36 @@ import { startOver } from "@/lib/slices/roomSlice";
 
 import Modal from "@/components/ui/Modal";
 import { startOverContact } from "@/lib/slices/contactSlice";
+import Button from "../ui/Button";
 
-function StartOver() {
+function StartOver({
+  className,
+  isAction,
+  param,
+  buttonColor,
+}: {
+  className: string;
+  isAction: boolean;
+  param?: string | null;
+  buttonColor?: "default" | "secondary" | undefined;
+}) {
   const router = useRouter();
   const pathName = usePathname();
   const dispatch = useAppDispatch();
   const [confirmModal, setConfirmModal] = useState(false);
-  const [param, setParam] = useState<string | null>(null);
-  const [param2, setParam2] = useState<string | null>(null);
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const paramValue = urlParams.get("abandoned");
-    const paramValue2 = urlParams.get("id");
-    if (paramValue !== null) {
-      setParam(paramValue);
-    }
-    if (paramValue2 !== null) {
-      setParam2(paramValue2);
-    }
-  }, []);
+  // const [param, setParam] = useState<string | null>(null);
+  // const [param2, setParam2] = useState<string | null>(null);
+  // useEffect(() => {
+  //   const urlParams = new URLSearchParams(window.location.search);
+  //   const paramValue = urlParams.get("abandoned");
+  //   const paramValue2 = urlParams.get("id");
+  //   if (paramValue !== null) {
+  //     setParam(paramValue);
+  //   }
+  //   if (paramValue2 !== null) {
+  //     setParam2(paramValue2);
+  //   }
+  // }, []);
   const startOverHandler = useCallback(() => {
     dispatch(startOver());
     dispatch(startOverContact(""));
@@ -36,21 +47,15 @@ function StartOver() {
 
   return (
     <React.Fragment>
-      <button
-        className={
-          pathName === "/create-a-project" ||
-          (pathName === "/choose-materials" &&
-            param !== null &&
-            param2 !== null)
-            ? "hidden"
-            : "start-over"
-        }
+      <Button
+        color={buttonColor}
         type="button"
+        isActionButton={isAction}
         onClick={() => setConfirmModal(true)}
       >
-        Start Over
+        Start a New Quote
         <RotateCw />
-      </button>
+      </Button>
       {confirmModal && (
         <Modal
           confirmHandler={startOverHandler}

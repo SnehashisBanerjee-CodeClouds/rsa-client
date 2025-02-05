@@ -17,6 +17,7 @@ function Input({
   patternMessage,
   onChange,
   maxLength,
+  isRequired,
 }: {
   id?: string;
   type: string;
@@ -32,7 +33,9 @@ function Input({
   patternMessage?: string;
   maxLength?: number;
   onChange?: ChangeEventHandler<HTMLInputElement> | undefined;
+  isRequired?: boolean;
 }) {
+  console.log("Is", isRequired);
   return (
     <React.Fragment>
       <input
@@ -44,8 +47,8 @@ function Input({
         {...register(fieldName, {
           onChange: onChange,
           required: {
-            value:
-              fieldName !== "restroom_name" || fieldName !== "project_name",
+            value: isRequired !== undefined ? isRequired : true,
+
             message: message,
           },
           pattern: {

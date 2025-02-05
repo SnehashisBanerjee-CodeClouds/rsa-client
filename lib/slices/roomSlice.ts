@@ -36,7 +36,7 @@ const initialStall: Stall = {
   noOfStalls: 1,
   adaStall: false,
   stallColor: StallColor.LightBlue,
-  wallTexture: '/assets/images/15.png',
+  wallTexture: "/assets/images/15.png",
   floorColor: OutlineColor.FloorSelected,
   overallRoomWidth: "60",
   overallRoomFraction: "",
@@ -494,7 +494,10 @@ export const roomSlice = createSlice({
                 room,
                 {
                   completedStep: 1,
-                  title: restroom_name,
+                  title:
+                    restroom_name === ""
+                      ? `Restroom ${room.id}`
+                      : restroom_name,
                 },
                 { materialQuote: interest }
               );

@@ -13,22 +13,23 @@ export default function Button({
   children: ReactNode;
   type?: "button" | "reset" | "submit" | undefined;
   name?: string;
-  color?: "default" | "secondary";
+  color?: "default" | "secondary" | undefined;
   isActionButton?: boolean;
   onClick?: MouseEventHandler<HTMLButtonElement>;
   isDisabled?: boolean;
   className?: string;
 }) {
-
   return (
     <button
       type={type}
       name={name}
-      className={`${className ? className : ``} ${color} ${isActionButton ? `action-button` : ``}${isDisabled ? ` pointer-events-none opacity-50` : ``}`}
+      className={`${className ? className : ``} ${color} ${
+        isActionButton ? `action-button` : ``
+      }${isDisabled ? ` pointer-events-none opacity-50` : ``}`}
       onClick={onClick}
       disabled={isDisabled}
     >
       {children}
     </button>
-  )
+  );
 }

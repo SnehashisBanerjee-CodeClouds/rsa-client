@@ -23,8 +23,11 @@ import Tooltip from "@/components/ui/Tooltip";
 import { Maximize2, Minimize2, Pointer } from "lucide-react";
 import PrevStep from "@/components/stepButtons/PrevStep";
 import CheckoutButton from "@/components/stepButtons/CheckoutButton";
+import { usePathname } from "next/navigation";
+import StartOver from "@/components/stepButtons/StartOver";
 
 function Material() {
+  const pathName = usePathname();
   // pulsate for Animation
   const [pulsateArrow, setPulsateArrow] = useState(false);
   const [pulsateColor, setPulsateColor] = useState<OutlineColor | string>(
@@ -52,7 +55,7 @@ function Material() {
   } = useAppSelector((state) => state.step);
   const [loadingUpdateColor, setLoadingUpdateColor] = useState(false);
   const [isMounted, setIsMounted] = useState(true);
-  const [colorAPIData,setColorAPIData]=useState([])
+  const [colorAPIData, setColorAPIData] = useState([]);
   const [selectedData, setSelectedData] = useState<StallColorOption>({
     name: "",
     color: "",
@@ -87,7 +90,7 @@ function Material() {
       //   id: hexName?.id,
       //   color: stallColor,
       // });
-      dispatch(fetchMaterialColors())
+      dispatch(fetchMaterialColors());
       setSelectedId(+materials?.id);
       setIsMounted(false);
     }
@@ -109,7 +112,7 @@ function Material() {
             adaDepth: data.stall.adaDepth,
             overallRoomWidth: data.stall.overallRoomWidth,
             stallColor: data.stall.stallColor,
-            wallTexture:wallTexture,
+            wallTexture: wallTexture,
             floorColor: OutlineColor.FloorSelected,
             standardDepth: data.stall.standardDepth,
             stallConfig: data.stall.stallConfig.map((stalldata: any) => {
@@ -174,7 +177,7 @@ function Material() {
       updateMaterial({ id: id, name: name, price: price, materialImage: image })
     );
   }
-  if (loadingMaterialData || isMounted || loadingState||loadingColorsData) {
+  if (loadingMaterialData || isMounted || loadingState || loadingColorsData) {
     return <MaterialSkeleton />;
   }
   return (
@@ -210,7 +213,7 @@ function Material() {
                         })
                       }
                     >
-                         <CircleHelp className="w-5 h-5 bg-green-600 text-white rounded-full cursor-pointer" />
+                      <CircleHelp className="w-5 h-5 bg-green-600 text-white rounded-full cursor-pointer" />
                     </div>
                   </Tooltip>
                 </span>
@@ -333,7 +336,13 @@ function Material() {
         </div>
       </div>
       <div className="mobile_btn">
-        <PrevStep />
+        <StartOver
+          className=""
+          isAction={true}
+          param={param}
+          buttonColor="secondary"
+        />
+
         <ModelOnModal />
       </div>
     </>

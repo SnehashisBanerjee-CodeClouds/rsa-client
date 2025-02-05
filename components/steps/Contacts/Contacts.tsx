@@ -24,7 +24,7 @@ function Contacts() {
   const dispatch = useAppDispatch();
   const { first_name, last_name, email, phone_number, project_name } =
     useAppSelector((state) => state.contacts);
-  const { isQuotationCreate, materialRoute } = useAppSelector(
+  const { isQuotationCreate, materialRoute, layouts } = useAppSelector(
     (state) => state.step
   );
   const { loadingContactButton, rooms } = useAppSelector((state) => state.room);
@@ -105,7 +105,13 @@ function Contacts() {
                 };
               }
             ),
-            layout: stall.layout,
+            layout: {
+              layoutDirection: stall.layout.layoutDirection,
+              layoutOption: stall.layout.layoutOption,
+              layoutName: layouts.filter(
+                (data) => data.layoutId === stall.layout.layoutOption
+              )[0].name,
+            },
             cameraControls: stall.cameraControls,
           },
           urinalScreen:
@@ -236,6 +242,7 @@ function Contacts() {
     setValue("phone_number", newValue);
     dispatch(updateQuotationValue({ isQuote: true }));
   }
+  console.log("Laouy", layouts);
   return (
     <form className="flex flex-wrap" onSubmit={handleSubmit(handleContactData)}>
       <div className="flex-initial w-full">
@@ -253,6 +260,7 @@ function Contacts() {
           patternRegex={/^.{1,30}$/}
           patternMessage="Project name must be at most 30 characters"
           fieldName="project_name"
+          isRequired={false}
           placeholder="Project Name"
           className="border border-[#707070] h-[47px] bg-white"
         />
