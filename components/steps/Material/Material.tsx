@@ -296,7 +296,7 @@ function Material() {
                     selectedData.name !== ""
                       ? selectedData.color
                       : selectedTexture.name !== ""
-                      ? `url(${process.env.NEXT_PUBLIC_API_BASE}/uploads/textures/${selectedTexture.imageName})`
+                      ? `url(${process.env.NEXT_PUBLIC_API_BASE}/uploads/textures/${selectedTexture.imageName}) `
                       : "#9FA6B2",
                   cursor:
                     selectedData.name !== "" || selectedTexture.name !== ""
@@ -310,6 +310,7 @@ function Material() {
                         ? 1
                         : 0.3
                       : 0.3,
+                      backgroundSize:'100% 100%'
                 }}
               ></div>
               <span>

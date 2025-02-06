@@ -193,6 +193,7 @@ export default function CameraControls({
             doorSwing={stall.doorSwing}
             toiletPosition={adaToiletPosition}
             stallColor={stallColor}
+            bgTexture={bgTexture}
             isLast={idx + 1 === stallConfig.length}
             layout={layout}
             view={view}

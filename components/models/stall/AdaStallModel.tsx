@@ -24,7 +24,7 @@ import Door from "@/components/models/stall/doors/Door";
 import AdaStallWall from "@/components/models/stall/walls/AdaStallWall";
 import Headrail from "@/components/models/stall/headrails/Headrail";
 import Support from "@/components/models/stall/supports/Support";
-
+import * as THREE from 'three';
 const AnimatedMeshDistortMaterial = animated(MeshDistortMaterial);
 
 export default function AdaStallModel({
@@ -47,6 +47,7 @@ export default function AdaStallModel({
   selectStallHandler,
   pulsate,
   alcoveDepth,
+  bgTexture
 }: {
   stallId: number;
   noOfStalls: number;
@@ -67,6 +68,7 @@ export default function AdaStallModel({
   selectStallHandler: (stallId: number) => void;
   pulsate?: boolean;
   alcoveDepth:AlcoveDepth,
+  bgTexture:THREE.Texture|null;
 }) {
   const nodesData = useGLTF("/models/ada-updated-25-NOV-24.glb") as GLTFAdaStall;
   const { nodes, materials } = nodesData;
@@ -174,6 +176,7 @@ export default function AdaStallModel({
         stallId={stallId}
         stallColor={stallColor}
         layout={layout}
+        bgTexture={bgTexture}
         stallWidth={stallWidth}
         standardDepth={standardDepth}
         adaDepth={adaDepth}
