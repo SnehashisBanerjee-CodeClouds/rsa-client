@@ -196,7 +196,7 @@ function Project() {
       {installationQuote === "Yes" && (
         <div className="checkbox_area mb-[28px] text-center md:text-left">
           <Label className="fieldlabels text-[16px] md:text-[20px] mt-[27px] block mb-[15px]">
-            Are you interested in a material installation quote?*
+            Are you interested in a material installation quote?<span>*</span>
           </Label>
           <div className="radio_check flex items-center gap-x-24 justify-center md:justify-start">
             {firstRadioList?.map((radioData) => (

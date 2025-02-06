@@ -268,13 +268,14 @@ fieldset.fieldset_inr_full[style="display: block; left: 0%; opacity: 1;"]
   display: flex;
   -webkit-align-items: center;
 }
+#msform .action-button.viewRooms{background: #3d58a4;color: #fff;}
 #msform .action-button.secondary {
   background: #dddddd;
   left: 0;
   padding-right: 35px;
 }
 #msform .action-button.default {
-  right: 0;
+  right: 50%;
   padding-left: 35px;
 }
 #msform .action-button.secondary svg {
@@ -290,7 +291,7 @@ fieldset.fieldset_inr_full[style="display: block; left: 0%; opacity: 1;"]
   position: absolute;
   height: 66px;
   bottom: -90px;
-  right: 270px;
+  right: calc(50% + 270px);
   background: rgb(221, 221, 221);
   padding: 10px 25px;
   display: flex;
