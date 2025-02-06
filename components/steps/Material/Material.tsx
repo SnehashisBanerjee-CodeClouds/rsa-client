@@ -12,6 +12,7 @@ import MaterialSkeleton from "@/components/skeletons/Materials/MaterialSkeleton"
 import {
   fetchMaterialColors,
   fetchMaterialDataById,
+  fetchMaterialTooltip,
   fetchStepInputData,
   updateMaterial,
   updateQuotationId,
@@ -52,6 +53,8 @@ function Material() {
     submittedData,
     colorData,
     loadingState,
+    loadingTooltipdata,
+    tooltipData,
   } = useAppSelector((state) => state.step);
   const [loadingUpdateColor, setLoadingUpdateColor] = useState(false);
   const [isMounted, setIsMounted] = useState(true);
@@ -84,6 +87,7 @@ function Material() {
     if (param != null) {
       dispatch(fetchMaterialDataById({ id: param }));
       dispatch(updateQuotationId({ id: param }));
+      dispatch(fetchMaterialTooltip());
       // const selectedIdx = colorData.find((sColor) => sColor === stallColor);
       // const hexName = stallColors.find((dat) => dat.color === selectedIdx);
       // setSelectedData({
@@ -177,7 +181,16 @@ function Material() {
       updateMaterial({ id: id, name: name, price: price, materialImage: image })
     );
   }
-  if (loadingMaterialData || isMounted || loadingState || loadingColorsData) {
+  function truncateFunc(name: string) {
+    return name?.length < 15 ? name : name.slice(0, 18) + "...";
+  }
+  if (
+    loadingMaterialData ||
+    isMounted ||
+    loadingState ||
+    loadingColorsData ||
+    loadingTooltipdata
+  ) {
     return <MaterialSkeleton />;
   }
   return (
@@ -193,7 +206,11 @@ function Material() {
                     isTooltipOpen={showTooltip.tooltip_1}
                     toolTipIndex={showTooltip.index}
                     stallId={data.id}
-                    tooltipMessage="Please select material"
+                    tooltipMessage={
+                      tooltipData?.filter(
+                        (tooltip: any) => tooltip.id === data.id
+                      )[0]?.description
+                    }
                   >
                     <div
                       onMouseEnter={() =>
@@ -219,7 +236,7 @@ function Material() {
                 </span>
               </div>
               <Label htmlFor={data.id.toString()}>
-                <Image
+                <img
                   alt="Material"
                   className={`w-full ${
                     +selectedId === data.id ? "border-6 border-[#4fd84b]" : ""
@@ -247,7 +264,7 @@ function Material() {
         </ul>
       </div>
       <div className="row items-center justify-center">
-        <div className="select_color row lg:justify-between justify-center pr-4 mt-6 xl:mt-20 w-full gap-5">
+        <div className="select_color row lg:justify-between justify-center pr-4 mt-6 xl:mt-20 w-full">
           <div className="select_color_all flex flex-col">
             {/* <h3>Select a Color*</h3> */}
             <ColorModal
@@ -296,9 +313,9 @@ function Material() {
               ></div>
               <span>
                 {selectedData.name !== ""
-                  ? selectedData.name
+                  ? truncateFunc(selectedData.name)
                   : selectedTexture.name !== ""
-                  ? selectedTexture.name
+                  ? truncateFunc(selectedTexture.name)
                   : "Please select a color"}
               </span>
             </div>

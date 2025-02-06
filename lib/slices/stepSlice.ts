@@ -19,6 +19,7 @@ import {
 import axiosInstance from "@/utils/axios";
 import { handleError } from "@/utils/stall/helpers";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { ArrowRightSquare } from "lucide-react";
 import { UseFormReset } from "react-hook-form";
 
 interface ErrorDataType {
@@ -84,19 +85,36 @@ export const fetchMaterialDataById = createAsyncThunk(
   }
 );
 
-export const fetchMaterialColors=createAsyncThunk('step/fetchMaterialColors',async(args,thunkAPI)=>{
-  try {
-    const response = await axiosInstance.get('/app-setting/colors');
-    return {
-      colorData: response.data.data,
-    };
-  } catch (error) {
-    return thunkAPI.rejectWithValue("Something went wrong");
+export const fetchMaterialColors = createAsyncThunk(
+  "step/fetchMaterialColors",
+  async (args, thunkAPI) => {
+    try {
+      const response = await axiosInstance.get("/app-setting/colors");
+      return {
+        colorData: response.data.data,
+      };
+    } catch (error) {
+      return thunkAPI.rejectWithValue("Something went wrong");
+    }
   }
-})
+);
+
+export const fetchMaterialTooltip = createAsyncThunk(
+  "step/fetchMaterialTtoltip",
+  async (args, thunkAPI) => {
+    try {
+      const response = await axiosInstance.get("/app-setting/materials");
+      return {
+        tooltipdata: response.data.data.value,
+      };
+    } catch (error) {
+      return thunkAPI.rejectWithValue("Something went wrong");
+    }
+  }
+);
 const initialStepInput: StepInput = {
   isQuotationCreate: false,
-  materialRoute:"",
+  materialRoute: "",
   maxNumberOfStalls: [],
   maxNumberOfScreens: [],
   layouts: [],
@@ -109,6 +127,7 @@ const initialStepInput: StepInput = {
   stallDoorOpening: [],
   maxRoomNumber: 0,
   materialData: [],
+  tooltipData: [],
   colorData: [],
   quotationId: "",
   materials: {
@@ -119,7 +138,8 @@ const initialStepInput: StepInput = {
   },
   loadingState: false,
   loadingMaterialData: false,
-  loadingColorsData:false
+  loadingColorsData: false,
+  loadingTooltipdata: false,
 };
 export const stepSlice = createSlice({
   name: "step",
@@ -145,14 +165,14 @@ export const stepSlice = createSlice({
         materialImage: materialImage,
       };
     },
-    updateQuotationValue: (state,action) => {
-      const {isQuote}=action.payload
+    updateQuotationValue: (state, action) => {
+      const { isQuote } = action.payload;
       state.isQuotationCreate = isQuote;
     },
-    updateMaterialRoute:(state,action) => {
-      const {routeVal}=action.payload
-      state.materialRoute=routeVal
-    }
+    updateMaterialRoute: (state, action) => {
+      const { routeVal } = action.payload;
+      state.materialRoute = routeVal;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -342,18 +362,39 @@ export const stepSlice = createSlice({
       .addCase(fetchMaterialDataById.rejected, (state, action) => {
         state.loadingMaterialData = false;
         state.error = (action.payload as string) || "Failed to fetch data";
-      }).addCase(fetchMaterialColors.pending,(state)=>{
+      })
+      .addCase(fetchMaterialColors.pending, (state) => {
         state.loadingColorsData = true;
-        state.colorData=[];
-        state.error=null;
-      }).addCase(fetchMaterialColors.fulfilled,(state,action)=>{
+        state.colorData = [];
+        state.error = null;
+      })
+      .addCase(fetchMaterialColors.fulfilled, (state, action) => {
         state.loadingColorsData = false;
-        state.colorData=action.payload?.colorData;
-        state.error=null;
-      }).addCase(fetchMaterialColors.rejected,(state, action) => {
+        state.colorData = action.payload?.colorData;
+        state.error = null;
+      })
+      .addCase(fetchMaterialColors.rejected, (state, action) => {
         state.loadingColorsData = false;
         state.error = (action.payload as string) || "Failed to fetch data";
       })
+      .addCase(fetchMaterialTooltip.pending, (state) => {
+        state.loadingTooltipdata = true;
+        state.tooltipData = [];
+        state.error = null;
+      })
+      .addCase(fetchMaterialTooltip.fulfilled, (state, action) => {
+        state.loadingTooltipdata = false;
+        state.tooltipData = action.payload?.tooltipdata.map(
+          ({ id, description }: { id: number; description: string }) => {
+            return { id, description };
+          }
+        );
+        state.error = null;
+      })
+      .addCase(fetchMaterialTooltip.rejected, (state, action) => {
+        state.loadingTooltipdata = false;
+        state.error = (action.payload as string) || "Failed to fetch data";
+      });
   },
 });
 
@@ -363,7 +404,7 @@ export const {
   updateQuotationId,
   updateMaterial,
   updateQuotationValue,
-  updateMaterialRoute
+  updateMaterialRoute,
 } = stepSlice.actions;
 
 export default stepSlice.reducer;
