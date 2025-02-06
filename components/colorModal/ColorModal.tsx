@@ -4,10 +4,9 @@ import { useMemo, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/hooks/useStore";
 import { changeColor, changeTexture } from "@/lib/slices/roomSlice";
 import { ModalSize } from "@/types/ui";
-import { stallColors } from "@/constants/step";
 import Modal from "@/components/ui/Modal";
 import { StallColorOption, StallTextureOption } from "@/types/ColorDialog";
-import { OutlineColor, StallColor } from "@/types/model";
+import { StallColor } from "@/types/model";
 
 export default function ColorModal({
   selectedId,

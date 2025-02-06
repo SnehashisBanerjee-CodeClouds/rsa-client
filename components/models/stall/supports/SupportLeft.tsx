@@ -18,7 +18,6 @@ export default function SupportLeft({
   standardDepth,
   alcoveDepth,
   doorOpening,
-  bgTexture
 }: {
   nodesData: GLTFStall | GLTFAdaStall;
   stallId: number;
@@ -32,7 +31,6 @@ export default function SupportLeft({
   standardDepth: StandardDepth;
   alcoveDepth?: AlcoveDepth;
   doorOpening?: DoorOpening;
-  bgTexture:THREE.Texture|null;
 }) {
   const { nodes, materials } = nodesData;
   const { layoutDirection, layoutOption } = layout;

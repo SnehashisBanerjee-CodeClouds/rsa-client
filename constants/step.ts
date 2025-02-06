@@ -168,40 +168,7 @@ export const secondBlockColors: BlockColorsType = [
 ];
 
 // Stall Colors
-export const stallColors: StallColorOption[] = [
-  {
-    id: "Red",
-    color: StallColor.Red,
-  },
-  {
-    id: "Green",
-    color: StallColor.Green,
-  },
-  {
-    id: "Sky",
-    color: StallColor.Sky,
-  },
-  {
-    id: "Black",
-    color: StallColor.Black,
-  },
-  {
-    id: "Silver",
-    color: StallColor.Silver,
-  },
-  {
-    id: "Light Orange",
-    color: StallColor.LightOrange,
-  },
-  {
-    id: "Light Blue",
-    color: StallColor.LightBlue,
-  },
-  {
-    id: "Light Golden",
-    color: StallColor.LightGolden,
-  },
-];
+
 
 export const materialList: MaterialImageArrayType = [
   {

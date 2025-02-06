@@ -18,7 +18,6 @@ export default function Support({
   standardDepth,
   alcoveDepth,
   doorOpening,
-  bgTexture
 }: {
   nodesData: GLTFStall | GLTFAdaStall;
   stallId: number;
@@ -32,7 +31,6 @@ export default function Support({
   standardDepth: StandardDepth;
   alcoveDepth?: AlcoveDepth;
   doorOpening?: DoorOpening;
-    bgTexture:THREE.Texture|null;
 }) {
   return (
     <animated.group>
@@ -43,7 +41,6 @@ export default function Support({
         isFirst={isFirst}
         isLast={isLast}
         layout={layout}
-        bgTexture={bgTexture}
         isAda={isAda}
         adaDepth={adaDepth}
         stallWidth={stallWidth}
