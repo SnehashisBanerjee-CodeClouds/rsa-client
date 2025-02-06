@@ -4,7 +4,6 @@ import Image from "next/image";
 import { useAppDispatch, useAppSelector } from "@/hooks/useStore";
 import { StallColorOption, StallTextureOption } from "@/types/ColorDialog";
 import { OutlineColor, StallColor } from "@/types/model";
-import { stallColors } from "@/constants/step";
 import Label from "@/components/ui/Label";
 import ColorModal from "@/components/colorModal/ColorModal";
 import ModelOnModal from "@/components/colorModal/ModelOnModal";
@@ -236,7 +235,7 @@ function Material() {
                 </span>
               </div>
               <Label htmlFor={data.id.toString()}>
-                <img
+                <Image
                   alt="Material"
                   className={`w-full ${
                     +selectedId === data.id ? "border-6 border-[#4fd84b]" : ""
@@ -306,6 +305,8 @@ function Material() {
                   opacity:
                     selectedId !== 4
                       ? selectedData.name !== ""
+                        ? 1
+                        : selectedTexture.name !== ""
                         ? 1
                         : 0.3
                       : 0.3,
