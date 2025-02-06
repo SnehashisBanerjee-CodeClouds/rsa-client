@@ -64,7 +64,7 @@ export default function ColorModal({
                 filteredMaterialData[0].colors.map((colorDat:any, idx:any) => (
                   <div
                     key={idx}
-                    className={`cursor-pointer color_list border ${
+                    className={`cursor-pointer color_list border bg-cover ${
                       selectedData.name === colorDat.name
                         ? "border-6 border-[#4fd84b]"
                         : "border-gray-400"
@@ -94,7 +94,7 @@ export default function ColorModal({
                 filteredMaterialData[0].textures.map((textureDat:any, idx:any) => (
                   <div
                     key={idx}
-                    className={`cursor-pointer color_list border ${
+                    className={`cursor-pointer color_list border bg-cover ${
                       selectedTexture.name === textureDat.name
                         ? "border-6 border-[#4fd84b]"
                         : "border-gray-400"
