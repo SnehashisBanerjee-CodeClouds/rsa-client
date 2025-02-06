@@ -177,6 +177,7 @@ export default function StallModel({
         isFirst={isFirst}
         isLast={isLast}
         layout={layout}
+        bgTexture={bgTexture}
         stallWidth={stallWidth}
         standardDepth={standardDepth}
         alcoveDepth={alcoveDepth}

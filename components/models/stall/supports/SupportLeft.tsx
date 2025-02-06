@@ -18,6 +18,7 @@ export default function SupportLeft({
   standardDepth,
   alcoveDepth,
   doorOpening,
+  bgTexture
 }: {
   nodesData: GLTFStall | GLTFAdaStall;
   stallId: number;
@@ -31,6 +32,7 @@ export default function SupportLeft({
   standardDepth: StandardDepth;
   alcoveDepth?: AlcoveDepth;
   doorOpening?: DoorOpening;
+  bgTexture: THREE.Texture | null;
 }) {
   const { nodes, materials } = nodesData;
   const { layoutDirection, layoutOption } = layout;
@@ -214,7 +216,15 @@ export default function SupportLeft({
   return (
     // @ts-ignore: Spring type is Vector3 Type (Typescript return error on position)
     <animated.group position={position} rotation={rotation} scale={scale}>
-      <animated.mesh
+      {bgTexture?<animated.mesh
+        geometry={nodes.SupportLeft.geometry}
+        material={nodes.SupportLeft.material}
+        position={[2.301, 3.412, 2.654]}
+        rotation={[0, 1.569, 0]}
+      >
+        <meshStandardMaterial map={bgTexture} />
+        {/* <Edges color={OutlineColor.Default} /> */}
+      </animated.mesh>:<animated.mesh
         geometry={nodes.SupportLeft.geometry}
         material={nodes.SupportLeft.material}
         position={[2.301, 3.412, 2.654]}
@@ -222,7 +232,8 @@ export default function SupportLeft({
       >
         <meshStandardMaterial color={stallColor} />
         {/* <Edges color={OutlineColor.Default} /> */}
-      </animated.mesh>
+      </animated.mesh>}
+    
      
       <animated.group>
         <animated.mesh
