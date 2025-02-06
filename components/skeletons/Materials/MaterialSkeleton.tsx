@@ -22,7 +22,7 @@ function MaterialSkeleton() {
         </ul>
       </div>
       <div className="row items-center justify-center">
-        <div className="select_color row lg:justify-between justify-center pr-4 mt-6 xl:mt-20 w-full gap-5">
+        <div className="select_color row lg:justify-between justify-center pr-4 mt-6 xl:mt-20 w-full">
           <div className="select_color_all flex flex-col">
             {/* <h3
               className="bg-gray-100 rounded-md animate-pulse block w-[60%]"

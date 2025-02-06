@@ -6,23 +6,20 @@ function ProjectSkeleton() {
     <form className="form-card">
       <Label
         className="fieldlabels rounded-md font-bold text-black bg-gray-100 
-      md:w-[18%] w-[30%] h-[30px] text-[16px] md:text-[20px] mt-[27px] block mb-[15px] text-transparent animate-pulse"
+      md:w-[18%] w-[30%] h-[30px] text-[16px] md:text-[20px] mt-[27px] block mb-[15px] !text-transparent animate-pulse"
       >
         Room name
       </Label>
       <div className="rounded-md h-[47px] bg-gray-100 animate-pulse md:w-full w-[100%]" />
       <div className="sameLine mt-4 mb-[15px]">
-        <Label className="fieldlabels rounded-md font-bold text-black bg-gray-100 md:w-[35%] w-[50%] h-[30px] text-[20px] mt-[27px] block mb-[15px] text-transparent animate-pulse">
+        <Label className="fieldlabels rounded-md font-bold text-black bg-gray-100 md:w-[35%] w-[50%] h-[30px] text-[20px] mt-[27px] block mb-[15px] !text-transparent animate-pulse">
           Number of stalls*
         </Label>
         <div className="rounded-md h-[47px] bg-gray-100 md:w-full animate-pulse ml-4" />
       </div>
-      <Label className="fieldlabels rounded-md font-bold text-black bg-gray-100 md:w-[35%] w-[75%] h-[30px] text-[20px] mt-[27px] block mb-[15px] text-transparent animate-pulse">
-        How many urinal screens?*
-      </Label>
-      <div className="rounded-md h-[47px] bg-gray-100 md:w-full w-[100%] animate-pulse" />
+
       <div className="mb-[28px] text-center md:text-left">
-        <Label className="fieldlabels rounded-md font-bold text-[16px] text-black bg-gray-100 w-[100%] md:w-[70%] h-[30px] md:text-[20px] mt-[27px] block mb-[15px] text-transparent animate-pulse">
+        <Label className="fieldlabels rounded-md font-bold text-[16px] text-black bg-gray-100 w-[100%] md:w-[70%] h-[30px] md:text-[20px] mt-[27px] block mb-[15px] !text-transparent animate-pulse">
           Are you interested in a material installation quote?*
         </Label>
         <div className="radio_check flex items-center gap-x-24 justify-center md:justify-start">

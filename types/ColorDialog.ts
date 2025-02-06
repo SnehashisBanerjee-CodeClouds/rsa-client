@@ -13,7 +13,7 @@ interface ColorsType {
 }
 
 export interface StallColorOption {
-  name: string | undefined;
+  name: string;
   color: StallColor | string | undefined;
 }
 export interface StallTextureOption {

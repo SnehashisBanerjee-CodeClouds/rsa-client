@@ -110,9 +110,11 @@ export interface StepInput {
   quotationId: string;
   materials: MaterialImagesType;
   colorData: any;
+  tooltipData: Array<{ id: number; description: string }>;
   loadingState?: boolean;
   loadingMaterialData: boolean;
-  loadingColorsData:boolean;
+  loadingColorsData: boolean;
+  loadingTooltipdata: boolean;
   error?: string | null;
 }
 

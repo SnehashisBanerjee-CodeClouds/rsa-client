@@ -19,7 +19,7 @@ function LayoutSkeleton() {
         ))}
       </ul>
       <div className="checkbox_area mb-[28px]">
-        <Label className="fieldlabels font-bold bg-gray-100 md:w-[60%] w-[100%] h-[30px] text-black text-[16px] md:text-[20px] mt-[27px] block mb-[15px] text-transparent lg:text-left text-center animate-pulse">
+        <Label className="fieldlabels font-bold bg-gray-100 md:w-[60%] w-[100%] h-[30px] text-black text-[16px] md:text-[20px] mt-[27px] block mb-[15px] !text-transparent lg:text-left text-center animate-pulse">
           Does this include a handicap accessible stall?*
         </Label>
         <div className=" flex items-center gap-x-24 text-center justify-center lg:justify-start">
