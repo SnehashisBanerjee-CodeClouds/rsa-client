@@ -163,6 +163,7 @@ export default function AdaStallModel({
           edgeColor={OutlineColor.Default}
           layout={layout}
           stallWidth={stallWidth}
+          bgTexture={bgTexture}
           standardDepth={standardDepth}
           adaDepth={adaDepth}
           doorOpening={doorOpening}

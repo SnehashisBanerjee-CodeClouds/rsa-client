@@ -3,7 +3,7 @@ import { Edges } from "@react-three/drei";
 import { animated, useSpring } from "@react-spring/three";
 import { ADADepth, AlcoveDepth, DoorOpening, GLTFAdaStall, GLTFStall, Layout, OutlineColor, StallADAWidth, StallColor, StallWidth, StandardDepth } from "@/types/model";
 import { calcPosXByPads, calculatePads, calculateSupportMatrix } from "@/utils/calculations/models/support";
-
+import * as THREE from 'three';
 export default function SupportRight({
   nodesData,
   stallId,
@@ -17,6 +17,7 @@ export default function SupportRight({
   standardDepth,
   alcoveDepth,
   doorOpening,
+  bgTexture
 }: {
   nodesData: GLTFStall | GLTFAdaStall;
   stallId: number;
@@ -30,6 +31,7 @@ export default function SupportRight({
   standardDepth: StandardDepth;
   alcoveDepth?: AlcoveDepth;
   doorOpening?: DoorOpening;
+    bgTexture: THREE.Texture | null;
 }) {
   const { nodes, materials } = nodesData;
   const { layoutDirection, layoutOption } = layout;
@@ -202,7 +204,15 @@ export default function SupportRight({
   return (
     // @ts-ignore: Spring type is Vector3 Type (Typescript return error on position)
     <animated.group position={position} rotation={rotation} scale={scale}>
-      <animated.mesh
+      {bgTexture ? <animated.mesh
+        geometry={nodes.SupportRight.geometry}
+        material={nodes.SupportRight.material}
+        position={[2.298, 3.412, -2.345]}
+        rotation={[0, 1.569, 0]}
+      >
+        <meshStandardMaterial map={bgTexture} />
+        {/* <Edges color={OutlineColor.Default} /> */}
+      </animated.mesh>:<animated.mesh
         geometry={nodes.SupportRight.geometry}
         material={nodes.SupportRight.material}
         position={[2.298, 3.412, -2.345]}
@@ -210,7 +220,8 @@ export default function SupportRight({
       >
         <meshStandardMaterial color={stallColor} />
         {/* <Edges color={OutlineColor.Default} /> */}
-      </animated.mesh>
+      </animated.mesh>}
+  
       <animated.group>
         {/* Up Black Strap */}
         <animated.mesh

@@ -161,6 +161,7 @@ export default function StallModel({
           stallColor={stallColor}
           edgeColor={OutlineColor.Default}
           isFirst={isFirst}
+          bgTexture={bgTexture}
           isLast={isLast}
           layout={layout}
           stallWidth={stallWidth}

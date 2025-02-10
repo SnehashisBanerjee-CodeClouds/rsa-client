@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useEffect, useMemo, useRef, useState } from "react";
-import { Canvas } from "@react-three/fiber";
+import React, { useEffect, useRef, useState } from "react";
+import { Canvas, useLoader } from "@react-three/fiber";
 import { Environment } from "@react-three/drei";
 import { useAppDispatch, useAppSelector } from "@/hooks/useStore";
 
@@ -11,7 +11,6 @@ import OrbitAnimation from "@/components/models/OrbitAnimation";
 import CameraControls from "@/components/models/stall/CameraControls";
 import { usePathname } from "next/navigation";
 import { uploadCanvasAsImage } from "@/lib/slices/roomSlice";
-import { View } from "@/types/model";
 import * as THREE from 'three';
 export default function Model() {
   const dispatch = useAppDispatch();
@@ -54,10 +53,12 @@ useEffect(() =>{
   }
 },[wallTexture])
 const loadBackground = () => {
-  if (backgroundChoice === "texture") {
-    const texture = new THREE.TextureLoader().load(wallTexture);
-    setBgTexture(texture);
-  } else {
+  if(wallTexture!=="") {
+    // const texture=new THREE.TextureLoader().load('/assets/images/15.png')
+    // setBgTexture(texture)
+    setBgTexture(null); 
+  }
+  else {
     setBgTexture(null);  // Use default solid color background
   }
 };
@@ -65,7 +66,8 @@ const loadBackground = () => {
 // Call the function to load the background when backgroundChoice changes
 useEffect(() => {
   loadBackground();
-}, [backgroundChoice,wallTexture]);
+}, [wallTexture]);
+console.log(bgTexture,backgroundChoice)
   // Effect for Capturing Canvas Image
   useEffect(() => {
     if (pathname === "/calculate-measurements") {

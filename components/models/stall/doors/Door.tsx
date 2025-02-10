@@ -32,6 +32,7 @@ export default function Door({
   stallWidth,
   standardDepth,
   alcoveDepth,
+  bgTexture
 }: {
   nodesData: GLTFStall | GLTFAdaStall;
   swing: DoorSwing;
@@ -46,6 +47,7 @@ export default function Door({
   stallWidth: StallWidth | StallADAWidth;
   standardDepth: StandardDepth;
   alcoveDepth?: AlcoveDepth;
+  bgTexture: THREE.Texture | null;
 
 }) {
   const { nodes, materials } = nodesData;
@@ -552,14 +554,16 @@ export default function Door({
       {/* @ts-ignore: Spring type is Vector3 Type (Typescript return error on position) */}
       <animated.group position={doorPosition}>
         {/* @ts-ignore: Spring type is Vector3 Type (Typescript return error on position) */}
+        
         <animated.mesh geometry={nodes.Door.geometry} material={nodes.Door.material} position={doorSprings.position} rotation={doorSprings.rotation} scale={doorSprings.scale}>
-     <meshStandardMaterial color={stallColor} />
-       <meshStandardMaterial color={stallColor} />
+          {bgTexture ?     <meshStandardMaterial map={bgTexture} />:     <meshStandardMaterial color={stallColor} />}
+
        
         </animated.mesh>
         {/* @ts-ignore: Spring type is Vector3 Type (Typescript return error on position) */}
         <animated.mesh geometry={nodes.DoorDesign.geometry} material={nodes.DoorDesign.material} position={doorDesignSprings.position} rotation={doorDesignSprings.rotation} scale={doorDesignSprings.scale}>
-        <meshStandardMaterial color={stallColor} />
+          {bgTexture?        <meshStandardMaterial map={bgTexture} />:        <meshStandardMaterial color={stallColor} />}
+     
           <Edges color={edgeColor} />
         </animated.mesh>
       </animated.group>

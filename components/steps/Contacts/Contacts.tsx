@@ -95,6 +95,8 @@ function Contacts() {
               +stall.overallRoomWidth + +stall.overallRoomFraction
             ).toString(),
             standardDepth: stall.standardDepth,
+            alcoveDepth:stall.alcoveDepth,
+            adaDepth:stall.adaDepth,
             stallConfig: stall.stallConfig.map(
               ({ isOpened, doorSwing, ...rest }) => {
                 return {
