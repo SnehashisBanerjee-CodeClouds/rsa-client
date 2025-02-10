@@ -40,7 +40,7 @@ export default function ColorModal({
         type="button"
         disabled={selectedId !== 4 ? !selectedId : true}
         onClick={() => setIsOpened(true)}
-        className="custom_btn y_btn mt-0 my-1 !px-10 disabled:opacity-35 min-w-[150px]
+        className="custom_btn y_btn mt-0 my-1 !px-10 w-full disabled:opacity-35 !text-[19px]
         "
       >
         Select Color

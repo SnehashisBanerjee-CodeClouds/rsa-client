@@ -58,6 +58,7 @@ export default function Support({
         isFirst={isFirst}
         isLast={isLast}
         layout={layout}
+        bgTexture={bgTexture}
         isAda={isAda}
         adaDepth={adaDepth}
         stallWidth={stallWidth}

@@ -1,21 +1,22 @@
 "use client";
-import { ChevronRight } from "lucide-react";
 import Button from "@/components/ui/Button";
 import { useAppSelector } from "@/hooks/useStore";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useState } from "react";
 import axiosInstance from "@/utils/axios";
-import { StallColorOption } from "@/types/ColorDialog";
+import { StallColorOption, StallTextureOption } from "@/types/ColorDialog";
 
 function CheckoutButton({
   title = "Add to Cart",
   type,
   selectedData,
   selectedId,
+  selectedTexture,
 }: {
   title?: string;
   type?: "button" | "reset" | "submit" | undefined;
   selectedData: StallColorOption;
   selectedId: number;
+  selectedTexture: StallTextureOption;
 }) {
   const { rooms } = useAppSelector((state) => state.room);
   const { materials, quotationId } = useAppSelector((state) => state.step);
@@ -48,11 +49,13 @@ function CheckoutButton({
     <form onSubmit={(e) => handleCheckout(e)}>
       <Button
         type={type}
-        className="custom_btn y_btn mt-0 my-1 !px-10 disabled:opacity-35 min-w-[150px]"
+        className="custom_btn y_btn mt-0 my-1 w-full !px-10 disabled:opacity-35 min-w-[150px]"
         isDisabled={
-          !selectedId ||
-          (selectedId !== 4 ? selectedData.name === "" : false) ||
-          loadingCheckout
+          (selectedId === 4
+            ? false
+            : selectedData.name === "" && selectedTexture.name === ""
+            ? true
+            : false) || loadingCheckout
         }
       >
         {loadingCheckout ? "Redirecting" : title}

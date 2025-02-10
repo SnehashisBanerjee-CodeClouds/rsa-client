@@ -118,6 +118,7 @@ function Material() {
             wallTexture: wallTexture,
             floorColor: OutlineColor.FloorSelected,
             standardDepth: data.stall.standardDepth,
+            alcoveDepth: data.stall.alcoveDepth,
             stallConfig: data.stall.stallConfig.map((stalldata: any) => {
               return { ...stalldata, doorSwing: stalldata.doorSwing.key };
             }),
@@ -181,7 +182,7 @@ function Material() {
     );
   }
   function truncateFunc(name: string) {
-    return name?.length < 15 ? name : name.slice(0, 18) + "...";
+    return name?.length < 30 ? name : name.slice(0, 30) + "...";
   }
   if (
     loadingMaterialData ||
@@ -192,6 +193,7 @@ function Material() {
   ) {
     return <MaterialSkeleton />;
   }
+  console.log("submit",submittedData)
   return (
     <>
       <div className="materials">
@@ -263,8 +265,8 @@ function Material() {
         </ul>
       </div>
       <div className="row items-center justify-center">
-        <div className="select_color row lg:justify-between justify-center pr-4 mt-6 xl:mt-20 w-full">
-          <div className="select_color_all flex flex-col">
+        <div className="select_color row lg:justify-between justify-center pr-4 mt-6 xl:mt-20 w-full gap-5">
+          <div className="select_color_all flex flex-col flex-1">
             {/* <h3>Select a Color*</h3> */}
             <ColorModal
               selectedId={selectedId}
@@ -278,17 +280,18 @@ function Material() {
               type="submit"
               selectedData={selectedData}
               selectedId={selectedId}
+              selectedTexture={selectedTexture}
             />
           </div>
           {loadingUpdateColor ? (
-            <div className="clr-box_holder">
+            <div className="clr-box_holder flex-1">
               <div className="clr-box mb-2 !bg-gray-100 animate-pulse !border-none rounded-md"></div>
               <span className="bg-gray-100 rounded-md p-1 text-transparent animate-pulse">
                 Green
               </span>
             </div>
           ) : (
-            <div className="clr-box_holder">
+            <div className="clr-box_holder flex-1">
               <div
                 className="clr-box mb-2"
                 style={{
@@ -310,7 +313,7 @@ function Material() {
                         ? 1
                         : 0.3
                       : 0.3,
-                      backgroundSize:'100% 100%'
+                  backgroundSize: "100% 100%",
                 }}
               ></div>
               <span>
