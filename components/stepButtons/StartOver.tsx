@@ -4,7 +4,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { Info, RotateCw } from "lucide-react";
 import { STEPS } from "@/constants/step";
-import { useAppDispatch } from "@/hooks/useStore";
+import { useAppDispatch, useAppSelector } from "@/hooks/useStore";
 import { startOver } from "@/lib/slices/roomSlice";
 
 import Modal from "@/components/ui/Modal";
@@ -23,6 +23,7 @@ function StartOver({
   buttonColor?: "default" | "secondary" | undefined;
 }) {
   const router = useRouter();
+  const { rooms, selectedRoom } = useAppSelector((state) => state.room);
   const pathName = usePathname();
   const dispatch = useAppDispatch();
   const [confirmModal, setConfirmModal] = useState(false);

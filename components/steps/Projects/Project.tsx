@@ -137,7 +137,6 @@ function Project() {
         patternMessage="Room name must be at most 20 characters"
         className="border border-[rgb(112,112,112)] h-[47px] bg-white"
       />
-      {errors.restroom_name && <ErrorMessage error={errors.restroom_name} />}
       <div className="sameLine mt-4 mb-[15px]">
         <Label className="fieldlabels text-[20px] block">
           Number of stalls<span>*</span>

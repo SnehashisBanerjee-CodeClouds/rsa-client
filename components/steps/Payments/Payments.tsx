@@ -1,6 +1,6 @@
 "use client";
 import NotFound from "@/app/not-found";
-import { RoomConfig } from "@/types/model";
+import { RoomConfig, StallColor } from "@/types/model";
 import axiosInstance from "@/utils/axios";
 import { usePathname } from "next/navigation";
 import React, { useCallback, useEffect, useState } from "react";
@@ -9,48 +9,80 @@ function Payments() {
   const pathname = usePathname();
   const [param, setParam] = useState<string | null>(null);
   const [param2, setParam2] = useState<string | null>(null);
-  const [param3, setParam3] = useState<string | null>(null);
   const [loadingPayment, setLoadingPayment] = useState<boolean>(false);
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const paramValue = urlParams.get("id");
     const paramValue2 = urlParams.get("material_id");
-    const paramValue3 = urlParams.get("color");
     if (paramValue !== null) {
       setParam(paramValue);
     }
     if (paramValue2 !== null) {
       setParam2(paramValue2);
     }
-    if (paramValue3 !== null) {
-      setParam3(paramValue3);
-    }
+
     // Example: get 'param' from query params
   }, []);
   const fetchCheckoutUrl = useCallback(async () => {
     if (
       pathname === "/generate-payment-link" &&
       param !== null &&
-      param2 !== null &&
-      param3 !== null
+      param2 !== null
     ) {
       setLoadingPayment(true);
       await axiosInstance
         .get(`/quotation/view?id=${param}`)
         .then(async (res) => {
           if (res.data.status === true) {
-            const formattedColorsByRoom = res.data.data.submittedData.rooms.map(
-              (room: RoomConfig) => {
-                return { room_id: room.id.toString(), name: `#${param3}` };
-              }
+            const colorType = res.data.data.submittedData.rooms.reduce(
+              (acc: string, curr: RoomConfig) => {
+                if (curr.stall.wallTexture !== "") {
+                  acc = "texture";
+                } else {
+                  acc = "color";
+                }
+                return acc;
+              },
+              ""
             );
+            const colorData = res.data.data.submittedData.rooms.reduce(
+              (
+                acc: Array<{
+                  room_id: string;
+                  name: string;
+                  src?: string;
+                  color?: StallColor;
+                }>,
+                curr: RoomConfig
+              ) => {
+                if (curr.stall.wallTexture !== "") {
+                  acc.push({
+                    room_id: curr.id.toString(),
+                    name: curr.stall.wallTextureName,
+                    src: curr.stall.wallTexture.split("/uploads/textures/")[1],
+                  });
+                } else {
+                  acc.push({
+                    room_id: curr.id.toString(),
+                    name: curr.stall.stallColorName,
+                    color: curr.stall.stallColor,
+                  });
+                }
+                return acc;
+              },
+              []
+            );
+            const formattedColorsByRoom = {
+              type: colorType,
+              data: colorData,
+            };
             const payload = {
               id: param,
               material_id: param2,
               colors: formattedColorsByRoom,
             };
             await axiosInstance
-              .post('/quotation/generatePaymentLink', payload)
+              .post("/quotation/generatePaymentLink", payload)
               .then((res) => {
                 if (res.data.status === true) {
                   setLoadingPayment(false);
@@ -65,10 +97,10 @@ function Payments() {
           }
         })
         .catch((err) => {
-            console.log(err)
+          console.log(err);
         });
     }
-  }, [pathname, param, param2, param3]);
+  }, [pathname, param, param2]);
   useEffect(() => {
     fetchCheckoutUrl();
   }, [fetchCheckoutUrl]);

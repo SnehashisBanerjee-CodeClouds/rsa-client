@@ -35,7 +35,6 @@ function Input({
   onChange?: ChangeEventHandler<HTMLInputElement> | undefined;
   isRequired?: boolean;
 }) {
-  console.log("Is", isRequired);
   return (
     <React.Fragment>
       <input

@@ -67,15 +67,23 @@ export default function RoomOptions({
               ))}
             </select>
           )} */}
-           <div  className="flex flex-col group w-fit">
+          <div className="flex flex-col group w-fit">
             <Label className="fieldlabels text-[16px] md:text-[20px] block">
-            Your Rooms
+              Your Rooms
             </Label>
-            <select className="all_room_select rounded-md">
-              {!isLoading && rooms.map((room,idx) =>(
-
-              <option>{room.title?room.title:`Room ${room.id}`}</option>
-              ))}
+            <select
+              value={selectedRoom.roomId}
+              className="all_room_select rounded-md"
+              onChange={(e) => {
+                dispatch(switchRoom({ roomId: +e.target.value }));
+              }}
+            >
+              {!isLoading &&
+                rooms.map((room, idx) => (
+                  <option key={idx} value={room.id}>
+                    {room.title ? room.title : `Room ${room.id}`}
+                  </option>
+                ))}
             </select>
           </div>
         </div>

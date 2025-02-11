@@ -6,30 +6,24 @@ import { StallColorOption, StallTextureOption } from "@/types/ColorDialog";
 import { OutlineColor, StallColor } from "@/types/model";
 import Label from "@/components/ui/Label";
 import ColorModal from "@/components/colorModal/ColorModal";
-import ModelOnModal from "@/components/colorModal/ModelOnModal";
 import MaterialSkeleton from "@/components/skeletons/Materials/MaterialSkeleton";
 import {
   fetchMaterialColors,
   fetchMaterialDataById,
   fetchMaterialTooltip,
-  fetchStepInputData,
   updateMaterial,
   updateQuotationId,
 } from "@/lib/slices/stepSlice";
 import { changeColor, updateInitialStall } from "@/lib/slices/roomSlice";
 import { updateContact } from "@/lib/slices/contactSlice";
-import { ChevronDown, ChevronRight, CircleHelp } from "lucide-react";
+import { CircleHelp } from "lucide-react";
 import Tooltip from "@/components/ui/Tooltip";
-import { Maximize2, Minimize2, Pointer } from "lucide-react";
-import PrevStep from "@/components/stepButtons/PrevStep";
+import { Pointer } from "lucide-react";
 import CheckoutButton from "@/components/stepButtons/CheckoutButton";
-import { usePathname } from "next/navigation";
 import StartOver from "@/components/stepButtons/StartOver";
 
 function Material() {
-  const pathName = usePathname();
   // pulsate for Animation
-  const [pulsateArrow, setPulsateArrow] = useState(false);
   const [pulsateColor, setPulsateColor] = useState<OutlineColor | string>(
     "transparent"
   );
@@ -43,21 +37,18 @@ function Material() {
   // const searchParams = useSearchParams();
   // const quotationId = searchParams.get("id");
   const dispatch = useAppDispatch();
-  const { roomIndex } = useAppSelector((state) => state.room.selectedRoom);
   const {
     materialData,
     loadingMaterialData,
     loadingColorsData,
     materials,
     submittedData,
-    colorData,
     loadingState,
     loadingTooltipdata,
     tooltipData,
   } = useAppSelector((state) => state.step);
   const [loadingUpdateColor, setLoadingUpdateColor] = useState(false);
   const [isMounted, setIsMounted] = useState(true);
-  const [colorAPIData, setColorAPIData] = useState([]);
   const [selectedData, setSelectedData] = useState<StallColorOption>({
     name: "",
     color: "",
@@ -66,24 +57,17 @@ function Material() {
     name: "",
     imageName: "",
   });
-  const {
-    stall: { wallTexture },
-  } = useAppSelector((state) => state.room.rooms[roomIndex]);
+
   const [selectedId, setSelectedId] = useState(0);
-  const [param2, setParam2] = useState<string | null>(null);
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const paramValue = urlParams.get("id");
-    const paramValue2 = urlParams.get("abandoned");
     if (paramValue !== null) {
       setParam(paramValue);
     }
-    if (paramValue2 !== null) {
-      setParam2(paramValue2);
-    } // Example: get 'param' from query params
   }, []);
   useEffect(() => {
-    if (param != null) {
+    if (param !== null) {
       dispatch(fetchMaterialDataById({ id: param }));
       dispatch(updateQuotationId({ id: param }));
       dispatch(fetchMaterialTooltip());
@@ -99,13 +83,13 @@ function Material() {
     }
   }, [param]);
   useEffect(() => {
-    if (submittedData && param2 !== null) {
+    if (submittedData && param !== null) {
       const rooms: any = submittedData?.rooms;
 
       const formattedData = rooms?.map((data: any) => {
         return {
           id: data.id,
-          completedStep: 5,
+          completedStep: data.completedStep,
           expandedView: data.expandedView,
           hasUrinalScreens:
             data.hasUrinalScreens === true ? true : "not-selected",
@@ -115,7 +99,9 @@ function Material() {
             adaDepth: data.stall.adaDepth,
             overallRoomWidth: data.stall.overallRoomWidth,
             stallColor: data.stall.stallColor,
-            wallTexture: wallTexture,
+            stallColorName: data.stall.stallColorName,
+            wallTexture: data.stall.wallTexture,
+            wallTextureName: data.stall.wallTextureName,
             floorColor: OutlineColor.FloorSelected,
             standardDepth: data.stall.standardDepth,
             alcoveDepth: data.stall.alcoveDepth,
@@ -158,7 +144,7 @@ function Material() {
       dispatch(updateInitialStall({ data: formattedData }));
       dispatch(updateContact(contactData));
     }
-  }, [submittedData, param2]);
+  }, [submittedData, param]);
   function handleMaterialData(e: React.ChangeEvent<HTMLInputElement>) {
     const materialArr = materialData?.filter(
       (data) => data.id === +e.currentTarget.value
@@ -176,7 +162,12 @@ function Material() {
       name: "",
       imageName: "",
     });
-    dispatch(changeColor(StallColor.LightBlue));
+    dispatch(
+      changeColor({
+        stallColor: StallColor.LightBlue,
+        stallColorName: "",
+      })
+    );
     dispatch(
       updateMaterial({ id: id, name: name, price: price, materialImage: image })
     );
@@ -193,7 +184,6 @@ function Material() {
   ) {
     return <MaterialSkeleton />;
   }
-  console.log("submit",submittedData)
   return (
     <>
       <div className="materials">
