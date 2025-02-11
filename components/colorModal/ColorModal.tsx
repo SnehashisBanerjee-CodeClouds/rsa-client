@@ -24,7 +24,6 @@ export default function ColorModal({
   setSelectedTexture: React.Dispatch<React.SetStateAction<StallTextureOption>>;
 }) {
   const dispatch = useAppDispatch();
-  const { roomIndex } = useAppSelector((state) => state.room.selectedRoom);
   const { colorData } = useAppSelector((state) => state.step);
   // const {
   //   stall: { stallColor, wallTexture },
