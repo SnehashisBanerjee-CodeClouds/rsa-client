@@ -197,8 +197,8 @@ export type ModelType = "stalls" | "urinal-screens";
 // Urinal Screens
 export type HasUrinalScreens = boolean | "not-selected";
 export type UrinalScreenDepth = "18" | "24";
-export type StandardDepth = "62"|'112';
-export type ADADepth = "62"|'112';
+export type StandardDepth = "62" | "112";
+export type ADADepth = "62" | "112";
 // Stall
 export interface Stall {
   noOfStalls: number;
@@ -211,7 +211,9 @@ export interface Stall {
   standardDepth: StandardDepth;
   stallConfig: StallConfig[];
   stallColor: StallColor;
-  wallTexture:string;
+  stallColorName: string;
+  wallTexture: string;
+  wallTextureName: string;
   floorColor: OutlineColor;
   canvas2DImage: string;
   canvas3DImage: string;
@@ -230,7 +232,7 @@ export interface UrinalScreen {
   screens3DImage: string;
 }
 // Current Step : 0 - No Step Completed | 1 - Project | 2 - Layout | 3 - Measurements
-export type CompletedStep = 0 | 1 | 2 | 3;
+export type CompletedStep = 0 | 1 | 2 | 3 | 4;
 export type RoomConfigOption =
   | "StandardDepth"
   | "AdaDepth"
@@ -321,7 +323,7 @@ export type GLTFStall = GLTF & {
     ["metalLight.002"]: MeshStandardMaterial;
     ["metalDark.002"]: MeshStandardMaterial;
     ["_defaultMat.002"]: MeshStandardMaterial;
-    ['Toilet.001']: MeshStandardMaterial;
+    ["Toilet.001"]: MeshStandardMaterial;
     Material: MeshStandardMaterial;
   };
   animations: AnimationAction[];

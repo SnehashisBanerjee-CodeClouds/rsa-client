@@ -11,7 +11,7 @@ import OrbitAnimation from "@/components/models/OrbitAnimation";
 import CameraControls from "@/components/models/stall/CameraControls";
 import { usePathname } from "next/navigation";
 import { uploadCanvasAsImage } from "@/lib/slices/roomSlice";
-import * as THREE from 'three';
+import * as THREE from "three";
 export default function Model() {
   const dispatch = useAppDispatch();
   const pathname = usePathname();
@@ -21,7 +21,7 @@ export default function Model() {
   const [orbitControls, setOrbitControls] = useState(false);
   const [canvasLoaded, setCanvasLoaded] = useState(false);
   const [backgroundChoice, setBackgroundChoice] = useState("color");
-  const [bgTexture, setBgTexture] = useState<THREE.Texture|null>(null);
+  const [bgTexture, setBgTexture] = useState<THREE.Texture | null>(null);
   const { selectedRoom, rooms } = useAppSelector((state) => state.room);
   const {
     noOfStalls,
@@ -45,29 +45,27 @@ export default function Model() {
       }, 3000);
     }
   }, [pathname]);
-useEffect(() =>{
-  if(wallTexture!=="" || wallTexture!==undefined) {
-    setBackgroundChoice("texture")
-  } else {
-    setBackgroundChoice("color")
-  }
-},[wallTexture])
-const loadBackground = () => {
-  if(wallTexture!=="") {
-    // const texture=new THREE.TextureLoader().load('/assets/images/15.png')
-    // setBgTexture(texture)
-    setBgTexture(null); 
-  }
-  else {
-    setBgTexture(null);  // Use default solid color background
-  }
-};
+  useEffect(() => {
+    if (wallTexture !== "" || wallTexture !== undefined) {
+      setBackgroundChoice("texture");
+    } else {
+      setBackgroundChoice("color");
+    }
+  }, [wallTexture]);
+  const loadBackground = () => {
+    if (wallTexture !== "") {
+      // const texture=new THREE.TextureLoader().load('/assets/images/15.png')
+      // setBgTexture(texture)
+      setBgTexture(null);
+    } else {
+      setBgTexture(null); // Use default solid color background
+    }
+  };
 
-// Call the function to load the background when backgroundChoice changes
-useEffect(() => {
-  loadBackground();
-}, [wallTexture]);
-console.log(bgTexture,backgroundChoice)
+  // Call the function to load the background when backgroundChoice changes
+  useEffect(() => {
+    loadBackground();
+  }, [wallTexture]);
   // Effect for Capturing Canvas Image
   useEffect(() => {
     if (pathname === "/calculate-measurements") {
@@ -102,11 +100,7 @@ console.log(bgTexture,backgroundChoice)
     <>
       {canvasLoaded && (
         <>
-          <RoomSwitcher
-            selectedRoom={selectedRoom}
-            rooms={rooms}
-            view={view}
-          />
+          <RoomSwitcher selectedRoom={selectedRoom} rooms={rooms} view={view} />
           <ModelSwitcher
             view={view}
             setOrbitControls={setOrbitControls}
@@ -149,7 +143,6 @@ console.log(bgTexture,backgroundChoice)
             stallConfig={stallConfig}
             stallColor={stallColor}
             bgTexture={bgTexture}
-            
             standardDepth={standardDepth}
             alcoveDepth={alcoveDepth}
             adaDepth={adaDepth}

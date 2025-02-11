@@ -6,7 +6,11 @@ import Input from "@/components/ui/Input";
 import Label from "@/components/ui/Label";
 import { useAppDispatch, useAppSelector } from "@/hooks/useStore";
 import { updateContact } from "@/lib/slices/contactSlice";
-import { handleStepLoading } from "@/lib/slices/roomSlice";
+import {
+  handleStepLoading,
+  stepSubmit,
+  updateStep,
+} from "@/lib/slices/roomSlice";
 import {
   updateMaterialRoute,
   updateQuotationValue,
@@ -61,6 +65,7 @@ function Contacts() {
 
   const handleContactData = useCallback(async (data: ContactDetailsType) => {
     dispatch(handleStepLoading({ stepName: "contact", isLoading: true }));
+    dispatch(stepSubmit({ stepName: "contacts" }));
     dispatch(
       updateContact({
         project_name: data.project_name,
@@ -71,32 +76,26 @@ function Contacts() {
       })
     );
     const roomPayload = rooms.map(
-      ({
-        completedStep,
-        currentModel,
-        stall,
-        urinalScreen,
-        hasUrinalScreens,
-        ...rest
-      }) => {
+      ({ stall, urinalScreen, hasUrinalScreens, ...rest }) => {
         return {
           ...rest,
           hasUrinalScreens: hasUrinalScreens === "not-selected" ? false : true,
-          image_3D:
-            "https://rsa-api-kappa.vercel.app/api/uploads/images/room3D.png",
+          image_3D: `${process.env.NEXT_PUBLIC_API_BASE}/uploads/images/room3D.png`,
           image_2D: stall.canvas2DImage,
           stall: {
             type: handleStallType(stall.layout.layoutOption),
             noOfStalls: stall.noOfStalls,
             adaStall: stall.adaStall,
             stallColor: stall.stallColor,
+            stallColorName: stall.stallColorName,
             wallTexture: stall.wallTexture,
+            wallTextureName: stall.wallTextureName,
             overallRoomWidth: (
               +stall.overallRoomWidth + +stall.overallRoomFraction
             ).toString(),
             standardDepth: stall.standardDepth,
-            alcoveDepth:stall.alcoveDepth,
-            adaDepth:stall.adaDepth,
+            alcoveDepth: stall.alcoveDepth,
+            adaDepth: stall.adaDepth,
             stallConfig: stall.stallConfig.map(
               ({ isOpened, doorSwing, ...rest }) => {
                 return {
@@ -122,8 +121,7 @@ function Contacts() {
               ? {
                   noOfUrinalScreens: urinalScreen.noOfUrinalScreens,
                   cameraControls: urinalScreen.cameraControls,
-                  urinal_3D:
-                    "https://rsa-api-kappa.vercel.app/api/uploads/images/urinal3D.png",
+                  urinal_3D: `${process.env.NEXT_PUBLIC_API_BASE}/uploads/images/urinal3D.png`,
                   urinal_2D: urinalScreen.screens2DImage,
                   urinalScreenConfig: urinalScreen.urinalScreenConfig.map(
                     ({ isOpened, ...rest }) => {
@@ -245,7 +243,6 @@ function Contacts() {
     setValue("phone_number", newValue);
     dispatch(updateQuotationValue({ isQuote: true }));
   }
-  console.log("Laouy", layouts);
   return (
     <form
       className="flex flex-wrap pro_details"

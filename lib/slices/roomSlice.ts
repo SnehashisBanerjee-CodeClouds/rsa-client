@@ -36,7 +36,9 @@ const initialStall: Stall = {
   noOfStalls: 1,
   adaStall: false,
   stallColor: StallColor.LightBlue,
-  wallTexture: "/assets/images/15.png",
+  stallColorName: "",
+  wallTexture: "",
+  wallTextureName: "",
   floorColor: OutlineColor.FloorSelected,
   overallRoomWidth: "60",
   overallRoomFraction: "",
@@ -222,8 +224,11 @@ export const roomSlice = createSlice({
       state.rooms[roomIndex].expandedView =
         !state.rooms[roomIndex].expandedView;
     },
-    changeColor: (state, action: PayloadAction<StallColor>) => {
-      const { payload: stallColor } = action;
+    changeColor: (
+      state,
+      action: PayloadAction<{ stallColor: StallColor; stallColorName: string }>
+    ) => {
+      const { stallColor, stallColorName } = action.payload;
       // const roomIndex = state.selectedRoom.roomIndex;
       // const stall = state.rooms[roomIndex].stall;
 
@@ -234,11 +239,14 @@ export const roomSlice = createSlice({
       // Changing Color For All Rooms
       state.rooms = state.rooms.map((room) => ({
         ...room,
-        stall: { ...room.stall, stallColor },
+        stall: { ...room.stall, stallColor, stallColorName },
       }));
     },
-    changeTexture: (state, action: PayloadAction<string>) => {
-      const { payload: wallTexture } = action;
+    changeTexture: (
+      state,
+      action: PayloadAction<{ wallTexture: string; wallTextureName: string }>
+    ) => {
+      const { wallTexture, wallTextureName } = action.payload;
       // const roomIndex = state.selectedRoom.roomIndex;
       // const stall = state.rooms[roomIndex].stall;
 
@@ -249,7 +257,7 @@ export const roomSlice = createSlice({
       // Changing Texture For All Rooms
       state.rooms = state.rooms.map((room) => ({
         ...room,
-        stall: { ...room.stall, wallTexture },
+        stall: { ...room.stall, wallTexture, wallTextureName },
       }));
     },
     changeView: (state, action: PayloadAction<View>) => {
@@ -521,6 +529,12 @@ export const roomSlice = createSlice({
           });
           state.selectedRoom.completedStep = 3;
           break;
+        case "contacts":
+          state.rooms = state.rooms.map((room) => {
+            return { ...room, completedStep: 4 };
+          });
+          state.selectedRoom.completedStep = 4;
+          break;
         default:
           break;
       }
@@ -609,6 +623,10 @@ export const roomSlice = createSlice({
     updateInitialStall: (state, action) => {
       const { data } = action.payload;
       state.rooms = data;
+      state.selectedRoom = {
+        ...initialState.selectedRoom,
+        completedStep: 4,
+      };
     },
   },
 });
