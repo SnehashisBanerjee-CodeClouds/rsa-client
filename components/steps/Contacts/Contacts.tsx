@@ -166,6 +166,7 @@ function Contacts() {
       }
     });
     const finalPayload = {
+      isTest: true,
       project_name: data.project_name,
       first_name: data.first_name,
       last_name: data.last_name,
