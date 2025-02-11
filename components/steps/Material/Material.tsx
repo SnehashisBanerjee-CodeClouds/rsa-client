@@ -14,15 +14,23 @@ import {
   updateMaterial,
   updateQuotationId,
 } from "@/lib/slices/stepSlice";
-import { changeColor, updateInitialStall } from "@/lib/slices/roomSlice";
-import { updateContact } from "@/lib/slices/contactSlice";
+import {
+  changeColor,
+  handleStepLoading,
+  startOver,
+  updateInitialStall,
+} from "@/lib/slices/roomSlice";
+import { startOverContact, updateContact } from "@/lib/slices/contactSlice";
 import { CircleHelp } from "lucide-react";
 import Tooltip from "@/components/ui/Tooltip";
 import { Pointer } from "lucide-react";
 import CheckoutButton from "@/components/stepButtons/CheckoutButton";
 import StartOver from "@/components/stepButtons/StartOver";
+import { useRouter } from "next/navigation";
+import { STEPS } from "@/constants/step";
 
 function Material() {
+  const router = useRouter();
   // pulsate for Animation
   const [pulsateColor, setPulsateColor] = useState<OutlineColor | string>(
     "transparent"
@@ -59,12 +67,18 @@ function Material() {
   });
 
   const [selectedId, setSelectedId] = useState(0);
+  const [param2, setParam2] = useState<string | null>(null);
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const paramValue = urlParams.get("id");
+    const paramValue2 = urlParams.get("abandoned");
+    dispatch(handleStepLoading({ stepName: "contact", isLoading: false }));
     if (paramValue !== null) {
       setParam(paramValue);
     }
+    if (paramValue2 !== null) {
+      setParam2(paramValue2);
+    } // Example: get 'param' from query params
   }, []);
   useEffect(() => {
     if (param !== null) {
@@ -82,8 +96,9 @@ function Material() {
       setIsMounted(false);
     }
   }, [param]);
+
   useEffect(() => {
-    if (submittedData && param !== null) {
+    if (submittedData && param2 !== null) {
       const rooms: any = submittedData?.rooms;
 
       const formattedData = rooms?.map((data: any) => {
@@ -144,7 +159,7 @@ function Material() {
       dispatch(updateInitialStall({ data: formattedData }));
       dispatch(updateContact(contactData));
     }
-  }, [submittedData, param]);
+  }, [submittedData, param2]);
   function handleMaterialData(e: React.ChangeEvent<HTMLInputElement>) {
     const materialArr = materialData?.filter(
       (data) => data.id === +e.currentTarget.value

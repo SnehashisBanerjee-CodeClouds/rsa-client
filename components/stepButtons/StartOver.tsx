@@ -14,7 +14,6 @@ import Button from "../ui/Button";
 function StartOver({
   className,
   isAction,
-  param,
   buttonColor,
 }: {
   className: string;
@@ -27,19 +26,19 @@ function StartOver({
   const pathName = usePathname();
   const dispatch = useAppDispatch();
   const [confirmModal, setConfirmModal] = useState(false);
-  // const [param, setParam] = useState<string | null>(null);
-  // const [param2, setParam2] = useState<string | null>(null);
-  // useEffect(() => {
-  //   const urlParams = new URLSearchParams(window.location.search);
-  //   const paramValue = urlParams.get("abandoned");
-  //   const paramValue2 = urlParams.get("id");
-  //   if (paramValue !== null) {
-  //     setParam(paramValue);
-  //   }
-  //   if (paramValue2 !== null) {
-  //     setParam2(paramValue2);
-  //   }
-  // }, []);
+  const [param, setParam] = useState<string | null>(null);
+  const [param2, setParam2] = useState<string | null>(null);
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const paramValue = urlParams.get("abandoned");
+    const paramValue2 = urlParams.get("id");
+    if (paramValue !== null) {
+      setParam(paramValue);
+    }
+    if (paramValue2 !== null) {
+      setParam2(paramValue2);
+    }
+  }, []);
   const startOverHandler = useCallback(() => {
     dispatch(startOver());
     dispatch(startOverContact(""));
@@ -53,6 +52,7 @@ function StartOver({
         type="button"
         isActionButton={isAction}
         onClick={() => setConfirmModal(true)}
+        className={param !== null ? "!hidden" : ""}
       >
         Start a New Quote
         <RotateCw />
