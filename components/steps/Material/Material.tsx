@@ -92,6 +92,8 @@ function Material() {
       dispatch(fetchMaterialColors());
       setSelectedId(+materials?.id);
       setIsMounted(false);
+    } else {
+      router.push("/create-a-project");
     }
   }, [param]);
 
