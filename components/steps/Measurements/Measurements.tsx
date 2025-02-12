@@ -383,7 +383,7 @@ export default function Measurements() {
           </div>
         </div>
       </div>
-      <div className="mobile_btn">
+      <div className="mobile_btn sc_btn_po md:flex md:justify-between md:items-center">
         <PrevStep />
         <NextStep
           isDisabled={isWidthExceed || isDepthExceed || isAlcoveError}

@@ -246,7 +246,7 @@ function Project() {
           </h3>
         </Modal>
       )}
-      <div className="mobile_btn mobile_btn_first">
+      <div className="mobile_btn mobile_btn_first sc_btn_po md:flex md:justify-end">
         <NextStep
           isDisabled={isSubmitting || isValidating}
           type="submit"
