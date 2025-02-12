@@ -45,7 +45,7 @@ function Header() {
                 </svg>
               </span>
               <div className="call_us_text">
-                CALL US NOW<a href="tel:1-8448178255">1-844-81-STALL</a>
+                CALL US NOW<Link href="tel:1-8448178255">1-844-81-STALL</Link>
               </div>
             </div>
             <div className="quote">
@@ -59,12 +59,15 @@ function Header() {
             <div className="contactDetails">
               <h2>Questions? Contact Us</h2>
               <p className="phoneHolder">
-                <a href="tel:1-8448178255">1-844-81-STALL</a>
+                <Link href="tel:1-8448178255">1-844-81-STALL</Link>
               </p>
               <p className="emailHolder">
-                <a href="mailto:service@restroomstallsandall.com">
+                <Link
+                  href="mailto:service@restroomstallsandall.com"
+                  className="!text-[#3fab3b]"
+                >
                   service@restroomstallsandall.com
-                </a>
+                </Link>
               </p>
             </div>
           </div>

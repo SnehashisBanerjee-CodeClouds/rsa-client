@@ -27,7 +27,6 @@ import { Pointer } from "lucide-react";
 import CheckoutButton from "@/components/stepButtons/CheckoutButton";
 import StartOver from "@/components/stepButtons/StartOver";
 import { useRouter } from "next/navigation";
-import { STEPS } from "@/constants/step";
 
 function Material() {
   const router = useRouter();
@@ -65,7 +64,6 @@ function Material() {
     name: "",
     imageName: "",
   });
-
   const [selectedId, setSelectedId] = useState(0);
   const [param2, setParam2] = useState<string | null>(null);
   useEffect(() => {
@@ -199,6 +197,7 @@ function Material() {
   ) {
     return <MaterialSkeleton />;
   }
+
   return (
     <>
       <div className="materials">

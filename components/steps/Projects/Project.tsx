@@ -207,7 +207,8 @@ function Project() {
       {installationQuote === "Yes" && (
         <div className="checkbox_area mb-[28px] text-center md:text-left">
           <Label className="fieldlabels text-[16px] md:text-[20px] mt-[27px] block mb-[15px]">
-            Are you interested in a material installation quote?<span>*</span>
+            Would you like to learn more about Material Installation Services?
+            <span>*</span>
           </Label>
           <div className="radio_check flex items-center gap-x-24 justify-center md:justify-start">
             {firstRadioList?.map((radioData) => (
@@ -235,13 +236,13 @@ function Project() {
           confirmHandler={urinalScreenAcceptHandler}
           cancelHandler={urinalScreenDeclineHandler}
           setModal={setUrinalScreenModal}
-          confirmText="Yes, I will"
-          cancelText="Not for now"
+          confirmText="Yes"
+          cancelText="No thank you"
           textCenter
         >
           <Info className="mx-auto mb-4 text-gray-400 w-12 h-12" />
           <h3 className="text-xl font-bold mb-5">
-            Would you like to add urinal/privacy screens?
+            Would you like to add Privacy Screens?
           </h3>
         </Modal>
       )}

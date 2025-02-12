@@ -169,7 +169,9 @@ body {
   margin: 20px 0 10px;
   color: #3d58a4;
 }
-.fieldset_inr form .fieldlabels span{color: #ff0000;}
+.fieldset_inr form .fieldlabels span {
+  color: #ff0000;
+}
 fieldset.fieldset_inr_full[style="display: block; left: 0%; opacity: 1;"]
   .fieldset_inr {
   width: 100%;
@@ -206,12 +208,21 @@ fieldset.fieldset_inr_full[style="display: block; left: 0%; opacity: 1;"]
   font-family: "Manrope", sans-serif;
   color: #484848;
   font-size: 16px;
-  border-radius:8px;
+  border-radius: 8px;
 }
-#msform .pro_details .fieldlabels{width:130px;margin: 0;}
-#msform .pro_details input{margin: 0;max-width: 400px;}
-#msform .pro_details .relative .text-red-400{position: absolute;left: 130px;bottom: -8px;}
-
+#msform .pro_details .fieldlabels {
+  width: 130px;
+  margin: 0;
+}
+#msform .pro_details input {
+  margin: 0;
+  max-width: 400px;
+}
+#msform .pro_details .relative .text-red-400 {
+  position: absolute;
+  left: 130px;
+  bottom: -8px;
+}
 
 #msform input:focus,
 #msform textarea:focus,
@@ -268,7 +279,10 @@ fieldset.fieldset_inr_full[style="display: block; left: 0%; opacity: 1;"]
   display: flex;
   -webkit-align-items: center;
 }
-#msform .action-button.viewRooms{background: #3d58a4;color: #fff;}
+#msform .action-button.viewRooms {
+  background: #3d58a4;
+  color: #fff;
+}
 #msform .action-button.secondary {
   background: #dddddd;
   left: 0;
@@ -316,6 +330,7 @@ fieldset.fieldset_inr_full[style="display: block; left: 0%; opacity: 1;"]
   line-height: 1.3;
 }
 .fs-title-step-1 p {
+  margin-top: 0.5rem;
   font-size: 16px;
   line-height: 1.2;
 }
@@ -341,9 +356,13 @@ fieldset.fieldset_inr_full[style="display: block; left: 0%; opacity: 1;"]
   margin-bottom: 20px;
   font-family: "Manrope", sans-serif;
   /* max-width: 540px; */
-  font-size: 20px;color: #3d58a4;
+  font-size: 22px;
+  color: #3d58a4;
 }
-.pro_details .fs-subtitle{font-size: 18px;color: #484848;}
+.pro_details .fs-subtitle {
+  font-size: 18px;
+  color: #484848;
+}
 
 /*progressbar*/
 .mobile-steps {
@@ -630,11 +649,25 @@ a {
   padding-left: 30px;
 }
 /* new Changes */
-.head_btm{display: none;}
-.call_us,.quote{display: none;}
-.sameLine{display: flex;align-items: center;}
-#msform .sameLine select{width: 150px;margin: 0;}
-.fieldset_inr form .sameLine .fieldlabels{margin:0;padding-right: 15px;}
+.head_btm {
+  display: none;
+}
+.call_us,
+.quote {
+  display: none;
+}
+.sameLine {
+  display: flex;
+  align-items: center;
+}
+#msform .sameLine select {
+  width: 150px;
+  margin: 0;
+}
+.fieldset_inr form .sameLine .fieldlabels {
+  margin: 0;
+  padding-right: 15px;
+}
 
 @media (max-width: 480px) {
   .checkbox_area .radio_check label {
@@ -801,7 +834,10 @@ a {
   min-width: 60%;
   min-height: 67px; */
 }
-.all_room_select{min-width: 110px;margin:0!important}
+.all_room_select {
+  min-width: 110px;
+  margin: 0 !important;
+}
 .slider {
   overflow-x: auto;
 }
@@ -861,7 +897,9 @@ a {
 .chooseMaterial button {
   cursor: unset;
 }
-.chooseMaterial button svg{transform: rotate(180deg);}
+.chooseMaterial button svg {
+  transform: rotate(180deg);
+}
 .stallToSelect button svg {
   transform: rotate(180deg);
 }
@@ -897,11 +935,13 @@ a {
   margin-top: 30px;
 }
 .contactDetails h2 {
-  font-size:1.2rem;
+  font-size: 1.2rem;
   font-weight: 500;
   color: #000;
 }
-.contactDetails p{line-height: 1.3;}
+.contactDetails p {
+  line-height: 1.3;
+}
 .phoneHolder a {
   font-weight: 700;
   color: #3d58a4;
@@ -937,8 +977,10 @@ a {
     opacity: 1;
   }
 }
-@media (min-width:1200px) {
-.materials{margin-top: 30px;}
+@media (min-width: 1200px) {
+  .materials {
+    margin-top: 30px;
+  }
 }
 @media (min-width: 1551px) {
   .main-wrap {
@@ -1012,7 +1054,10 @@ a {
   .clr-box {
     width: 170px;
   }
-  .all_room .custom_btn{padding: 10px 5px 10px 15px;font-size: 16px;}
+  .all_room .custom_btn {
+    padding: 10px 5px 10px 15px;
+    font-size: 16px;
+  }
 }
 @media (max-width: 1200px) {
   .logo {
@@ -1398,8 +1443,12 @@ a {
     margin-left: auto;
     margin-right: 10px;
   }
-  .stepthree_area{margin-top: 40px;}
-  .selectMaterial.fs-title{margin-top: 30px;}
+  .stepthree_area {
+    margin-top: 40px;
+  }
+  .selectMaterial.fs-title {
+    margin-top: 30px;
+  }
 }
 @media (max-width: 1024px) {
   .clr-box {
@@ -1863,7 +1912,7 @@ a {
   }
   /* .all_room .group+.group{padding-left: 15px;} */
 }
-@media (max-width:600px) {
+@media (max-width: 600px) {
   .all_room {
     position: static;
   }

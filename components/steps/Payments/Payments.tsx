@@ -39,7 +39,7 @@ function Payments() {
                 if (curr.stall.wallTexture !== "") {
                   acc = "texture";
                 } else {
-                  acc = "color";
+                  acc = curr.stall.stallColorName === "" ? "" : "color";
                 }
                 return acc;
               },
@@ -79,7 +79,8 @@ function Payments() {
             const payload = {
               id: param,
               material_id: param2,
-              colors: formattedColorsByRoom,
+              colors:
+                formattedColorsByRoom.type === "" ? {} : formattedColorsByRoom,
             };
             await axiosInstance
               .post("/quotation/generatePaymentLink", payload)

@@ -14,8 +14,8 @@ function Step5() {
     <div className="form_content">
       <fieldset className="fieldset_inr_full">
         <div className="fieldset_inr" style={{ width: "100%" }}>
-          <h2 className="fs-title selectMaterial">Select Material & Colors</h2>
-        <ModelOnModal />
+          <h2 className="fs-title selectMaterial">Select Material & Color</h2>
+          <ModelOnModal />
           <Material />
         </div>
       </fieldset>

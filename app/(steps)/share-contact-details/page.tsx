@@ -15,6 +15,11 @@ function Step4() {
         <div className="fieldset_inr">
           <h2 className="fs-title">Project Details</h2>
           {/* <h3 className="fs-title-sm">Contact Details</h3> */}
+          <h3 className="fs-subtitle">
+            Please provide your Contact Details to recieve your Personalized
+            Quote. You can review and select your Material and Color options on
+            the next step.
+          </h3>
           <Contacts />
         </div>
       </fieldset>

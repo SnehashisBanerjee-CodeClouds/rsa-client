@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { Canvas, useLoader } from "@react-three/fiber";
-import { Environment } from "@react-three/drei";
+import { Environment, useTexture } from "@react-three/drei";
 import { useAppDispatch, useAppSelector } from "@/hooks/useStore";
 
 import RoomSwitcher from "@/components/models/RoomSwitcher";
@@ -54,9 +54,10 @@ export default function Model() {
   }, [wallTexture]);
   const loadBackground = () => {
     if (wallTexture !== "") {
-      // const texture=new THREE.TextureLoader().load('/assets/images/15.png')
-      // setBgTexture(texture)
-      setBgTexture(null);
+      const textureLoader = new THREE.TextureLoader();
+      textureLoader.setCrossOrigin("anonymous");
+      const texture = textureLoader.load(wallTexture);
+      setBgTexture(texture);
     } else {
       setBgTexture(null); // Use default solid color background
     }

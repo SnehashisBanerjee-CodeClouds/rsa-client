@@ -20,7 +20,7 @@ function ProjectSkeleton() {
 
       <div className="mb-[28px] text-center md:text-left">
         <Label className="fieldlabels rounded-md font-bold text-[16px] text-black bg-gray-100 w-[100%] md:w-[70%] h-[30px] md:text-[20px] mt-[27px] block mb-[15px] !text-transparent animate-pulse">
-          Are you interested in a material installation quote?*
+          Would you like to learn more about Material Installation Services?*
         </Label>
         <div className="radio_check flex items-center gap-x-24 justify-center md:justify-start">
           <div className="flex items-center gap-2">
@@ -31,8 +31,8 @@ function ProjectSkeleton() {
           </div>
           <div className="flex items-center gap-2">
             <div className="rounded-full h-[25px] w-[25px] bg-gray-100 animate-pulse" />
-            <Label className="bg-gray-100 rounded-md block animate-pulse w-[25px] text-transparent">
-              No
+            <Label className="bg-gray-100 rounded-md block animate-pulse  text-transparent">
+              No thank you
             </Label>
           </div>
         </div>

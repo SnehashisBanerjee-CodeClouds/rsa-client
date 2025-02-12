@@ -47,7 +47,7 @@ export const firstRadioList: RadioArrayType = [
   {
     radioId: false,
     name: "interest",
-    title: "No",
+    title: "No thank you",
   },
 ];
 
@@ -168,7 +168,6 @@ export const secondBlockColors: BlockColorsType = [
 ];
 
 // Stall Colors
-
 
 export const materialList: MaterialImageArrayType = [
   {
