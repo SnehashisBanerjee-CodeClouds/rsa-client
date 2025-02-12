@@ -54,7 +54,7 @@ function StartOver({
         onClick={() => setConfirmModal(true)}
         className={param !== null ? "!hidden" : ""}
       >
-        Start a New Quote
+        Start New Quote
         <RotateCw />
       </Button>
       {confirmModal && (

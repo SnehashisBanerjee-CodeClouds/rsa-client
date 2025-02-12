@@ -305,23 +305,39 @@ fieldset.fieldset_inr_full[style="display: block; left: 0%; opacity: 1;"]
   padding-left: 35px;
 }
 
-#msform .fieldset_inr:has(.sc_btn_po) {
-  position: relative;
-}
 
 @media (min-width:1200px){
-  #msform .sc_btn_po {
+  #msform .fieldset_inr:has(.sc_btn_po),
+  #msform .fieldset_inr:has(.sc_btn_po_new)
+   {
+    position: relative;
+  }
+  #msform .sc_btn_po,
+  #msform .sc_btn_po_new {
     position: absolute;
     bottom:0;
     left:0;
     width:100%;
     padding:30px;
   }
+
+  #msform .sc_btn_po_new{
+    width:auto;
+  }
   
   #msform .sc_btn_po .action-button,
-  #msform .sc_btn_po .skip_btn{
+  #msform .sc_btn_po .skip_btn,
+  #msform .sc_btn_po_new .action-button{
    position:static;
   }
+  #msform .sc_btn_po_new .action-button{
+    padding:10px 15px 10px 25px;
+  }
+}
+
+#msform .sc_btn_po_new .action-button.secondary svg{
+  margin-left: 10px;
+  margin-right:0;
 }
 
 
@@ -1987,6 +2003,9 @@ a {
   }
   .skip_btn {
     padding: 10px 17px;
+  }
+  #msform .sc_btn_po_new .action-button{
+    padding: 10px 15px 10px 25px;
   }
 }
 @media (max-width: 479px) {

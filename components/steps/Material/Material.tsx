@@ -369,7 +369,7 @@ function Material() {
           </button>
         </div>
       </div>
-      <div className="mobile_btn">
+      <div className="mobile_btn sc_btn_po_new">
         <StartOver
           className=""
           isAction={true}
