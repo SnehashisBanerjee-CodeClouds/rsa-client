@@ -54,10 +54,11 @@ export default function Model() {
   }, [wallTexture]);
   const loadBackground = () => {
     if (wallTexture !== "") {
-      const textureLoader = new THREE.TextureLoader();
-      textureLoader.setCrossOrigin("anonymous");
-      const texture = textureLoader.load(wallTexture);
-      setBgTexture(texture);
+      // const textureLoader = new THREE.TextureLoader();
+      // textureLoader.setCrossOrigin("anonymous");
+      // const texture = textureLoader.load(wallTexture);
+      // setBgTexture(texture);
+      setBgTexture(null);
     } else {
       setBgTexture(null); // Use default solid color background
     }
