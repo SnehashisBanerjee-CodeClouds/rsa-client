@@ -81,7 +81,7 @@ function Layout() {
         {layouts.map((layout: LayoutObject) => (
           <li key={layout.id}>
             <Label
-              className={`lyout_box bg-white h-[140px] flex items-center justify-center mb-[16px] 2xl:p-0 p-4 rounded-md ${
+              className={`lyout_box bg-white h-[120px] flex items-center justify-center mb-[16px] 2xl:p-0 p-4 rounded-md ${
                 selectedImage === layout.layoutId
                   ? `border-4 border-[#3FAB3B]`
                   : `border border-[#707070]`
@@ -94,6 +94,7 @@ function Layout() {
                 loading="lazy"
                 width={74.43}
                 height={74.13}
+                className="h-full w-auto"
               />
             </Label>
             <span className="text-center text-[14px] block text-[#484848]">
@@ -154,11 +155,11 @@ function Layout() {
       </ul>
       <ErrorMessage error={errors.layoutId} />
       {showHandicapStall === "Yes" && (
-        <div className="checkbox_area mb-[28px]">
+        <div className="checkbox_area flex flex-col md:flex-row md:justify-between mb-[28px]">
           <Label className="fieldlabels text-[16px] md:text-[20px] mt-[27px] block mb-[15px] lg:text-left text-center">
             Does your Layout include a handicap accessible stall?<span>*</span>
           </Label>
-          <div className="radio_check flex items-center gap-x-24 text-center justify-center lg:justify-start">
+          <div className="radio_check flex items-center gap-x-20 text-center justify-center lg:justify-start">
             {secondRadioList?.map((radioData) => (
               <div className="flex items-center" key={radioData.title}>
                 <Input
@@ -242,7 +243,7 @@ function Layout() {
           <ErrorMessage error={errors.interest2} />
         </div>
       )}
-      <div className="mobile_btn">
+      <div className="mobile_btn sc_btn_po md:flex md:justify-between md:items-center">
         <PrevStep hasUrinalScreen={hasUrinalScreens} />
         <NextStep type="submit" loadingButton={loadingLayoutButton} />
       </div>

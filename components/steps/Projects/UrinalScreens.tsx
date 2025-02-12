@@ -163,21 +163,23 @@ export default function UrinalScreens() {
         </Select>
       </div>
 
-      <div className="mobile_btn">
+      <div className="mobile_btn sc_btn_po md:flex md:justify-between md:items-center">
         <PrevStep />
-        <button
-          name="Skip"
-          type="button"
-          onClick={handleSkip}
-          className="skip_btn"
-        >
-          Skip
-        </button>
-        <NextStep
-          isDisabled={isSubmitting || isValidating}
-          type="submit"
-          loadingButton={loadingProjectButton}
-        />
+        <div className="flex items-center gap-3">
+          <button
+            name="Skip"
+            type="button"
+            onClick={handleSkip}
+            className="skip_btn"
+          >
+            Skip
+          </button>
+          <NextStep
+            isDisabled={isSubmitting || isValidating}
+            type="submit"
+            loadingButton={loadingProjectButton}
+          />
+        </div>
       </div>
     </form>
   );
