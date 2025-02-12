@@ -57,7 +57,7 @@ export default function Stepper() {
         pathname === "/choose-materials"
           ? param !== null
             ? router.replace(`/choose-materials?id=${param}`)
-            : router.replace("create-a-project")
+            : router.replace("/create-a-project")
           : router.replace(STEPS.stepData[completedStep].path);
 
       if (currentStepIdx > 2)
@@ -66,7 +66,7 @@ export default function Stepper() {
             pathname === "/choose-materials"
               ? param !== null
                 ? router.replace(`/choose-materials?id=${param}`)
-                : router.replace("create-a-project")
+                : router.replace("/create-a-project")
               : router.replace(STEPS.stepData[room.completedStep].path);
             dispatch(switchRoom({ roomId: room.id }));
           }

@@ -20,6 +20,7 @@ import axiosInstance from "@/utils/axios";
 import { useRouter } from "next/navigation";
 import React, { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import RoomOptions from "../Measurements/RoomOptions";
 
 function Contacts() {
   const router = useRouter();
@@ -244,112 +245,115 @@ function Contacts() {
     dispatch(updateQuotationValue({ isQuote: true }));
   }
   return (
-    <form
-      className="flex flex-wrap pro_details"
-      onSubmit={handleSubmit(handleContactData)}
-    >
-      <div className="flex-initial w-full flex items-center mt-[0] pb-[15px] relative">
-        <Label className="fieldlabels  text-[20px]">Project Name</Label>
-        <Input
-          type="text"
-          register={register}
-          error={errors.project_name}
-          onChange={(e) => {
-            setValue("project_name", e.target.value);
-            dispatch(updateQuotationValue({ isQuote: true }));
-          }}
-          patternRegex={/^.{1,30}$/}
-          patternMessage="Project name must be at most 30 characters"
-          fieldName="project_name"
-          isRequired={false}
-          placeholder="Project Name"
-          className="border border-[#707070] h-[47px] bg-white"
-        />
-      </div>
-      <div className="flex-initial w-full flex items-center mt-[15px] pb-[15px] relative">
-        <Label className="fieldlabels  text-[20px]">
-          First Name<span>*</span>
-        </Label>
-        <Input
-          type="text"
-          message="First Name is required"
-          error={errors.first_name}
-          register={register}
-          onChange={(e) => {
-            setValue("first_name", e.target.value);
-            dispatch(updateQuotationValue({ isQuote: true }));
-          }}
-          fieldName="first_name"
-          placeholder="First Name"
-          className="border border-[#707070] h-[47px] bg-white"
-        />
-      </div>
-      <div className="flex-initial w-full flex items-center mt-[15px] pb-[15px] relative">
-        <Label className="fieldlabels  text-[20px]">
-          Last Name<span>*</span>
-        </Label>
-        <Input
-          type="text"
-          message="Last Name is required"
-          error={errors.last_name}
-          register={register}
-          onChange={(e) => {
-            setValue("last_name", e.target.value);
-            dispatch(updateQuotationValue({ isQuote: true }));
-          }}
-          fieldName="last_name"
-          placeholder="Last Name"
-          className="border border-[#707070] h-[47px] bg-white"
-        />
-      </div>
-      <div className="flex-initial w-full flex items-center mt-[15px] pb-[15px] relative">
-        <Label className="fieldlabels  text-[20px]">
-          Email<span>*</span>
-        </Label>
-        <Input
-          type="email"
-          register={register}
-          error={errors.email}
-          onChange={(e) => {
-            setValue("email", e.target.value);
-            dispatch(updateQuotationValue({ isQuote: true }));
-          }}
-          fieldName="email"
-          patternRegex={/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/}
-          patternMessage="Invalid email address"
-          message="Email Id is required"
-          placeholder="Email"
-          className="border border-[#707070] h-[47px] bg-white"
-        />
-      </div>
-      <div className="flex-initial w-full flex items-center mt-[15px] pb-[15px] relative">
-        <Label className="fieldlabels  text-[20px]">
-          Phone Number<span>*</span>
-        </Label>
-        <Input
-          type="text"
-          maxLength={10}
-          message="Phone Number is required"
-          error={errors.phone_number}
-          register={register}
-          placeholder="Phone Number"
-          fieldName="phone_number"
-          patternRegex={/[0-9]{10}/}
-          patternMessage="Invalid phone number"
-          onChange={(e) => handlePhoneNumberChange(e)}
-          className="border border-[#707070] h-[47px] bg-white"
-        />
-      </div>
+    <>
+      <RoomOptions maxRoomNumber={0} />
+      <form
+        className="flex flex-wrap pro_details"
+        onSubmit={handleSubmit(handleContactData)}
+      >
+        <div className="flex-initial w-full flex items-center mt-[0] pb-[15px] relative">
+          <Label className="fieldlabels  text-[20px]">Project Name</Label>
+          <Input
+            type="text"
+            register={register}
+            error={errors.project_name}
+            onChange={(e) => {
+              setValue("project_name", e.target.value);
+              dispatch(updateQuotationValue({ isQuote: true }));
+            }}
+            patternRegex={/^.{1,30}$/}
+            patternMessage="Project name must be at most 30 characters"
+            fieldName="project_name"
+            isRequired={false}
+            placeholder="Project Name"
+            className="border border-[#707070] h-[47px] bg-white"
+          />
+        </div>
+        <div className="flex-initial w-full flex items-center mt-[15px] pb-[15px] relative">
+          <Label className="fieldlabels  text-[20px]">
+            First Name<span>*</span>
+          </Label>
+          <Input
+            type="text"
+            message="First Name is required"
+            error={errors.first_name}
+            register={register}
+            onChange={(e) => {
+              setValue("first_name", e.target.value);
+              dispatch(updateQuotationValue({ isQuote: true }));
+            }}
+            fieldName="first_name"
+            placeholder="First Name"
+            className="border border-[#707070] h-[47px] bg-white"
+          />
+        </div>
+        <div className="flex-initial w-full flex items-center mt-[15px] pb-[15px] relative">
+          <Label className="fieldlabels  text-[20px]">
+            Last Name<span>*</span>
+          </Label>
+          <Input
+            type="text"
+            message="Last Name is required"
+            error={errors.last_name}
+            register={register}
+            onChange={(e) => {
+              setValue("last_name", e.target.value);
+              dispatch(updateQuotationValue({ isQuote: true }));
+            }}
+            fieldName="last_name"
+            placeholder="Last Name"
+            className="border border-[#707070] h-[47px] bg-white"
+          />
+        </div>
+        <div className="flex-initial w-full flex items-center mt-[15px] pb-[15px] relative">
+          <Label className="fieldlabels  text-[20px]">
+            Email<span>*</span>
+          </Label>
+          <Input
+            type="email"
+            register={register}
+            error={errors.email}
+            onChange={(e) => {
+              setValue("email", e.target.value);
+              dispatch(updateQuotationValue({ isQuote: true }));
+            }}
+            fieldName="email"
+            patternRegex={/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/}
+            patternMessage="Invalid email address"
+            message="Email Id is required"
+            placeholder="Email"
+            className="border border-[#707070] h-[47px] bg-white"
+          />
+        </div>
+        <div className="flex-initial w-full flex items-center mt-[15px] pb-[15px] relative">
+          <Label className="fieldlabels  text-[20px]">
+            Phone Number<span>*</span>
+          </Label>
+          <Input
+            type="text"
+            maxLength={10}
+            message="Phone Number is required"
+            error={errors.phone_number}
+            register={register}
+            placeholder="Phone Number"
+            fieldName="phone_number"
+            patternRegex={/[0-9]{10}/}
+            patternMessage="Invalid phone number"
+            onChange={(e) => handlePhoneNumberChange(e)}
+            className="border border-[#707070] h-[47px] bg-white"
+          />
+        </div>
 
-      <div className="mobile_btn sc_btn_po md:flex md:justify-between md:items-center">
-        <PrevStep />
-        <NextStep
-          title="Get Quote"
-          type="submit"
-          loadingButton={loadingContactButton}
-        />
-      </div>
-    </form>
+        <div className="mobile_btn sc_btn_po md:flex md:justify-between md:items-center">
+          <PrevStep />
+          <NextStep
+            title="Get Quote"
+            type="submit"
+            loadingButton={loadingContactButton}
+          />
+        </div>
+      </form>
+    </>
   );
 }
 
