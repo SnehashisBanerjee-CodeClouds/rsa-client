@@ -90,6 +90,18 @@ body {
   color: #fff;
   line-height: 1.8;
 }
+.b_btn.sc_b_btn{
+  padding:10px 20px;
+  margin-right:40px;
+}
+
+@media (min-width:1600px) {
+  .b_btn.sc_b_btn{
+    padding:10px 20px;
+    margin-right:40px;
+  }
+}
+
 .border_btn {
   border: 3px solid #3d58a4;
   cursor: pointer;
@@ -292,6 +304,27 @@ fieldset.fieldset_inr_full[style="display: block; left: 0%; opacity: 1;"]
   right: 50%;
   padding-left: 35px;
 }
+
+#msform .fieldset_inr:has(.sc_btn_po) {
+  position: relative;
+}
+
+@media (min-width:1200px){
+  #msform .sc_btn_po {
+    position: absolute;
+    bottom:0;
+    left:0;
+    width:100%;
+    padding:30px;
+  }
+  
+  #msform .sc_btn_po .action-button,
+  #msform .sc_btn_po .skip_btn{
+   position:static;
+  }
+}
+
+
 #msform .action-button.secondary svg {
   margin-right: 10px;
 }
@@ -829,7 +862,7 @@ a {
 .all_room {
   position: absolute;
   top: -95px;
-  right: 0;
+  right: -100%;
   /* width: 68%;
   min-width: 60%;
   min-height: 67px; */
