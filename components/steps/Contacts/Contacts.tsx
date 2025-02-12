@@ -17,7 +17,6 @@ import {
 } from "@/lib/slices/stepSlice";
 import { ContactDetailsType } from "@/types/stepForm";
 import axiosInstance from "@/utils/axios";
-import ErrorMessage from "@/utils/error/ErrorMessage";
 import { useRouter } from "next/navigation";
 import React, { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -166,7 +165,7 @@ function Contacts() {
       }
     });
     const finalPayload = {
-      isTest: false,
+      isTest: true,
       project_name: data.project_name,
       first_name: data.first_name,
       last_name: data.last_name,
@@ -319,7 +318,7 @@ function Contacts() {
           patternRegex={/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/}
           patternMessage="Invalid email address"
           message="Email Id is required"
-          placeholder="Email Id"
+          placeholder="Email"
           className="border border-[#707070] h-[47px] bg-white"
         />
       </div>
@@ -333,7 +332,7 @@ function Contacts() {
           message="Phone Number is required"
           error={errors.phone_number}
           register={register}
-          placeholder="Phone number"
+          placeholder="Phone Number"
           fieldName="phone_number"
           patternRegex={/[0-9]{10}/}
           patternMessage="Invalid phone number"
@@ -341,11 +340,7 @@ function Contacts() {
           className="border border-[#707070] h-[47px] bg-white"
         />
       </div>
-      <h3 className="fs-subtitle mt-6">
-        You’re now moving forward to receive a personalized quote and/or
-        finalize your purchase. You will receive an email with a PDF of your
-        quote after you click the Save and Continue button below.
-      </h3>
+
       <div className="mobile_btn">
         <PrevStep />
         <NextStep

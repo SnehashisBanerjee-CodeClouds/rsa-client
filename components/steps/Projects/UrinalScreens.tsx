@@ -97,31 +97,32 @@ export default function UrinalScreens() {
   }
   return (
     <form className="form-card" onSubmit={handleSubmit(handleFirstStepData)}>
-      <Label className="fieldlabels text-[20px] mt-[27px] block mb-[15px]">
-        How many urinal screens?
-      </Label>
-      <Select
-        className="bg-white h-[47px] w-full custom_select"
-        message="Screen number is required*"
-        error={errors.screens_number}
-        register={register}
-        onChange={(e) =>
-          dispatch(
-            updateNoOfUrinalScreens({ val: +e.target.value, device: device })
-          )
-        }
-        fieldName="screens_number"
-        defaultValue={noOfUrinalScreens}
-      >
-        <Option value="" disabled={true}>
-          Please select
-        </Option>
-        {maxNumberOfScreens?.map((screensVal: string, idx: number) => (
-          <Option value={screensVal} key={idx}>
-            {screensVal}
+      <div className="sameLine mt-4 mb-[15px]">
+        <Label className="fieldlabels text-[20px] block">
+          How many urinal screens?
+        </Label>
+        <Select
+          className="bg-white h-[47px] w-full custom_select"
+          message="Screen number is required*"
+          error={errors.screens_number}
+          register={register}
+          onChange={(e) =>
+            dispatch(
+              updateNoOfUrinalScreens({ val: +e.target.value, device: device })
+            )
+          }
+          fieldName="screens_number"
+          defaultValue={noOfUrinalScreens}
+        >
+          <Option value="" disabled={true}>
+            Please select
           </Option>
-        ))}
-        {/* <Option value="8">8</Option>
+          {maxNumberOfScreens?.map((screensVal: string, idx: number) => (
+            <Option value={screensVal} key={idx}>
+              {screensVal}
+            </Option>
+          ))}
+          {/* <Option value="8">8</Option>
         <Option value="9">9</Option>
         <Option value="10">10</Option>
         <Option value="11">11</Option>
@@ -134,30 +135,34 @@ export default function UrinalScreens() {
         <Option value="18">18</Option>
         <Option value="19">19</Option>
         <Option value="20">20</Option> */}
-      </Select>
-      <Label className="fieldlabels text-[20px] mt-[27px] block mb-[15px]">
-        How much urinal screens depth?
-      </Label>
-      <Select
-        className="bg-white h-[47px] w-full custom_select"
-        message="Screen depth is required*"
-        error={errors.stall_depth}
-        register={register}
-        onChange={(e) => dispatch(updateUrinalScreensDepth(+e.target.value))}
-        fieldName="stall_depth"
-        defaultValue={urinalScreensDepth}
-      >
-        <Option value="" disabled={true}>
-          Please select
-        </Option>
-        {screenDepthList?.map(
-          (screensDepth: UrinalScreenDepth | string, idx: number) => (
-            <Option value={screensDepth} key={idx}>
-              {screensDepth}&rdquo;
-            </Option>
-          )
-        )}
-      </Select>
+        </Select>
+      </div>
+      <div className="sameLine mt-4 mb-[15px]">
+        <Label className="fieldlabels text-[20px] block">
+          Choose the depth of your Privacy Screens.
+        </Label>
+        <Select
+          className="bg-white h-[47px] w-full custom_select"
+          message="Screen depth is required*"
+          error={errors.stall_depth}
+          register={register}
+          onChange={(e) => dispatch(updateUrinalScreensDepth(+e.target.value))}
+          fieldName="stall_depth"
+          defaultValue={urinalScreensDepth}
+        >
+          <Option value="" disabled={true}>
+            Please select
+          </Option>
+          {screenDepthList?.map(
+            (screensDepth: UrinalScreenDepth | string, idx: number) => (
+              <Option value={screensDepth} key={idx}>
+                {screensDepth}&rdquo;
+              </Option>
+            )
+          )}
+        </Select>
+      </div>
+
       <div className="mobile_btn">
         <PrevStep />
         <button

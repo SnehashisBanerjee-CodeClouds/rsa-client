@@ -4,6 +4,7 @@ import { useAppSelector } from "@/hooks/useStore";
 import { FormEvent, useState } from "react";
 import axiosInstance from "@/utils/axios";
 import { StallColorOption, StallTextureOption } from "@/types/ColorDialog";
+import { RoomConfig, StallColor } from "@/types/model";
 
 function CheckoutButton({
   title = "Add to Cart",
@@ -19,16 +20,53 @@ function CheckoutButton({
   selectedTexture: StallTextureOption;
 }) {
   const { rooms } = useAppSelector((state) => state.room);
-  const { materials, quotationId } = useAppSelector((state) => state.step);
+  const { quotationId } = useAppSelector((state) => state.step);
   const [loadingCheckout, setLoadingCheckout] = useState<boolean>(false);
   async function handleCheckout(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    const colorType = rooms.reduce((acc: string, curr: RoomConfig) => {
+      if (curr.stall.wallTexture !== "") {
+        acc = "texture";
+      } else {
+        acc = curr.stall.stallColorName === "" ? "" : "color";
+      }
+      return acc;
+    }, "");
+    const colorData = rooms.reduce(
+      (
+        acc: Array<{
+          room_id: string;
+          name: string;
+          src?: string;
+          color?: StallColor;
+        }>,
+        curr: RoomConfig
+      ) => {
+        if (curr.stall.wallTexture !== "") {
+          acc.push({
+            room_id: curr.id.toString(),
+            name: curr.stall.wallTextureName,
+            src: curr.stall.wallTexture.split("/uploads/textures/")[1],
+          });
+        } else {
+          acc.push({
+            room_id: curr.id.toString(),
+            name: curr.stall.stallColorName,
+            color: curr.stall.stallColor,
+          });
+        }
+        return acc;
+      },
+      []
+    );
+    const formattedColorsByRoom = {
+      type: colorType,
+      data: colorData,
+    };
     const payload = {
       id: quotationId,
-      material_id: materials.id.toString(),
-      colors: rooms.map((data) => {
-        return { room_id: data.id.toString(), name: data.stall.stallColor };
-      }),
+      material_id: selectedId.toString(),
+      colors: formattedColorsByRoom.type === "" ? {} : formattedColorsByRoom,
     };
     setLoadingCheckout(true);
     await axiosInstance
