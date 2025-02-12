@@ -65,13 +65,11 @@ function Material() {
     imageName: "",
   });
   const [selectedId, setSelectedId] = useState(0);
-  const [isRedirect, setIsRedirect] = useState(true);
   const [param2, setParam2] = useState<string | null>(null);
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const paramValue = urlParams.get("id");
     const paramValue2 = urlParams.get("abandoned");
-    console.log("PARA<", paramValue, paramValue2);
     dispatch(handleStepLoading({ stepName: "contact", isLoading: false }));
     if (paramValue !== null) {
       setParam(paramValue);
@@ -79,9 +77,7 @@ function Material() {
     if (paramValue2 !== null) {
       setParam2(paramValue2);
     }
-    if (paramValue === null && paramValue2 === null) {
-      setIsRedirect(false);
-    }
+
     // Example: get 'param' from query params
   }, []);
   useEffect(() => {
@@ -100,13 +96,13 @@ function Material() {
       setIsMounted(false);
     }
   }, [param]);
-  useEffect(() => {
-    if (!isRedirect) {
-      dispatch(startOver());
-      dispatch(startOverContact(""));
-      router.push("/create-a-project");
-    }
-  }, [isRedirect]);
+  // useEffect(() => {
+  //   if (!isRedirect) {
+  //     dispatch(startOver());
+  //     dispatch(startOverContact(""));
+  //     router.push("/create-a-project");
+  //   }
+  // }, [isRedirect]);
   useEffect(() => {
     if (submittedData && param2 !== null) {
       const rooms: any = submittedData?.rooms;

@@ -54,11 +54,20 @@ export default function Stepper() {
   useEffect(() => {
     const cleanUp = setTimeout(() => {
       if (currentStepIdx > completedStep && currentStepIdx <= 2)
-        router.replace(STEPS.stepData[completedStep].path);
+        pathname === "/choose-materials"
+          ? param !== null
+            ? router.replace(`/choose-materials?id=${param}`)
+            : router.replace("create-a-project")
+          : router.replace(STEPS.stepData[completedStep].path);
+
       if (currentStepIdx > 2)
         rooms.forEach((room) => {
           if (room.completedStep < 3) {
-            router.replace(STEPS.stepData[room.completedStep].path);
+            pathname === "/choose-materials"
+              ? param !== null
+                ? router.replace(`/choose-materials?id=${param}`)
+                : router.replace("create-a-project")
+              : router.replace(STEPS.stepData[room.completedStep].path);
             dispatch(switchRoom({ roomId: room.id }));
           }
         });
