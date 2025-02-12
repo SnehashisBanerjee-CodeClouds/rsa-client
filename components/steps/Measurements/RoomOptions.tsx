@@ -15,9 +15,9 @@ export default function RoomOptions({
   maxRoomNumber,
   isRoomDepthExceed,
 }: {
-  isStallWidthExceed: boolean;
+  isStallWidthExceed?: boolean;
   maxRoomNumber: number;
-  isRoomDepthExceed: boolean;
+  isRoomDepthExceed?: boolean;
 }) {
   const dispatch = useAppDispatch();
   const router = useRouter();

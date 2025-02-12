@@ -94,7 +94,7 @@ function Layout() {
                 loading="lazy"
                 width={74.43}
                 height={74.13}
-                className="h-full w-auto"
+                // className="h-full w-auto"
               />
             </Label>
             <span className="text-center text-[14px] block text-[#484848]">
