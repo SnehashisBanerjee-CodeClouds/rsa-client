@@ -8,8 +8,10 @@ import { HasUrinalScreens } from "@/types/model";
 
 export default function PrevStep({
   hasUrinalScreen,
+  isTest,
 }: {
   hasUrinalScreen?: HasUrinalScreens;
+  isTest?: string | null;
 }) {
   const router = useRouter();
   const pathName = usePathname();
@@ -17,7 +19,11 @@ export default function PrevStep({
     if (hasUrinalScreen === "not-selected" && pathName === "/select-a-layout") {
       router.replace("/create-a-project");
     } else {
-      router.back();
+      if (isTest !== null) {
+        router.replace("/calculate-measurements");
+      } else {
+        router.back();
+      }
     }
   }, [router]);
 

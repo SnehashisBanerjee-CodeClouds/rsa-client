@@ -2,7 +2,7 @@ import NextStep from "@/components/stepButtons/NextStep";
 import PrevStep from "@/components/stepButtons/PrevStep";
 import Contacts from "@/components/steps/Contacts/Contacts";
 import { Metadata } from "next";
-import React from "react";
+import React, { Suspense } from "react";
 export const metadata: Metadata = {
   title: "Share Contact Details | Restroom Stalls and All",
   description:
@@ -20,7 +20,9 @@ function Step4() {
             Quote. You can review and select your Material and Color options on
             the next step.
           </h3>
-          <Contacts />
+          <Suspense>
+            <Contacts />
+          </Suspense>
         </div>
       </fieldset>
     </div>
