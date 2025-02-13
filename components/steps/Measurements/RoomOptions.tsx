@@ -7,8 +7,6 @@ import { addRoom, stepSubmit, switchRoom } from "@/lib/slices/roomSlice";
 import Button from "@/components/ui/Button";
 import { ChevronRight } from "lucide-react";
 import Label from "@/components/ui/Label";
-import Select from "@/components/ui/Select";
-import Option from "@/components/ui/Option";
 
 export default function RoomOptions({
   isStallWidthExceed,
@@ -81,7 +79,7 @@ export default function RoomOptions({
               {!isLoading &&
                 rooms.map((room, idx) => (
                   <option key={idx} value={room.id}>
-                    {room.title ? room.title : `Room ${room.id}`}
+                    {room.title ? room.title : `Restroom ${room.id}`}
                   </option>
                 ))}
             </select>
