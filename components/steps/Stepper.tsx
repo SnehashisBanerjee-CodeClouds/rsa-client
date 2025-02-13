@@ -1,11 +1,10 @@
 "use client";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/hooks/useStore";
 import { STEPS } from "@/constants/step";
 import { StepData } from "@/types/step";
-import { startOver, switchRoom, updateStep } from "@/lib/slices/roomSlice";
-import { startOverContact } from "@/lib/slices/contactSlice";
+import { switchRoom } from "@/lib/slices/roomSlice";
 
 export default function Stepper() {
   const dispatch = useAppDispatch();
@@ -15,26 +14,12 @@ export default function Stepper() {
   } = useAppSelector((state) => state.room);
   const pathname = usePathname();
   const router = useRouter();
-  const [param, setParam] = useState<string | null>(null);
-  const [param2, setParam2] = useState<string | null>(null);
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const paramValue = urlParams.get("id");
-    const paramValue2 = urlParams.get("abandoned");
-    if (paramValue !== null) {
-      setParam(paramValue);
-    }
-    if (paramValue2 !== null) {
-      setParam2(paramValue2);
-    } // Example: get 'param' from query params
-  }, []);
+
   const currentStepIdx = useMemo(() => {
     return pathname === "/select-urinal-screens"
       ? 0
-      : param !== null
-      ? 4
       : STEPS.stepData.findIndex((step) => step.path === pathname);
-  }, [param, STEPS, pathname]);
+  }, [STEPS, pathname]);
 
   const prevStepData = useMemo(() => {
     const slicedData = STEPS.stepData.slice(0, currentStepIdx);
@@ -50,34 +35,32 @@ export default function Stepper() {
         : [];
     return updatedSteps;
   }, [currentStepIdx]);
-
+  console.log("currentStepIdx", currentStepIdx, completedStep);
   useEffect(() => {
     const cleanUp = setTimeout(() => {
       if (currentStepIdx > completedStep && currentStepIdx <= 2)
-        pathname === "/choose-materials"
-          ? param !== null
-            ? router.replace(`/choose-materials?id=${param}`)
-            : router.replace("/create-a-project")
-          : router.replace(STEPS.stepData[completedStep].path);
+        router.replace(STEPS.stepData[completedStep].path);
 
       if (currentStepIdx > 2)
         rooms.forEach((room) => {
           if (room.completedStep < 3) {
-            pathname === "/choose-materials"
-              ? param !== null
-                ? router.replace(`/choose-materials?id=${param}`)
-                : router.replace("/create-a-project")
-              : router.replace(STEPS.stepData[room.completedStep].path);
+            router.replace(STEPS.stepData[room.completedStep].path);
             dispatch(switchRoom({ roomId: room.id }));
           }
         });
     }, 100);
-    if (pathname === "/choose-materials" && param !== null && param2 !== null) {
-      router.replace(`/choose-materials?id=${param}&abandoned=${param2}`);
-      dispatch(updateStep({ stepNumber: 5 }));
-    }
+    // if (
+    //   pathname === "/choose-materials" &&
+    //   paramId !== null &&
+    //   paramAbandoned !== null
+    // ) {
+    //   router.replace(
+    //     `/choose-materials?id=${paramId}&abandoned=${paramAbandoned}`
+    //   );
+    //   dispatch(updateStep({ stepNumber: 5 }));
+    // }
     return () => clearTimeout(cleanUp);
-  }, [completedStep, currentStepIdx, pathname, param, param2]);
+  }, [completedStep, currentStepIdx, pathname]);
 
   return (
     <div>

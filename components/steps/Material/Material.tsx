@@ -16,9 +16,9 @@ import {
 } from "@/lib/slices/stepSlice";
 import {
   changeColor,
-  handleStepLoading,
   startOver,
   updateInitialStall,
+  updateStep,
 } from "@/lib/slices/roomSlice";
 import { startOverContact, updateContact } from "@/lib/slices/contactSlice";
 import { CircleHelp } from "lucide-react";
@@ -26,10 +26,14 @@ import Tooltip from "@/components/ui/Tooltip";
 import { Pointer } from "lucide-react";
 import CheckoutButton from "@/components/stepButtons/CheckoutButton";
 import StartOver from "@/components/stepButtons/StartOver";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import { STEPS } from "@/constants/step";
 
 function Material() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const paramId = searchParams.get("id");
+  const paramAbandoned = searchParams.get("abandoned");
   // pulsate for Animation
   const [pulsateColor, setPulsateColor] = useState<OutlineColor | string>(
     "transparent"
@@ -40,7 +44,6 @@ function Material() {
     tooltip_2: false,
     tooltip_3: false,
   });
-  const [param, setParam] = useState<string | null>(null);
   // const searchParams = useSearchParams();
   // const quotationId = searchParams.get("id");
   const dispatch = useAppDispatch();
@@ -65,46 +68,24 @@ function Material() {
     imageName: "",
   });
   const [selectedId, setSelectedId] = useState(0);
-  const [param2, setParam2] = useState<string | null>(null);
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const paramValue = urlParams.get("id");
-    const paramValue2 = urlParams.get("abandoned");
-    dispatch(handleStepLoading({ stepName: "contact", isLoading: false }));
-    if (paramValue !== null) {
-      setParam(paramValue);
-    }
-    if (paramValue2 !== null) {
-      setParam2(paramValue2);
-    }
 
-    // Example: get 'param' from query params
-  }, []);
   useEffect(() => {
-    if (param !== null) {
-      dispatch(fetchMaterialDataById({ id: param }));
-      dispatch(updateQuotationId({ id: param }));
+    if (paramId !== null) {
+      dispatch(fetchMaterialDataById({ id: paramId }));
+      dispatch(updateQuotationId({ id: paramId }));
+      dispatch(updateStep(4));
       dispatch(fetchMaterialTooltip());
-      // const selectedIdx = colorData.find((sColor) => sColor === stallColor);
-      // const hexName = stallColors.find((dat) => dat.color === selectedIdx);
-      // setSelectedData({
-      //   id: hexName?.id,
-      //   color: stallColor,
-      // });
       dispatch(fetchMaterialColors());
       setSelectedId(+materials?.id);
       setIsMounted(false);
+    } else {
+      dispatch(startOver());
+      dispatch(startOverContact(""));
+      router.push(STEPS.stepData[0].path);
     }
-  }, [param]);
-  // useEffect(() => {
-  //   if (!isRedirect) {
-  //     dispatch(startOver());
-  //     dispatch(startOverContact(""));
-  //     router.push("/create-a-project");
-  //   }
-  // }, [isRedirect]);
+  }, [paramId]);
   useEffect(() => {
-    if (submittedData && param2 !== null) {
+    if (submittedData && paramId !== null) {
       const rooms: any = submittedData?.rooms;
 
       const formattedData = rooms?.map((data: any) => {
@@ -165,7 +146,7 @@ function Material() {
       dispatch(updateInitialStall({ data: formattedData }));
       dispatch(updateContact(contactData));
     }
-  }, [submittedData, param2]);
+  }, [submittedData, paramId]);
   function handleMaterialData(e: React.ChangeEvent<HTMLInputElement>) {
     const materialArr = materialData?.filter(
       (data) => data.id === +e.currentTarget.value
@@ -373,7 +354,7 @@ function Material() {
         <StartOver
           className=""
           isAction={true}
-          param={param}
+          param={paramAbandoned}
           buttonColor="secondary"
         />
       </div>

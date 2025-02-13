@@ -618,6 +618,7 @@ export const roomSlice = createSlice({
       state.rooms = state.rooms.map((data) => {
         return { ...data, completedStep: stepNumber };
       });
+      state.selectedRoom = { ...state.selectedRoom, completedStep: stepNumber };
       room.completedStep = stepNumber;
     },
     updateInitialStall: (state, action) => {
