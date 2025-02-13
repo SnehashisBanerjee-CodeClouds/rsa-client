@@ -6,24 +6,22 @@ import Input from "@/components/ui/Input";
 import Label from "@/components/ui/Label";
 import { useAppDispatch, useAppSelector } from "@/hooks/useStore";
 import { updateContact } from "@/lib/slices/contactSlice";
-import {
-  handleStepLoading,
-  stepSubmit,
-  updateStep,
-} from "@/lib/slices/roomSlice";
+import { handleStepLoading, stepSubmit } from "@/lib/slices/roomSlice";
 import {
   updateMaterialRoute,
   updateQuotationValue,
 } from "@/lib/slices/stepSlice";
 import { ContactDetailsType } from "@/types/stepForm";
 import axiosInstance from "@/utils/axios";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import React, { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import RoomOptions from "../Measurements/RoomOptions";
 
 function Contacts() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const isTestId = searchParams.get("isTest");
   // dispatch action//
   const dispatch = useAppDispatch();
   const { first_name, last_name, email, phone_number, project_name } =
@@ -166,7 +164,7 @@ function Contacts() {
       }
     });
     const finalPayload = {
-      isTest: false,
+      isTest: isTestId !== null ? true : false,
       project_name: data.project_name,
       first_name: data.first_name,
       last_name: data.last_name,
@@ -345,7 +343,7 @@ function Contacts() {
         </div>
 
         <div className="mobile_btn sc_btn_po md:flex md:justify-between md:items-center">
-          <PrevStep />
+          <PrevStep isTest={isTestId} />
           <NextStep
             title="Get Quote"
             type="submit"
