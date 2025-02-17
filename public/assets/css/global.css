@@ -92,13 +92,13 @@ body {
 }
 .b_btn.sc_b_btn {
   padding: 10px 20px;
-  /* margin-right: 40px; */
+  margin-right: 35px;
 }
 
 @media (min-width: 1600px) {
   .b_btn.sc_b_btn {
     padding: 10px 20px;
-    /* margin-right: 40px; */
+    margin-right: 35px;
   }
 }
 
