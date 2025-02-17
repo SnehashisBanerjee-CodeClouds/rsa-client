@@ -375,8 +375,6 @@ fieldset.fieldset_inr_full[style="display: block; left: 0%; opacity: 1;"]
   width: 240px;
 }
 
-
-
 .fs-title-step-1 .fs-title {
   position: static;
   margin: 0;
@@ -418,15 +416,15 @@ fieldset.fieldset_inr_full[style="display: block; left: 0%; opacity: 1;"]
 }
 
 @media (min-width: 1200px) {
-  .fs-title-step-1.custom_fs_title{
-    width:320px;
+  .fs-title-step-1.custom_fs_title {
+    width: 320px;
   }
-  .fs-title-step-1.custom_fs_title .fs-title{
-    line-height:1.1;
+  .fs-title-step-1.custom_fs_title .fs-title {
+    line-height: 1.1;
   }
-  
-  .fs-title-step-1.custom_fs_title p{
-    font-size:12px;
+
+  .fs-title-step-1.custom_fs_title p {
+    font-size: 12px;
   }
 }
 
@@ -896,7 +894,7 @@ a {
   position: absolute;
   top: -60px;
   right: -100%;
-  z-index:1;
+  z-index: 1;
   /* width: 68%;
   min-width: 60%;
   min-height: 67px; */
@@ -1960,13 +1958,13 @@ a {
     width: 25px;
     height: 25px;
     left: 0px;
-    top:0;
+    top: 0;
   }
   .checkbox_area .radio_check label:after {
     width: 20px;
     height: 20px;
     left: 2.5px;
-    top:3px;
+    top: 3px;
   }
   .skip_btn {
     font-size: 14px;
