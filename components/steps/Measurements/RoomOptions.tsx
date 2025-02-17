@@ -1,12 +1,18 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/hooks/useStore";
-import { addRoom, stepSubmit, switchRoom } from "@/lib/slices/roomSlice";
+import {
+  addRoom,
+  stepSubmit,
+  switchRoom,
+  updatePulsate,
+} from "@/lib/slices/roomSlice";
 import Button from "@/components/ui/Button";
-import { ChevronRight } from "lucide-react";
+import { ChevronLeft, Pointer } from "lucide-react";
 import Label from "@/components/ui/Label";
+import { OutlineColor } from "@/types/model";
 
 export default function RoomOptions({
   isStallWidthExceed,
@@ -17,18 +23,56 @@ export default function RoomOptions({
   maxRoomNumber: number;
   isRoomDepthExceed?: boolean;
 }) {
+  const maxCycles = 6;
+  const initialColor = "transparent";
+  const colors = [
+    OutlineColor.FloorSelected,
+    OutlineColor.FloorPulsateSelected,
+  ];
   const dispatch = useAppDispatch();
+  const pathname = usePathname();
   const router = useRouter();
   const { selectedRoom, rooms } = useAppSelector((state) => state.room);
-
+  const { roomIndex } = selectedRoom;
+  const {
+    cameraControls: { view },
+    isPulsate,
+  } = rooms[roomIndex].stall;
   const [isLoading, setIsLoading] = useState(true);
+  const [pulsateColor, setPulsateColor] = useState<OutlineColor | string>(
+    "transparent"
+  );
   // Checking is required to get rid of Hydration error
   useEffect(() => {
     const debounce = setTimeout(() => setIsLoading(false), 500);
 
     return () => clearTimeout(debounce);
   });
+  useEffect(() => {
+    if (pathname === "/calculate-measurements" && isPulsate) {
+      let cycleCount = 0;
+      setPulsateColor(OutlineColor.FloorSelected);
+      const intervalId = setInterval(() => {
+        if (cycleCount < maxCycles) {
+          setPulsateColor((prevColor) =>
+            prevColor === colors[0] ? colors[1] : colors[0]
+          );
+          cycleCount += 1;
+        } else {
+          // Once completed, reset to the initial color
+          setPulsateColor(initialColor);
+          dispatch(updatePulsate({ pulsateBool: false }));
+          clearInterval(intervalId);
+        }
+      }, 300);
 
+      return () => clearInterval(intervalId); //
+    }
+  }, [pathname, isPulsate]);
+  const allowedMeasurements = useMemo(
+    () => view === "2D" && pathname === "/calculate-measurements",
+    [view, pathname]
+  );
   const addRoomHandler = useCallback(() => {
     dispatch(stepSubmit({ stepName: "measurements" }));
     dispatch(addRoom());
@@ -47,7 +91,7 @@ export default function RoomOptions({
           onClick={addRoomHandler}
           isDisabled={isStallWidthExceed || isRoomDepthExceed}
         >
-          Add a Room <ChevronRight />
+          <ChevronLeft /> Add Room
         </Button>
         <div className="flex flex-1 gap-y-4 slider">
           {/* {!isLoading && (
@@ -66,23 +110,24 @@ export default function RoomOptions({
             </select>
           )} */}
           <div className="flex flex-col group w-fit">
-            <Label className="fieldlabels text-[16px] md:text-[20px] block">
-              Your Rooms
-            </Label>
-            <select
-              value={selectedRoom.roomId}
-              className="all_room_select rounded-md"
-              onChange={(e) => {
-                dispatch(switchRoom({ roomId: +e.target.value }));
-              }}
-            >
-              {!isLoading &&
-                rooms.map((room, idx) => (
-                  <option key={idx} value={room.id}>
-                    {room.title ? room.title : `Restroom ${room.id}`}
-                  </option>
-                ))}
-            </select>
+            {allowedMeasurements && (
+              <div className="z-10  stallToSelect">
+                <div
+                  className={`px-4 py-3 inline-flex font-[family-name:var(--font-manrope)]`}
+                >
+                  <button
+                    style={{
+                      backgroundColor: pulsateColor,
+                      color: pulsateColor === "transparent" ? "black" : "white",
+                    }}
+                    className={`font-bold text-black text-sm rounded-s-md rounded-e-md px-1 py-2 `}
+                  >
+                    <Pointer className="inline h-5 w-5 ml-1" /> Click a Stall to
+                    Select
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>

@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -12,8 +11,6 @@ import {
   updateUrinalScreensDepth,
 } from "@/lib/slices/roomSlice";
 import { useAppDispatch, useAppSelector } from "@/hooks/useStore";
-
-import ProjectSkeleton from "@/components/skeletons/Projects/ProjectSkeleton";
 import Label from "@/components/ui/Label";
 import Option from "@/components/ui/Option";
 import Select from "@/components/ui/Select";
@@ -23,6 +20,7 @@ import { StepType } from "@/types/stepForm";
 import { screenDepthList } from "@/constants/step";
 import { UrinalScreenDepth } from "@/types/model";
 import useDeviceDetection from "@/utils/useDeviceDetection";
+import UrinalSkeleton from "@/components/skeletons/Projects/UrinalSkeleton";
 
 export default function UrinalScreens() {
   const device = useDeviceDetection();
@@ -31,9 +29,7 @@ export default function UrinalScreens() {
   const { selectedRoom, rooms, loadingProjectButton } = useAppSelector(
     (state) => state.room
   );
-  const { maxNumberOfScreens, loadingState } = useAppSelector(
-    (state) => state.step
-  );
+  const { maxNumberOfScreens } = useAppSelector((state) => state.step);
   const { title, materialQuote, hasUrinalScreens, urinalScreen } =
     rooms[selectedRoom.roomIndex];
   const { noOfUrinalScreens, urinalScreensDepth } = urinalScreen;
@@ -93,13 +89,13 @@ export default function UrinalScreens() {
   // }, [hasUrinalScreens]);
 
   if (isLoading || !hasUrinalScreens || hasUrinalScreens === "not-selected") {
-    return <ProjectSkeleton />;
+    return <UrinalSkeleton />;
   }
   return (
     <form className="form-card" onSubmit={handleSubmit(handleFirstStepData)}>
       <div className="sameLine mt-4 mb-[15px]">
         <Label className="fieldlabels text-[20px] block">
-          How many urinal screens?
+          How many Privacy Screens do you need?
         </Label>
         <Select
           className="bg-white h-[47px] w-full custom_select"
@@ -122,19 +118,6 @@ export default function UrinalScreens() {
               {screensVal}
             </Option>
           ))}
-          {/* <Option value="8">8</Option>
-        <Option value="9">9</Option>
-        <Option value="10">10</Option>
-        <Option value="11">11</Option>
-        <Option value="12">12</Option>
-        <Option value="13">13</Option>
-        <Option value="14">14</Option>
-        <Option value="15">15</Option>
-        <Option value="16">16</Option>
-        <Option value="17">17</Option>
-        <Option value="18">18</Option>
-        <Option value="19">19</Option>
-        <Option value="20">20</Option> */}
         </Select>
       </div>
       <div className="sameLine mt-4 mb-[15px]">

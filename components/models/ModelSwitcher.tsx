@@ -156,7 +156,7 @@ export default function ModelSwitcher({
           </button>
         </div>
       </div>
-      {allowedMeasurements && (
+      {/* {allowedMeasurements && (
         <div className="z-10 absolute top-0 left-0 stallToSelect">
           <div
             className={`px-4 py-3 inline-flex font-[family-name:var(--font-manrope)]`}
@@ -173,7 +173,7 @@ export default function ModelSwitcher({
             </button>
           </div>
         </div>
-      )}
+      )} */}
     </>
   );
 }

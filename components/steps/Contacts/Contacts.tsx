@@ -343,7 +343,7 @@ function Contacts() {
         </div>
 
         <div className="mobile_btn sc_btn_po md:flex md:justify-between md:items-center">
-          <PrevStep isTest={isTestId} />
+          <PrevStep />
           <NextStep
             title="Get Quote"
             type="submit"
