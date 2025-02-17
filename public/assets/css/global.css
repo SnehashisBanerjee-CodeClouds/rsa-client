@@ -91,14 +91,18 @@ body {
   line-height: 1.8;
 }
 .b_btn.sc_b_btn {
-  padding: 10px 20px;
-  /* margin-right: 40px; */
+  padding: 5px 16px;
+  line-height: 1;
+  font-size: 14px;
+  position: absolute;
+  right: 275px;
+  bottom: -47px;
+  min-width: 130px;
 }
 
-@media (min-width: 1600px) {
+@media (max-width: 1280px) {
   .b_btn.sc_b_btn {
-    padding: 10px 20px;
-    /* margin-right: 40px; */
+    position: static;
   }
 }
 
@@ -370,6 +374,9 @@ fieldset.fieldset_inr_full[style="display: block; left: 0%; opacity: 1;"]
   left: 0;
   width: 240px;
 }
+
+
+
 .fs-title-step-1 .fs-title {
   position: static;
   margin: 0;
@@ -408,6 +415,19 @@ fieldset.fieldset_inr_full[style="display: block; left: 0%; opacity: 1;"]
 .pro_details .fs-subtitle {
   font-size: 18px;
   color: #484848;
+}
+
+@media (min-width: 1200px) {
+  .fs-title-step-1.custom_fs_title{
+    width:320px;
+  }
+  .fs-title-step-1.custom_fs_title .fs-title{
+    line-height:1.1;
+  }
+  
+  .fs-title-step-1.custom_fs_title p{
+    font-size:12px;
+  }
 }
 
 /*progressbar*/
@@ -692,7 +712,7 @@ a {
   position: relative;
   font-family: "Manrope", sans-serif;
   cursor: pointer;
-  padding-left: 30px;
+  padding-left: 36px;
 }
 /* new Changes */
 .head_btm {
@@ -874,8 +894,9 @@ a {
 }
 .all_room {
   position: absolute;
-  top: -95px;
+  top: -60px;
   right: -100%;
+  z-index:1;
   /* width: 68%;
   min-width: 60%;
   min-height: 67px; */
@@ -1132,11 +1153,11 @@ a {
   }
   .checkbox_area .radio_check label:before {
     left: 0;
-    top: -3px;
+    top: 0;
   }
   .checkbox_area .radio_check label:after {
     left: 3px;
-    top: 0px;
+    top: 3pxpx;
   }
   .slider {
     max-width: 100%;
@@ -1409,6 +1430,7 @@ a {
   .fs-title-step-1 {
     position: static;
     padding: 0 0 15px;
+    width: auto;
   }
   .fs-title {
     position: static;
@@ -1516,11 +1538,11 @@ a {
   }
   .checkbox_area .radio_check label:before {
     left: 0;
-    top: -3px;
+    top: 0;
   }
   .checkbox_area .radio_check label:after {
     left: 3px;
-    top: 0px;
+    top: 3px;
   }
   .slider {
     max-width: 100%;
@@ -1938,13 +1960,13 @@ a {
     width: 25px;
     height: 25px;
     left: 0px;
-    top: -5px;
+    top:0;
   }
   .checkbox_area .radio_check label:after {
     width: 20px;
     height: 20px;
     left: 2.5px;
-    top: -2px;
+    top:3px;
   }
   .skip_btn {
     font-size: 14px;
@@ -1982,7 +2004,7 @@ a {
     left: -31px;
   } */
   .checkbox_area .radio_check label {
-    padding-left: 30px;
+    padding-left: 34px;
   }
   .checkbox_area .radio_check label:after {
     width: 19px;
