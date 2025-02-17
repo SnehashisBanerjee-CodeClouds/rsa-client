@@ -18,8 +18,8 @@ export default function RoomSwitcher({
   const currentStepIdx = STEPS.stepData.findIndex(
     (step) => step.path === pathname
   );
-  
-  if (currentStepIdx > 2)
+
+  if (currentStepIdx > 1)
     return (
       <div className="p-4 z-10 absolute top-0 left-0 md:left-4">
         <select
@@ -31,7 +31,7 @@ export default function RoomSwitcher({
         >
           {rooms.map((room, idx) => (
             <option key={idx} value={room.id}>
-              {room.title ? room.title : `Room ${room.id}`}
+              {room.title ? room.title : `Restroom ${room.id}`}
             </option>
           ))}
         </select>

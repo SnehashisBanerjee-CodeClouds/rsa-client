@@ -90,15 +90,15 @@ body {
   color: #fff;
   line-height: 1.8;
 }
-.b_btn.sc_b_btn{
-  padding:10px 20px;
-  margin-right:40px;
+.b_btn.sc_b_btn {
+  padding: 10px 20px;
+  /* margin-right: 40px; */
 }
 
-@media (min-width:1600px) {
-  .b_btn.sc_b_btn{
-    padding:10px 20px;
-    margin-right:40px;
+@media (min-width: 1600px) {
+  .b_btn.sc_b_btn {
+    padding: 10px 20px;
+    /* margin-right: 40px; */
   }
 }
 
@@ -305,41 +305,38 @@ fieldset.fieldset_inr_full[style="display: block; left: 0%; opacity: 1;"]
   padding-left: 35px;
 }
 
-
-@media (min-width:1200px){
+@media (min-width: 1200px) {
   #msform .fieldset_inr:has(.sc_btn_po),
-  #msform .fieldset_inr:has(.sc_btn_po_new)
-   {
+  #msform .fieldset_inr:has(.sc_btn_po_new) {
     position: relative;
   }
   #msform .sc_btn_po,
   #msform .sc_btn_po_new {
     position: absolute;
-    bottom:0;
-    left:0;
-    width:100%;
-    padding:30px;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 30px;
   }
 
-  #msform .sc_btn_po_new{
-    width:auto;
+  #msform .sc_btn_po_new {
+    width: auto;
   }
-  
+
   #msform .sc_btn_po .action-button,
   #msform .sc_btn_po .skip_btn,
-  #msform .sc_btn_po_new .action-button{
-   position:static;
+  #msform .sc_btn_po_new .action-button {
+    position: static;
   }
-  #msform .sc_btn_po_new .action-button{
-    padding:10px 15px 10px 25px;
+  #msform .sc_btn_po_new .action-button {
+    padding: 10px 15px 10px 25px;
   }
 }
 
-#msform .sc_btn_po_new .action-button.secondary svg{
+#msform .sc_btn_po_new .action-button.secondary svg {
   margin-left: 10px;
-  margin-right:0;
+  margin-right: 0;
 }
-
 
 #msform .action-button.secondary svg {
   margin-right: 10px;
@@ -1860,7 +1857,7 @@ a {
   }
 }
 #accordion-collapse {
-  max-height: 600px;
+  max-height: 500px;
   overflow-y: auto;
   overflow-x: hidden;
   margin-right: -30px;
@@ -2004,7 +2001,7 @@ a {
   .skip_btn {
     padding: 10px 17px;
   }
-  #msform .sc_btn_po_new .action-button{
+  #msform .sc_btn_po_new .action-button {
     padding: 10px 15px 10px 25px;
   }
 }

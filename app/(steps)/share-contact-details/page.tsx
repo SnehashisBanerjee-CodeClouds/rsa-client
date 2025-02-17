@@ -1,5 +1,3 @@
-import NextStep from "@/components/stepButtons/NextStep";
-import PrevStep from "@/components/stepButtons/PrevStep";
 import Contacts from "@/components/steps/Contacts/Contacts";
 import { Metadata } from "next";
 import React, { Suspense } from "react";
@@ -13,7 +11,13 @@ function Step4() {
     <div className="form_content">
       <fieldset>
         <div className="fieldset_inr">
-          <h2 className="fs-title">Project Details</h2>
+          <div className="fs-title-step-1">
+            <h2 className="fs-title">We'll send you a Custom Quote</h2>
+            <p>
+              Review and select your Material and Color options on the next
+              page.
+            </p>
+          </div>
           {/* <h3 className="fs-title-sm">Contact Details</h3> */}
           <h3 className="fs-subtitle">
             Please provide your Contact Details to recieve your Personalized
