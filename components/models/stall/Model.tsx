@@ -118,7 +118,7 @@ export default function Model() {
             setCanvasLoaded(true); // Capture the canvas DOM element
           }}
           ref={canvasRef}
-          className="px-2 h-full cursor-pointer"
+          className="px-2 h-full cursor-pointer pt-8"
           fallback={
             <div className="flex items-center justify-center h-full w-full mx-2 bg-gray-100 rounded-lg">
               <span>Unable to load 3D Model...</span>

@@ -122,8 +122,7 @@ export default function RoomOptions({
                     }}
                     className={`font-bold text-black text-sm rounded-s-md rounded-e-md px-1 py-2 `}
                   >
-                    <Pointer className="inline h-5 w-5 ml-1" /> Click a Stall to
-                    Select
+                    <Pointer className="inline h-5 w-5 ml-1" /> Select a Stall
                   </button>
                 </div>
               </div>
