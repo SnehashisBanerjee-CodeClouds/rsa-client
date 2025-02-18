@@ -56,7 +56,9 @@ function Contacts() {
         email: email,
         phone_number: phone_number,
       });
-      dispatch(handleStepLoading({ stepName: "contact", isLoading: false }));
+      dispatch(
+        handleStepLoading({ stepName: "measurements", isLoading: false })
+      );
       setIsLoading(false);
     }, 1000);
   }, [dispatch]);

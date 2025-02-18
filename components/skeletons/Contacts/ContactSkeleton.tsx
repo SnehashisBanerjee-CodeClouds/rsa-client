@@ -49,11 +49,6 @@ function ContactSkeleton() {
         </Label>
         <div className="rounded-md h-[47px] bg-gray-100 animate-pulse md:w-full w-[100%]" />
       </div>
-      <h3 className="fs-subtitle mt-6">
-        You’re now moving forward to receive a personalized quote and/or
-        finalize your purchase. You will receive an email with a PDF of your
-        quote after you click the Save and Continue button below.
-      </h3>
     </form>
   );
 }
