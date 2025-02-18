@@ -78,7 +78,7 @@ export default function Measurements() {
     } else {
       setExceedDoorOpening("22" as DoorOpening);
     }
-    dispatch(handleStepLoading({ stepName: "measurements", isLoading: false }));
+    dispatch(handleStepLoading({ stepName: "layout", isLoading: false }));
   }, [dispatch, adaStall]);
   useEffect(() => {
     if (isDepthExceed) {

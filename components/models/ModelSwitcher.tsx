@@ -97,7 +97,7 @@ export default function ModelSwitcher({
   }
   return (
     <>
-      <div className="z-10 absolute top-0 right-0">
+      <div className="z-10 absolute top-[-3px] right-0">
         {false && pathname === "/calculate-measurements" && isDesktop && (
           <>
             <div
