@@ -56,7 +56,7 @@ function Layout() {
         layoutId: layoutOption,
         interest2: adaStall,
       });
-      dispatch(handleStepLoading({ stepName: "layout", isLoading: false }));
+      dispatch(handleStepLoading({ stepName: "project", isLoading: false }));
       setIsMounted(false);
       setSelectedImage(layoutOption);
     }, 1000);
@@ -66,7 +66,6 @@ function Layout() {
     setTimeout(() => {
       dispatch(stepSubmit({ stepName: "layout" }));
       router.push("/calculate-measurements");
-      dispatch(handleStepLoading({ stepName: "layout", isLoading: false }));
     }, 1000);
   }, []);
   if (isMounted) {
