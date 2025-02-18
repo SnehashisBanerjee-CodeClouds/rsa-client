@@ -11,19 +11,18 @@ function Step4() {
     <div className="form_content">
       <fieldset>
         <div className="fieldset_inr">
-          <div className="fs-title-step-1 custom_fs_title">
-            <h2 className="fs-title">We'll send you a Custom Quote</h2>
-            <p>
-              Review and select your Material and Color options on the next
-              page.
-            </p>
-          </div>
+          <h2 className="fs-title">Project Details</h2>
+
           {/* <h3 className="fs-title-sm">Contact Details</h3> */}
-          <h3 className="fs-subtitle">
+          {/* <h3 className="fs-subtitle">
             Please provide your Contact Details to recieve your Personalized
             Quote. You can review and select your Material and Color options on
             the next step.
-          </h3>
+          </h3> */}
+          <h2 className="fs-subtitle !mb-0">We'll send you a Custom Quote</h2>
+          <p className="fs-subtitle !text-[14px]">
+            Review and select your Material and Color options on the next page.
+          </p>
           <Suspense>
             <Contacts />
           </Suspense>
