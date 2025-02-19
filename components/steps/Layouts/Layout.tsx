@@ -76,7 +76,7 @@ function Layout() {
       className="layouttwo_area pt-2"
       onSubmit={handleSubmit(handleSecondStepData)}
     >
-      <ul className="grid grid-cols-2 md:grid-cols-4 gap-x-4 md:gap-x-8 lg:gap-x-4 gap-y-10 layout_select">
+      <ul className="grid grid-cols-2 md:grid-cols-4 gap-x-4 lg:gap-x-20 xl:gap-x-4 gap-y-10 layout_select">
         {layouts.map((layout: LayoutObject) => (
           <li key={layout.id}>
             <Label
