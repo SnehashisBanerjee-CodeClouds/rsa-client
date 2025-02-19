@@ -2102,3 +2102,27 @@ a {
     padding-left: 0;
   }
 }
+
+
+@media (min-width:768px) and (max-width:1199px) {
+  .right_sec{
+    margin: 55px 0 0;
+  }
+  .all_room{
+    top:100%;
+    right:0;
+    width:100%;
+    display: flex;
+    justify-content: flex-end;
+    min-height:62px;
+  }
+  .b_btn.sc_b_btn{
+    position: absolute;
+    right: calc(50% - 66px);
+    padding: 6px 16px;
+    bottom: -42px;
+  }
+  .all_room .slider{
+    flex: none;
+  }
+}
