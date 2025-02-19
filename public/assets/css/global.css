@@ -2125,4 +2125,14 @@ a {
   .all_room .slider{
     flex: none;
   }
+  .material_name {
+        font-size: 12px;
+        white-space: nowrap;
+    }
+}
+
+@media (min-width:1200px) and (max-width:1366px){
+  .material_name{
+    font-size:18px;
+  }
 }
