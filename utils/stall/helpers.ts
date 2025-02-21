@@ -1,4 +1,3 @@
-import { isDesktop, isMobile, isTablet } from "react-device-detect";
 import {
   LayoutDirection,
   StallConfig,

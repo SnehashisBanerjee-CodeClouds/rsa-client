@@ -69,14 +69,14 @@ export default function Measurements() {
     useState<StandardDepth>("62");
   const [exceedAlcoveDepth, setExceedAlcoveDepth] = useState<AlcoveDepth>("98");
   const [exceedAdaDepth, setExceedAdaDepth] = useState<ADADepth>("112");
-  const [exceedDoorOpening, setExceedDoorOpening] = useState<DoorOpening>("22");
+  const [exceedDoorOpening, setExceedDoorOpening] = useState<DoorOpening>("24");
   // Checking is required to get rid of Hydration error
   useEffect(() => {
     setIsMounted(false);
     if (adaStall) {
       setExceedDoorOpening("36" as DoorOpening);
     } else {
-      setExceedDoorOpening("22" as DoorOpening);
+      setExceedDoorOpening("24" as DoorOpening);
     }
     dispatch(handleStepLoading({ stepName: "layout", isLoading: false }));
   }, [dispatch, adaStall]);

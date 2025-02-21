@@ -122,6 +122,7 @@ export default function RoomOptions({
                       backgroundColor: pulsateColor,
                       color: pulsateColor === "transparent" ? "black" : "white",
                     }}
+                    type="button"
                     className={`font-bold text-black text-sm rounded-s-md rounded-e-md px-1 py-2 `}
                   >
                     <Pointer className="inline h-5 w-5 ml-1" /> Select a Stall
