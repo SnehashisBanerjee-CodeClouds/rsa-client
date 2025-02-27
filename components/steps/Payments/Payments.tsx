@@ -2,37 +2,28 @@
 import NotFound from "@/app/not-found";
 import { RoomConfig, StallColor } from "@/types/model";
 import axiosInstance from "@/utils/axios";
-import { usePathname } from "next/navigation";
+import { current } from "@reduxjs/toolkit";
+import { usePathname, useSearchParams } from "next/navigation";
 import React, { useCallback, useEffect, useState } from "react";
 
 function Payments() {
   const pathname = usePathname();
-  const [param, setParam] = useState<string | null>(null);
-  const [param2, setParam2] = useState<string | null>(null);
+  const searchParams = useSearchParams();
+  const paramId = searchParams.get("id");
+  const paramMaterailId = searchParams.get("material_id");
   const [loadingPayment, setLoadingPayment] = useState<boolean>(false);
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const paramValue = urlParams.get("id");
-    const paramValue2 = urlParams.get("material_id");
-    if (paramValue !== null) {
-      setParam(paramValue);
-    }
-    if (paramValue2 !== null) {
-      setParam2(paramValue2);
-    }
 
-    // Example: get 'param' from query params
-  }, []);
   const fetchCheckoutUrl = useCallback(async () => {
     if (
       pathname === "/generate-payment-link" &&
-      param !== null &&
-      param2 !== null
+      paramId !== null &&
+      paramMaterailId !== null
     ) {
       setLoadingPayment(true);
       await axiosInstance
-        .get(`/quotation/view?id=${param}`)
+        .get(`/quotation/view?id=${paramId}`)
         .then(async (res) => {
+          console.log(res);
           if (res.data.status === true) {
             const colorType = res.data.data.submittedData.rooms.reduce(
               (acc: string, curr: RoomConfig) => {
@@ -55,7 +46,10 @@ function Payments() {
                 }>,
                 curr: RoomConfig
               ) => {
-                if (curr.stall.wallTexture !== "") {
+                if (
+                  Object.keys(curr.stall).includes("wallTexture") &&
+                  curr.stall.wallTexture !== ""
+                ) {
                   acc.push({
                     room_id: curr.id.toString(),
                     name: curr.stall.wallTextureName,
@@ -77,8 +71,8 @@ function Payments() {
               data: colorData,
             };
             const payload = {
-              id: param,
-              material_id: param2,
+              id: paramId,
+              material_id: paramMaterailId,
               colors:
                 formattedColorsByRoom.type === "" ? {} : formattedColorsByRoom,
             };
@@ -87,9 +81,9 @@ function Payments() {
               .then((res) => {
                 if (res.data.status === true) {
                   setLoadingPayment(false);
-                  setTimeout(() => {
-                    window.open(res.data.checkoutUrl, "_self");
-                  }, 1000);
+                  // setTimeout(() => {
+                  //   window.open(res.data.checkoutUrl, "_self");
+                  // }, 1000);
                 }
               })
               .catch((err) => {
@@ -101,7 +95,7 @@ function Payments() {
           console.log(err);
         });
     }
-  }, [pathname, param, param2]);
+  }, [pathname, paramId, paramMaterailId]);
   useEffect(() => {
     fetchCheckoutUrl();
   }, [fetchCheckoutUrl]);

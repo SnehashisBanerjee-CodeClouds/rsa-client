@@ -10,7 +10,7 @@ import {
   updatePulsate,
 } from "@/lib/slices/roomSlice";
 import Button from "@/components/ui/Button";
-import { ChevronLeft, Pointer } from "lucide-react";
+import { ChevronLeft, ChevronRight, Pointer } from "lucide-react";
 import Label from "@/components/ui/Label";
 import { OutlineColor } from "@/types/model";
 
@@ -86,14 +86,14 @@ export default function RoomOptions({
           className={
             rooms.length > maxRoomNumber || rooms.length === maxRoomNumber
               ? "hidden"
-              : `custom_btn b_btn sc_b_btn flex items-center ${
+              : `custom_btn b_btn sc_b_btn flex items-center !bg-[#f9d84c] !text-black ${
                   view === "2D" ? "bottom-[-47px]" : "bottom-[-109px]"
                 }`
           }
           onClick={addRoomHandler}
           isDisabled={isStallWidthExceed || isRoomDepthExceed}
         >
-          <ChevronLeft /> Add Room
+          Add Room <ChevronLeft />
         </Button>
         <div className="flex flex-1 gap-y-4 slider">
           {/* {!isLoading && (

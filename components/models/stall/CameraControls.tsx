@@ -26,7 +26,7 @@ import StallModel from "@/components/models/stall/StallModel";
 import AdaStallModel from "@/components/models/stall/AdaStallModel";
 import Background from "@/components/models/stall/measurements/Background";
 import useDeviceDetection from "@/utils/useDeviceDetection";
-import * as THREE from 'three';
+import * as THREE from "three";
 export default function CameraControls({
   position,
   adaToiletPosition,
@@ -47,7 +47,7 @@ export default function CameraControls({
   adaToiletPosition: AdaToiletPosition;
   stallConfig: StallConfig[];
   stallColor: StallColor;
-  bgTexture:THREE.Texture|null;
+  bgTexture: THREE.Texture | null;
   standardDepth: StandardDepth;
   alcoveDepth: AlcoveDepth;
   adaDepth: ADADepth;
@@ -213,7 +213,8 @@ export default function CameraControls({
             }
             allowedMeasurements={
               pathname === "/calculate-measurements" ||
-              pathname === "/share-contact-details"
+              pathname === "/share-contact-details" ||
+              pathname === "/choose-materials"
             }
             selectStallHandler={selectStallHandler}
             pulsate={pulsate}
@@ -251,7 +252,8 @@ export default function CameraControls({
             }
             allowedMeasurements={
               pathname === "/calculate-measurements" ||
-              pathname === "/share-contact-details"
+              pathname === "/share-contact-details" ||
+              pathname === "/choose-materials"
             }
             selectStallHandler={selectStallHandler}
             pulsate={pulsate}

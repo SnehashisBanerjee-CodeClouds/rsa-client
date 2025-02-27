@@ -12,7 +12,7 @@ export default function SelectUrinalScreens() {
     <div className="form_content">
       <fieldset>
         <div className="fieldset_inr">
-          <h2 className="fs-title">Privacy Screens</h2>
+          <h2 className="fs-title">Urinal Screens</h2>
           <UrinalScreens />
         </div>
       </fieldset>
