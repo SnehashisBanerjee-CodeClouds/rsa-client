@@ -1,6 +1,7 @@
 import Payments from "@/components/steps/Payments/Payments";
 import { Metadata } from "next";
 import Image from "next/image";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Generate Payment Link | Restroom Stalls and All",
@@ -24,7 +25,9 @@ export default function GeneratePaymentLink() {
         </div>
 
         <div className="form_content generate_payment">
-          <Payments />
+          <Suspense>
+            <Payments />
+          </Suspense>
         </div>
       </div>
     </section>
