@@ -95,8 +95,7 @@ body {
   line-height: 1;
   font-size: 14px;
   position: absolute;
-  right: 275px;
-
+  right: 550px;
   min-width: 130px;
 }
 
@@ -2103,36 +2102,35 @@ a {
   }
 }
 
-
-@media (min-width:768px) and (max-width:1199px) {
-  .right_sec{
+@media (min-width: 768px) and (max-width: 1199px) {
+  .right_sec {
     margin: 55px 0 0;
   }
-  .all_room{
-    top:100%;
-    right:0;
-    width:100%;
+  .all_room {
+    top: 100%;
+    right: 0;
+    width: 100%;
     display: flex;
     justify-content: flex-end;
-    min-height:62px;
+    min-height: 62px;
   }
-  .b_btn.sc_b_btn{
+  .b_btn.sc_b_btn {
     position: absolute;
     right: calc(50% - 66px);
     padding: 6px 16px;
     bottom: -42px;
   }
-  .all_room .slider{
+  .all_room .slider {
     flex: none;
   }
   .material_name {
-        font-size: 12px;
-        white-space: nowrap;
-    }
+    font-size: 12px;
+    white-space: nowrap;
+  }
 }
 
-@media (min-width:1200px) and (max-width:1366px){
-  .material_name{
-    font-size:18px;
+@media (min-width: 1200px) and (max-width: 1366px) {
+  .material_name {
+    font-size: 18px;
   }
 }

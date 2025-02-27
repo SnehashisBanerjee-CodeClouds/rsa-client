@@ -21,7 +21,7 @@ export default function RoomSwitcher({
 
   if (currentStepIdx > 1)
     return (
-      <div className="p-4 z-10 absolute top-[-3px] left-0 md:left-4">
+      <div className="p-4 z-10 absolute top-[-3px] left-0 md:left-[260px]">
         <select
           defaultValue={roomId}
           className="px-3 py-1 border border-[#707070] rounded mb-2  box-border text-[#484848] bg-white !text-sm h-[35px] !w-40 font-[family-name:var(--font-manrope)] outline-none"

@@ -95,7 +95,7 @@ export default function UrinalScreens() {
     <form className="form-card" onSubmit={handleSubmit(handleFirstStepData)}>
       <div className="sameLine mt-4 mb-[15px] justify-between">
         <Label className="fieldlabels text-[20px] block">
-          How many Privacy Screens do you need?
+          How many Urinal Screens do you need?
         </Label>
         <Select
           className="bg-white h-[47px] w-full custom_select"
@@ -122,7 +122,7 @@ export default function UrinalScreens() {
       </div>
       <div className="sameLine mt-4 mb-[15px] justify-between">
         <Label className="fieldlabels text-[20px] block">
-          Choose the depth of your Privacy Screens.
+          Choose the depth of your Urinal Screens.
         </Label>
         <Select
           className="bg-white h-[47px] w-full custom_select"
