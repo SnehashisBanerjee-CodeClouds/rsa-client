@@ -102,7 +102,17 @@ export default function Model() {
     <>
       {canvasLoaded && (
         <>
-          <RoomSwitcher selectedRoom={selectedRoom} rooms={rooms} view={view} />
+          <RoomSwitcher
+            selectedRoom={selectedRoom}
+            rooms={rooms}
+            view={view}
+            className={
+              pathname === "/share-contact-details"
+                ? "md:left-4"
+                : "md:left-[235px]"
+            }
+          />
+
           <ModelSwitcher
             view={view}
             setOrbitControls={setOrbitControls}
