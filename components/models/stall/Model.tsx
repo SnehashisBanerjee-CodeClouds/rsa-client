@@ -107,7 +107,8 @@ export default function Model() {
             rooms={rooms}
             view={view}
             className={
-              pathname === "/share-contact-details"
+              pathname === "/share-contact-details" ||
+              pathname === "/choose-materials"
                 ? "md:left-4"
                 : "md:left-[235px]"
             }
