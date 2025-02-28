@@ -116,7 +116,6 @@ function Project() {
   if (isMounted || loadingState) {
     return <ProjectSkeleton />;
   }
-  console.log(errors);
   return (
     <form className="form-card" onSubmit={handleSubmit(handleFirstStepData)}>
       <Label className="fieldlabels text-[20px] mt-[27px] block mb-[15px]">
@@ -242,7 +241,7 @@ function Project() {
         >
           <Info className="mx-auto mb-4 text-gray-400 w-12 h-12" />
           <h3 className="text-xl font-bold mb-5">
-            Would you like to add Privacy Screens?
+            Would you like to add Urinal Screens?
           </h3>
         </Modal>
       )}

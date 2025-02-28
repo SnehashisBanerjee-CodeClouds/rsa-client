@@ -1,17 +1,38 @@
 "use client";
-import NotFound from "@/app/not-found";
+import {
+  PaymentErrorActionKind,
+  PaymentErrorActionState,
+} from "@/types/action";
 import { RoomConfig, StallColor } from "@/types/model";
+import { PaymentErrorState } from "@/types/payment";
 import axiosInstance from "@/utils/axios";
-import { current } from "@reduxjs/toolkit";
+import Image from "next/image";
 import { usePathname, useSearchParams } from "next/navigation";
-import React, { useCallback, useEffect, useState } from "react";
-
+import React, { useCallback, useEffect, useReducer, useState } from "react";
+const paymentErrorReducer = (
+  state: PaymentErrorState,
+  action: PaymentErrorActionState
+): PaymentErrorState => {
+  const { type, payload } = action;
+  if (type === PaymentErrorActionKind.FAILURE) {
+    return { message: payload, isError: payload !== "" };
+  } else {
+    return { message: "", isError: false };
+  }
+};
 function Payments() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const paramId = searchParams.get("id");
   const paramMaterailId = searchParams.get("material_id");
-  const [loadingPayment, setLoadingPayment] = useState<boolean>(false);
+  const [loadingPayment, setLoadingPayment] = useState<boolean>(true);
+  const [paymentError, dispatchPaymentErrorState] = useReducer(
+    paymentErrorReducer,
+    {
+      isError: false,
+      message: "",
+    }
+  );
 
   const fetchCheckoutUrl = useCallback(async () => {
     if (
@@ -19,11 +40,9 @@ function Payments() {
       paramId !== null &&
       paramMaterailId !== null
     ) {
-      setLoadingPayment(true);
       await axiosInstance
         .get(`/quotation/view?id=${paramId}`)
         .then(async (res) => {
-          console.log(res);
           if (res.data.status === true) {
             const colorType = res.data.data.submittedData.rooms.reduce(
               (acc: string, curr: RoomConfig) => {
@@ -81,12 +100,18 @@ function Payments() {
               .then((res) => {
                 if (res.data.status === true) {
                   setLoadingPayment(false);
-                  // setTimeout(() => {
-                  //   window.open(res.data.checkoutUrl, "_self");
-                  // }, 1000);
+                  setTimeout(() => {
+                    window.open(res.data.checkoutUrl, "_self");
+                  }, 1000);
                 }
               })
               .catch((err) => {
+                setLoadingPayment(false);
+                dispatchPaymentErrorState({
+                  type: PaymentErrorActionKind.FAILURE,
+                  payload:
+                    "Another request is already being processed. Please try again in a minute.",
+                });
                 console.log(err);
               });
           }
@@ -121,6 +146,20 @@ function Payments() {
         <span className="sr-only">Loading...</span>
       </div>
       <span>Preparing Checkout URL</span>:
+    </div>
+  ) : paymentError.isError ? (
+    <div className="mt-32  gap-1 flex flex-col items-center error_pdf">
+      <Image
+        src="/assets/images/warning.png"
+        alt="404_png"
+        loading="lazy"
+        width={128}
+        height={128}
+      />
+      <span>{paymentError.message}</span>
+      {/* <Link href="/" className="mt-4 custom_btn y_btn cursor-pointer">
+        Return Home
+      </Link> */}
     </div>
   ) : (
     <div className="payment_loader">
