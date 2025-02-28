@@ -3,15 +3,9 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/hooks/useStore";
-import {
-  addRoom,
-  stepSubmit,
-  switchRoom,
-  updatePulsate,
-} from "@/lib/slices/roomSlice";
+import { addRoom, stepSubmit, updatePulsate } from "@/lib/slices/roomSlice";
 import Button from "@/components/ui/Button";
-import { ChevronLeft, ChevronRight, Pointer } from "lucide-react";
-import Label from "@/components/ui/Label";
+import { ChevronRight, Pointer } from "lucide-react";
 import { OutlineColor } from "@/types/model";
 
 export default function RoomOptions({
@@ -93,7 +87,8 @@ export default function RoomOptions({
           onClick={addRoomHandler}
           isDisabled={isStallWidthExceed || isRoomDepthExceed}
         >
-          Add Room <ChevronLeft />
+          Add Room
+          <ChevronRight />
         </Button>
         <div className="flex flex-1 gap-y-4 slider">
           {/* {!isLoading && (
