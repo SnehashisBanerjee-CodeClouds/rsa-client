@@ -67,11 +67,11 @@ function StartOver({
         >
           <Info className="mx-auto mb-4 text-gray-400 w-12 h-12" />
           <h3 className="text-lg font-bold">
-            Are you sure you want Start Over?
+            Are you sure you want to start over?
           </h3>
           <p className="mb-5">
-            All progress will be removed, and this action cannot be undone once
-            confirmed.
+            All progress will be removed and cannot be retrieved once you start
+            over.
           </p>
         </Modal>
       )}

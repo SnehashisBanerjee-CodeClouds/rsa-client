@@ -156,7 +156,7 @@ function Layout() {
       {showHandicapStall === "Yes" && (
         <div className="checkbox_area flex flex-col md:flex-row md:justify-between mb-[28px]">
           <Label className="fieldlabels text-[16px] md:text-[20px] mt-[27px] block mb-[15px] lg:text-left text-center">
-            Does your Layout include a handicap accessible stall?<span>*</span>
+            Does your layout include a handicap accessible stall?<span>*</span>
           </Label>
           <div className="radio_check flex items-center gap-x-20 text-center justify-center lg:justify-start">
             {secondRadioList?.map((radioData) => (

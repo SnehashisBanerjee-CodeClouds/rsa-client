@@ -138,7 +138,7 @@ function Project() {
       />
       <div className="sameLine mt-4 mb-[15px]">
         <Label className="fieldlabels text-[20px] block">
-          Number of stalls<span>*</span>
+          Number of Stalls<span>*</span>
         </Label>
         <Select
           className="bg-white h-[47px] w-full custom_select"
@@ -206,7 +206,8 @@ function Project() {
       {installationQuote === "Yes" && (
         <div className="checkbox_area mb-[28px] text-center md:text-left">
           <Label className="fieldlabels text-[16px] md:text-[20px] mt-[27px] block mb-[15px]">
-            Would you like to learn more about Material Installation Services?
+            Are you interested in a turn-key solution? We offer installation
+            services! Click 'yes' to receive a quote.
             <span>*</span>
           </Label>
           <div className="radio_check flex items-center gap-x-24 justify-center md:justify-start">

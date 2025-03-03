@@ -19,7 +19,7 @@ function Tooltip({
       <div
         id="tooltip-default"
         role="tooltip"
-        className={`absolute z-10 -top-10 right-[15px]  min-w-[140px] text-center leading-4 ${
+        className={`absolute z-10 !-top-1 !right-[18px]  min-w-[140px] text-center leading-4 ${
           isTooltipOpen && toolTipIndex === stallId
             ? "inline-block"
             : "invisible"

@@ -47,7 +47,7 @@ export const firstRadioList: RadioArrayType = [
   {
     radioId: false,
     name: "interest",
-    title: "No thank you",
+    title: "No, thank you",
   },
 ];
 

@@ -15,7 +15,7 @@ export default async function Step2() {
         <div className="fieldset_inr">
           <h2 className="fs-title">Select a Layout</h2>
           <h3 className="fs-subtitle">
-            All Partitions are floor mounted and overhead braced.
+            All partitions are floor mounted and overhead braced.
           </h3>
 
           <Layout />

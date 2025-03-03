@@ -11,7 +11,7 @@ function Step4() {
     <div className="form_content">
       <fieldset>
         <div className="fieldset_inr">
-          <h2 className="fs-title">Project Details</h2>
+          <h2 className="fs-title">Enter project information</h2>
 
           {/* <h3 className="fs-title-sm">Contact Details</h3> */}
           {/* <h3 className="fs-subtitle">
@@ -19,9 +19,12 @@ function Step4() {
             Quote. You can review and select your Material and Color options on
             the next step.
           </h3> */}
-          <h2 className="fs-subtitle !mb-0">We'll send you a Custom Quote</h2>
+          {/* <h2 className="fs-subtitle !mb-0">We'll send you a Custom Quote</h2> */}
           <p className="fs-subtitle !text-[14px]">
-            Review and select your Material and Color options on the next page.
+            Enter your information to receive an instant customized quote. You
+            can select your material type/color and purchase directly on the
+            next screen. You will also receive a copy of this quote directly to
+            your inbox.
           </p>
           <Suspense>
             <Contacts />

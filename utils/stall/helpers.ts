@@ -12,7 +12,7 @@ export const calculateZoom = (
   stallConfig: StallConfig[],
   standardDepth: StandardDepth,
   isAlcove: boolean = false,
-  device:string
+  device: string
 ): number => {
   let baseZoom = 10;
   let noOfStalls = stallConfig.length;
@@ -26,14 +26,14 @@ export const calculateZoom = (
     noOfStalls = noOfStalls > 1 ? noOfStalls - 1 : 1;
   }
   // Initialize the base zoom values
-  function deviceWiseZoom(device:string) {
-    let zoomsArr:Array<number>=[];
+  function deviceWiseZoom(device: string) {
+    let zoomsArr: Array<number> = [];
     switch (device) {
       case "desktop":
-       zoomsArr= [
-          0.50,
+        zoomsArr = [
+          0.5,
           isAlcove ? 1.0 : 0.78,
-          isAlcove ? 1.10 : 1.07,
+          isAlcove ? 1.1 : 1.07,
           isAlcove ? 1.01 : 1.3,
           1.35,
           1.4,
@@ -41,92 +41,94 @@ export const calculateZoom = (
           1.45,
           1.45,
           1.48,
-        ]
+        ];
         break;
-    case "tablet":
-      zoomsArr=   [isAlcove?0.50:0.30,
-      isAlcove ? 0.80 : 0.45,
-      isAlcove ? 0.85 : 0.70,
-      isAlcove ? 0.70 : 0.90,
-      isAlcove?0.90:1.15,
-      isAlcove?1.1:1.3,
-      isAlcove ? 1.28 : 1.55,
-      isAlcove ? 1.45 :1.75,
-      isAlcove ? 1.65 :2.0,
-      isAlcove ? 1.70 :2.0]
-      break;
+      case "tablet":
+        zoomsArr = [
+          isAlcove ? 0.5 : 0.3,
+          isAlcove ? 0.8 : 0.45,
+          isAlcove ? 0.85 : 0.7,
+          isAlcove ? 0.7 : 0.9,
+          isAlcove ? 0.9 : 1.15,
+          isAlcove ? 1.1 : 1.3,
+          isAlcove ? 1.28 : 1.55,
+          isAlcove ? 1.45 : 1.75,
+          isAlcove ? 1.65 : 2.0,
+          isAlcove ? 1.7 : 2.0,
+        ];
+        break;
       case "mobile":
-        zoomsArr=[
-          isAlcove? 0.68 : 0.50, 
-          isAlcove?1.20 : 1.0, 
-          isAlcove?1.05 : 1.05, 
-          isAlcove? 1.35 : 1.05, 
-          isAlcove? 1.35 : 1.85, 
-          isAlcove? 1.63 : 1.75, 
-          isAlcove? 1.85 : 1.95,
-          isAlcove? 1.7 : 1.7,
-          isAlcove? 1.9 : 1.8,
-          isAlcove? 1.9 : 1.9
-        ]
+        zoomsArr = [
+          isAlcove ? 0.68 : 0.5,
+          isAlcove ? 1.2 : 1.0,
+          isAlcove ? 1.05 : 1.05,
+          isAlcove ? 1.35 : 1.05,
+          isAlcove ? 1.35 : 1.85,
+          isAlcove ? 1.63 : 1.75,
+          isAlcove ? 1.85 : 1.95,
+          isAlcove ? 1.7 : 1.7,
+          isAlcove ? 1.9 : 1.8,
+          isAlcove ? 1.9 : 1.9,
+        ];
         break;
-      default:     
+      default:
         break;
     }
     return zoomsArr;
   }
-  function deviceWiseZoomADA(device:string) {
-    let zoomArrADA:Array<number>=[];
+  function deviceWiseZoomADA(device: string) {
+    let zoomArrADA: Array<number> = [];
     switch (device) {
       case "desktop":
-        zoomArrADA=[
+        zoomArrADA = [
           0.72,
           isAlcove ? 0.92 : 1.05,
           1.18,
           1.2,
-          isAlcove?1.2:1.3,
+          isAlcove ? 1.2 : 1.3,
           1.3,
           isAlcove ? 1.38 : 1.41,
           isAlcove ? 1.4 : 1.41,
           1.41,
           1.45,
-        ]
+        ];
         break;
-    case "tablet":
-      zoomArrADA=[
-        isAlcove ?0.62:0.52,
-        isAlcove ? 0.74 : 0.75,
-        isAlcove ? 1.02 :0.97,
-        isAlcove ? 1.06 :1.1,
-        isAlcove?0.85:1.4,
-        isAlcove?0.98:1.6,
-        isAlcove ? 1.05 : 1.70,
-        isAlcove ? 1.2 : 2.0,
-        isAlcove?1.30:1.95,
-        isAlcove?1.45:1.90,
-      ]
-      break;
+      case "tablet":
+        zoomArrADA = [
+          isAlcove ? 0.62 : 0.52,
+          isAlcove ? 0.74 : 0.75,
+          isAlcove ? 1.02 : 0.97,
+          isAlcove ? 1.06 : 1.1,
+          isAlcove ? 0.85 : 1.4,
+          isAlcove ? 0.98 : 1.6,
+          isAlcove ? 1.05 : 1.7,
+          isAlcove ? 1.2 : 2.0,
+          isAlcove ? 1.3 : 1.95,
+          isAlcove ? 1.45 : 1.9,
+        ];
+        break;
       case "mobile":
-        zoomArrADA=[
-          isAlcove ? 1.05 : 0.80, 
-          isAlcove ?1.15 : 1.15,
-          isAlcove ?1.40 : 1.55, 
-          isAlcove ?1.44 : 1.75, 
-          isAlcove ?1.25 : 1.85, 
-          isAlcove ?1.75 : 1.95, 
-          isAlcove ?1.65 : 1.85, 
-          isAlcove ?1.85 : 1.85,
-          isAlcove ?1.85 : 1.95,
-          isAlcove ?1.85  : 1.95
-        ]
+        zoomArrADA = [
+          isAlcove ? 1.05 : 0.8,
+          isAlcove ? 1.15 : 1.15,
+          isAlcove ? 1.4 : 1.55,
+          isAlcove ? 1.44 : 1.75,
+          isAlcove ? 1.25 : 1.85,
+          isAlcove ? 1.75 : 1.95,
+          isAlcove ? 1.65 : 1.85,
+          isAlcove ? 1.85 : 1.85,
+          isAlcove ? 1.85 : 1.95,
+          isAlcove ? 1.85 : 1.95,
+        ];
         break;
       default:
         break;
     }
     return zoomArrADA;
   }
-  const zoomsArray=deviceWiseZoom(device)
- 
-  const zoomsAdaArray = deviceWiseZoomADA(device)
+  const zoomsArray = deviceWiseZoom(device);
+
+  const zoomsAdaArray = deviceWiseZoomADA(device);
   if (noOfStalls <= zoomsArray.length)
     baseZoom = hasAda
       ? zoomsAdaArray[zoomIdxForAda]
@@ -135,19 +137,19 @@ export const calculateZoom = (
   if (isAlcove && noOfStalls <= 3) {
     switch (noOfStalls) {
       case 1:
-       switch (device) {
-        case "desktop":
-          baseZoom-=0.21
-          break;
-       case "tablet":
-        baseZoom-=0.30
-        break;
-        case "mobile":
-          baseZoom-=0.35
-          break;
-        default:
-          break;
-       }
+        switch (device) {
+          case "desktop":
+            baseZoom -= 0.21;
+            break;
+          case "tablet":
+            baseZoom -= 0.3;
+            break;
+          case "mobile":
+            baseZoom -= 0.35;
+            break;
+          default:
+            break;
+        }
         // baseZoom -= isDesktop ? 0.21 : 0.35;
         break;
       case 2:
@@ -156,17 +158,17 @@ export const calculateZoom = (
       case 3:
         switch (device) {
           case "desktop":
-            baseZoom-=0.3
+            baseZoom -= 0.3;
             break;
-         case "tablet":
-          baseZoom-=0.3
-          break;
+          case "tablet":
+            baseZoom -= 0.3;
+            break;
           case "mobile":
-            baseZoom-=0.1
+            baseZoom -= 0.1;
             break;
           default:
             break;
-         }
+        }
         // baseZoom -= 0.3;
         break;
     }
@@ -253,7 +255,7 @@ export const calculateStallConfig = (
       stallWidth: "60",
       stallFraction: "1/2",
       doorOpening: "36",
-      doorSwing: layoutDirection === "Left" ? "leftIn" : "rightIn",
+      doorSwing: layoutDirection === "Left" ? "leftOut" : "rightOut",
     });
   }
   // Layout Direction - Left
@@ -267,31 +269,40 @@ export const calculateStallConfig = (
 };
 
 // Calculate Stall Zoom
-export const calculateUrinalScreenZoom = (noOfUrinalScreens: number,device:string) => {
+export const calculateUrinalScreenZoom = (
+  noOfUrinalScreens: number,
+  device: string
+) => {
   if (noOfUrinalScreens <= 0) return 0;
   // Initialize the base zoom values
   // const zoomsArray = isDesktop
   //   ? [15, 13, 9, 7, 6, 5, 4,4.6,2.0]
   //   : [14, 10, 7, 5, 4, 3, 3];
-  function deviceWiseScreenZoom(device:string) {
-    let deviceStr:Array<number>=[];
+  function deviceWiseScreenZoom(device: string) {
+    let deviceStr: Array<number> = [];
     switch (device) {
       case "desktop":
-        deviceStr=[20,14,10,7,6,5,4,3,3,3,2,2,2,2,2,2,1,1,1,1]
+        deviceStr = [
+          20, 14, 10, 7, 6, 5, 4, 3, 3, 3, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1,
+        ];
         break;
 
       case "tablet":
-        deviceStr=[20,14,12,9,8,6,5,4,4,4,3,3,3,3,2,2,2,2,2,2]
+        deviceStr = [
+          20, 14, 12, 9, 8, 6, 5, 4, 4, 4, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2,
+        ];
         break;
-    case "mobile":
-      deviceStr=[20,10,6,4,3,3,2,2,2,1,1,1,1,1,1,1,1,1,1,1]
-      break;
+      case "mobile":
+        deviceStr = [
+          20, 10, 6, 4, 3, 3, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        ];
+        break;
       default:
         break;
     }
-    return deviceStr
+    return deviceStr;
   }
-  const zoomsArray=deviceWiseScreenZoom(device)
+  const zoomsArray = deviceWiseScreenZoom(device);
   if (noOfUrinalScreens <= zoomsArray.length)
     return zoomsArray[noOfUrinalScreens - 1];
 
