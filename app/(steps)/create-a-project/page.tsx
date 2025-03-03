@@ -14,13 +14,16 @@ export default function Step1() {
         <div className="fieldset_inr">
           <div className="fs-title-step-1">
             <h2 className="fs-title">Create a Quote</h2>
-            <p>Skip the Wait! Get instant pricing with our new Restroom Partitions tool.</p>
+            <p>
+              Skip the wait! Get instant pricing with our restroom partitions
+              tool!
+            </p>
           </div>
           <h3 className="fs-subtitle">
             {/* Please complete the following steps to customize your bathroom
             layout for your first room. You will have the option to add
             additional rooms later. */}
-            Customize your Quote with up to Four Restrooms.
+            Customize your quote with up to four restrooms.
           </h3>
           <Project />
         </div>
