@@ -21,6 +21,7 @@ import { screenDepthList } from "@/constants/step";
 import { UrinalScreenDepth } from "@/types/model";
 import useDeviceDetection from "@/utils/useDeviceDetection";
 import UrinalSkeleton from "@/components/skeletons/Projects/UrinalSkeleton";
+import Button from "@/components/ui/Button";
 
 export default function UrinalScreens() {
   const device = useDeviceDetection();
@@ -37,7 +38,6 @@ export default function UrinalScreens() {
   const [isLoading, setIsLoading] = useState(true);
   const {
     reset,
-
     register,
     handleSubmit,
     formState: { isSubmitting, isValidating, errors },
@@ -149,14 +149,14 @@ export default function UrinalScreens() {
       <div className="mobile_btn sc_btn_po md:flex md:justify-between md:items-center">
         <PrevStep />
         <div className="flex items-center gap-3">
-          <button
+          <Button
             name="Skip"
             type="button"
             onClick={handleSkip}
             className="skip_btn"
           >
             Skip
-          </button>
+          </Button>
           <NextStep
             isDisabled={isSubmitting || isValidating}
             type="submit"

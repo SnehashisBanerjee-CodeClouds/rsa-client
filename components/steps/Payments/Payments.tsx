@@ -33,7 +33,6 @@ function Payments() {
       message: "",
     }
   );
-
   const fetchCheckoutUrl = useCallback(async () => {
     if (
       pathname === "/generate-payment-link" &&
@@ -95,29 +94,32 @@ function Payments() {
               colors:
                 formattedColorsByRoom.type === "" ? {} : formattedColorsByRoom,
             };
-            await axiosInstance
-              .post("/quotation/generatePaymentLink", payload)
-              .then((res) => {
-                if (res.data.status === true) {
-                  setLoadingPayment(false);
-                  setTimeout(() => {
-                    window.open(res.data.checkoutUrl, "_self");
-                  }, 1000);
-                }
-              })
-              .catch((err) => {
-                setLoadingPayment(false);
-                dispatchPaymentErrorState({
-                  type: PaymentErrorActionKind.FAILURE,
-                  payload:
-                    "Another request is already being processed. Please try again in a minute.",
-                });
-                console.log(err);
-              });
+            return payload;
+          }
+        })
+        .then(async (payload) => {
+          const response = await axiosInstance.post(
+            "/quotation/generatePaymentLink",
+            payload
+          );
+
+          return response;
+        })
+        .then((res) => {
+          if (res.data.status === true) {
+            setLoadingPayment(false);
+            setTimeout(() => {
+              window.open(res.data.checkoutUrl, "_self");
+            }, 1000);
           }
         })
         .catch((err) => {
-          console.log(err);
+          setLoadingPayment(false);
+          dispatchPaymentErrorState({
+            type: PaymentErrorActionKind.FAILURE,
+            payload:
+              "Another request is already being processed. Please try again in a minute.",
+          });
         });
     }
   }, [pathname, paramId, paramMaterailId]);

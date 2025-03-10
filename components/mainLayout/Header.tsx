@@ -63,10 +63,10 @@ function Header() {
               </p>
               <p className="emailHolder">
                 <Link
-                  href="mailto:service@restroomstallsandall.com"
+                  href="mailto:cs@restroomstallsandall.com"
                   className="!text-[#3fab3b]"
                 >
-                  service@restroomstallsandall.com
+                  cs@restroomstallsandall.com
                 </Link>
               </p>
             </div>

@@ -80,7 +80,7 @@ export default function RoomOptions({
           className={
             rooms.length > maxRoomNumber || rooms.length === maxRoomNumber
               ? "hidden"
-              : `custom_btn b_btn sc_b_btn flex items-center !bg-[#f9d84c] !text-black bottom-[-109px]`
+              : `custom_btn b_btn sc_b_btn flex items-center justify-center !bg-[#f9d84c] !text-black bottom-[-109px]`
           }
           onClick={addRoomHandler}
           isDisabled={isStallWidthExceed || isRoomDepthExceed}

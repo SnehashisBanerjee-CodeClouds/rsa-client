@@ -9,7 +9,6 @@ import { useAppDispatch, useAppSelector } from "@/hooks/useStore";
 import {
   changeLayout,
   changeRoomConfig,
-  changeStallConfig,
   handleStepLoading,
   stepSubmit,
   toggleAdaStall,
@@ -39,7 +38,6 @@ function Layout() {
   const {
     register,
     reset,
-    watch,
     handleSubmit,
     formState: { errors },
   } = useForm<StepType>({
@@ -48,7 +46,6 @@ function Layout() {
       interest2: undefined,
     },
   });
-  const [selectedImage, setSelectedImage] = useState(watch("layoutId"));
   const [isMounted, setIsMounted] = useState(true);
   useEffect(() => {
     setTimeout(() => {
@@ -58,9 +55,26 @@ function Layout() {
       });
       dispatch(handleStepLoading({ stepName: "project", isLoading: false }));
       setIsMounted(false);
-      setSelectedImage(layoutOption);
     }, 1000);
   }, [dispatch]);
+  useEffect(() => {
+    dispatch(updatePulsate({ pulsateBool: true }));
+    dispatch(updateQuotationValue({ isQuote: true }));
+  }, [layoutOption, adaStall]);
+  useEffect(() => {
+    if (layoutOption.startsWith("alcove")) {
+      dispatch(changeRoomConfig({ config: "StandardDepth", value: "62" }));
+      if (adaStall) {
+        dispatch(changeRoomConfig({ config: "AdaDepth", value: "112" }));
+      } else {
+        dispatch(changeRoomConfig({ config: "AdaDepth", value: "62" }));
+        dispatch(changeRoomConfig({ config: "AlcoveDepth", value: "98" }));
+      }
+    } else {
+      dispatch(changeRoomConfig({ config: "StandardDepth", value: "62" }));
+      dispatch(changeRoomConfig({ config: "AdaDepth", value: "62" }));
+    }
+  }, [layoutOption, adaStall]);
   const handleSecondStepData = useCallback(() => {
     dispatch(handleStepLoading({ stepName: "layout", isLoading: true }));
     setTimeout(() => {
@@ -81,7 +95,7 @@ function Layout() {
           <li key={layout.id}>
             <Label
               className={`lyout_box bg-white h-[120px] flex items-center justify-center mb-[16px] 2xl:p-0 p-4 rounded-md ${
-                selectedImage === layout.layoutId
+                layoutOption === layout.layoutId
                   ? `border-4 border-[#3FAB3B]`
                   : `border border-[#707070]`
               }`}
@@ -104,47 +118,9 @@ function Layout() {
                 message="Must choose an option*"
                 value={layout.layoutId}
                 register={register}
-                onChange={(e) => {
-                  dispatch(changeLayout(e.target.value as LayoutOption));
-                  setSelectedImage(e.target.value);
-                  dispatch(updatePulsate({ pulsateBool: true }));
-                  dispatch(updateQuotationValue({ isQuote: true }));
-                  if (e.target.value.startsWith("alcove") && adaStall) {
-                    dispatch(
-                      changeRoomConfig({ config: "StandardDepth", value: "62" })
-                    );
-                    dispatch(
-                      changeRoomConfig({ config: "AdaDepth", value: "112" })
-                    );
-                  }
-                  if (e.target.value.startsWith("alcove") && !adaStall) {
-                    dispatch(
-                      changeRoomConfig({ config: "StandardDepth", value: "62" })
-                    );
-                    dispatch(
-                      changeRoomConfig({ config: "AdaDepth", value: "62" })
-                    );
-                    dispatch(
-                      changeRoomConfig({ config: "AlcoveDepth", value: "98" })
-                    );
-                  }
-                  if (!e.target.value.startsWith("alcove") && !adaStall) {
-                    dispatch(
-                      changeRoomConfig({ config: "StandardDepth", value: "62" })
-                    );
-                    dispatch(
-                      changeRoomConfig({ config: "AdaDepth", value: "62" })
-                    );
-                  }
-                  if (!e.target.value.startsWith("alcove") && adaStall) {
-                    dispatch(
-                      changeRoomConfig({ config: "StandardDepth", value: "62" })
-                    );
-                    dispatch(
-                      changeRoomConfig({ config: "AdaDepth", value: "62" })
-                    );
-                  }
-                }}
+                onChange={(e) =>
+                  dispatch(changeLayout(e.target.value as LayoutOption))
+                }
                 className="hidden"
               />
               {layout.name}
@@ -169,70 +145,7 @@ function Layout() {
                   value={radioData.radioId}
                   error={errors.interest2}
                   checked={radioData.radioId === adaStall}
-                  onChange={(e) => {
-                    dispatch(toggleAdaStall());
-                    dispatch(updatePulsate({ pulsateBool: true }));
-                    dispatch(updateQuotationValue({ isQuote: true }));
-                    if (
-                      layoutOption.startsWith("alcove") &&
-                      e.target.value === "true"
-                    ) {
-                      dispatch(
-                        changeRoomConfig({
-                          config: "StandardDepth",
-                          value: "62",
-                        })
-                      );
-                      dispatch(
-                        changeRoomConfig({ config: "AdaDepth", value: "112" })
-                      );
-                    }
-                    if (
-                      layoutOption.startsWith("alcove") &&
-                      e.target.value === "false"
-                    ) {
-                      dispatch(
-                        changeRoomConfig({
-                          config: "StandardDepth",
-                          value: "62",
-                        })
-                      );
-                      dispatch(
-                        changeRoomConfig({ config: "AdaDepth", value: "62" })
-                      );
-                      dispatch(
-                        changeRoomConfig({ config: "AlcoveDepth", value: "98" })
-                      );
-                    }
-                    if (
-                      !layoutOption.startsWith("alcove") &&
-                      e.target.value === "false"
-                    ) {
-                      dispatch(
-                        changeRoomConfig({
-                          config: "StandardDepth",
-                          value: "62",
-                        })
-                      );
-                      dispatch(
-                        changeRoomConfig({ config: "AdaDepth", value: "62" })
-                      );
-                    }
-                    if (
-                      !layoutOption.startsWith("alcove") &&
-                      e.target.value === "true"
-                    ) {
-                      dispatch(
-                        changeRoomConfig({
-                          config: "StandardDepth",
-                          value: "62",
-                        })
-                      );
-                      dispatch(
-                        changeRoomConfig({ config: "AdaDepth", value: "62" })
-                      );
-                    }
-                  }}
+                  onChange={(e) => dispatch(toggleAdaStall())}
                   register={register}
                 />
                 <Label htmlFor={radioData.title}>{radioData.title}</Label>
