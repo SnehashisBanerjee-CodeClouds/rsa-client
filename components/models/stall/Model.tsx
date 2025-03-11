@@ -110,7 +110,7 @@ export default function Model() {
               pathname === "/share-contact-details" ||
               pathname === "/choose-materials"
                 ? "md:left-4"
-                : "md:left-[235px]"
+                : "md:left-[inherit]"
             }
           />
 
