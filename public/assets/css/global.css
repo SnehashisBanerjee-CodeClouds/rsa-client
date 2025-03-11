@@ -90,12 +90,17 @@ body {
   color: #fff;
   line-height: 1.8;
 }
+
+.all_room.radio_check:has(.sc_b_btn){
+  width:100%;
+} 
+
 .b_btn.sc_b_btn {
   padding: 6px 16px;
   line-height: 1;
   font-size: 14px;
   position: absolute;
-  right: 550px;
+  left: 30px;
   min-width: 130px;
 }
 
@@ -2116,7 +2121,7 @@ a {
   }
   .b_btn.sc_b_btn {
     position: absolute;
-    right: calc(50% - 66px);
+    left:20px;
     padding: 6px 16px;
     bottom: -42px;
   }
