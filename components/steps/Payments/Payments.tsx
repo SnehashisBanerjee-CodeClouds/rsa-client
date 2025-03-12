@@ -115,10 +115,10 @@ function Payments() {
         })
         .catch((err) => {
           setLoadingPayment(false);
+          console.log(err);
           dispatchPaymentErrorState({
             type: PaymentErrorActionKind.FAILURE,
-            payload:
-              "Another request is already being processed. Please try again in a minute.",
+            payload: err.response.data.message,
           });
         });
     }

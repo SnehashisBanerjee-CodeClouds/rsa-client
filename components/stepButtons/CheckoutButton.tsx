@@ -5,6 +5,7 @@ import { FormEvent, useState } from "react";
 import axiosInstance from "@/utils/axios";
 import { StallColorOption, StallTextureOption } from "@/types/ColorDialog";
 import { RoomConfig, StallColor } from "@/types/model";
+import { handleError } from "@/utils/stall/helpers";
 
 function CheckoutButton({
   title = "Add to Cart",
@@ -80,7 +81,16 @@ function CheckoutButton({
         }
       })
       .catch((err) => {
-        console.log(err);
+        handleError(
+          err.response.data.message,
+          "top-center",
+          7000,
+          false,
+          "payment-link-error"
+        );
+        setTimeout(() => {
+          setLoadingCheckout(false);
+        }, 7500);
       });
   }
   return (

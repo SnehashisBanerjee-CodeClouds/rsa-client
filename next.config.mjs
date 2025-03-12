@@ -2,7 +2,13 @@
 const nextConfig = {
   reactStrictMode: false,
   images: {
-    domains: ["staging-admin.restroomstallsandall.com"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "staging-admin.restroomstallsandall.com",
+        pathname: "**",
+      },
+    ],
   },
 };
 
