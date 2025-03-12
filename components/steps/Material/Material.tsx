@@ -205,7 +205,7 @@ function Material() {
   ) {
     return <MaterialSkeleton />;
   }
-
+  console.log("klo", materialData);
   return (
     <>
       <div className="materials">
@@ -251,7 +251,7 @@ function Material() {
               <Label htmlFor={data.id.toString()}>
                 <Image
                   alt="Material"
-                  className={`w-full ${
+                  className={`w-full h-[202px] ${
                     +selectedId === data.id ? "border-6 border-[#4fd84b]" : ""
                   }`}
                   width={159.47}

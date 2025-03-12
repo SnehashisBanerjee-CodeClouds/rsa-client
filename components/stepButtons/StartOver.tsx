@@ -1,18 +1,15 @@
 "use client";
-
 import React, { useCallback, useEffect, useState } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { Info, RotateCw } from "lucide-react";
 import { STEPS } from "@/constants/step";
-import { useAppDispatch, useAppSelector } from "@/hooks/useStore";
+import { useAppDispatch } from "@/hooks/useStore";
 import { startOver } from "@/lib/slices/roomSlice";
-
 import Modal from "@/components/ui/Modal";
 import { startOverContact } from "@/lib/slices/contactSlice";
 import Button from "../ui/Button";
 
 function StartOver({
-  className,
   isAction,
   buttonColor,
 }: {
@@ -22,8 +19,6 @@ function StartOver({
   buttonColor?: "default" | "secondary" | undefined;
 }) {
   const router = useRouter();
-  const { rooms, selectedRoom } = useAppSelector((state) => state.room);
-  const pathName = usePathname();
   const dispatch = useAppDispatch();
   const [confirmModal, setConfirmModal] = useState(false);
   const [param, setParam] = useState<string | null>(null);
