@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import Project from "@/components/steps/Projects/Project";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Create a Project | Restroom Stalls and All",
@@ -25,7 +26,10 @@ export default function Step1() {
             additional rooms later. */}
             Customize your quote with up to four restrooms.
           </h3>
+          <Suspense>
           <Project />
+          </Suspense>
+      
         </div>
       </fieldset>
     </div>
