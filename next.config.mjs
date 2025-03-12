@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: false,
   images: {
-    domains: ["rsa-api-kappa.vercel.app"],
+    domains: ["staging-admin.restroomstallsandall.com"],
   },
 };
 

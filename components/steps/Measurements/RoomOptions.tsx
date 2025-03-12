@@ -69,8 +69,8 @@ export default function RoomOptions({
   );
   const addRoomHandler = useCallback(() => {
     dispatch(stepSubmit({ stepName: "measurements" }));
-    dispatch(addRoom());
     router.push("/");
+    dispatch(addRoom());
   }, []);
   return (
     <div className="">

@@ -59,7 +59,7 @@ const initialStall: Stall = {
       stallWidth: "36",
       stallFraction: "0",
       doorOpening: "24",
-      doorSwing: "rightIn",
+      doorSwing: "leftOut",
     },
   ],
   cameraControls: {
@@ -260,8 +260,13 @@ export const roomSlice = createSlice({
         stall: { ...room.stall, wallTexture, wallTextureName },
       }));
     },
-    changeView: (state, action: PayloadAction<View>) => {
-      const { payload: view } = action;
+    changeView: (
+      state,
+      action: PayloadAction<{ view: View; pathname: string }>
+    ) => {
+      const {
+        payload: { view, pathname },
+      } = action;
       const roomIndex = state.selectedRoom.roomIndex;
       const stall = state.rooms[roomIndex].stall;
       const urinalScreen = state.rooms[roomIndex].urinalScreen;
@@ -269,28 +274,44 @@ export const roomSlice = createSlice({
       // Checking View
       switch (view) {
         case "2D":
-          stall.cameraControls = {
-            view: "2D",
-            position: [10, 100, 0],
-            zoom: stall.cameraControls.zoom,
-          };
-          urinalScreen.cameraControls = {
-            view: "2D",
-            position: [10, 100, 0],
-            zoom: urinalScreen.cameraControls.zoom,
-          };
+          switch (pathname) {
+            case "/select-urinal-screens":
+              urinalScreen.cameraControls = {
+                view: "2D",
+                position: [10, 100, 0],
+                zoom: urinalScreen.cameraControls.zoom,
+              };
+              break;
+
+            default:
+              stall.cameraControls = {
+                view: "2D",
+                position: [10, 100, 0],
+                zoom: stall.cameraControls.zoom,
+              };
+              break;
+          }
+
           break;
         case "3D":
-          stall.cameraControls = {
-            view: "3D",
-            position: [80, 80, 40],
-            zoom: stall.cameraControls.zoom,
-          };
-          urinalScreen.cameraControls = {
-            view: "3D",
-            position: [80, 80, 40],
-            zoom: urinalScreen.cameraControls.zoom,
-          };
+          switch (pathname) {
+            case "/select-urinal-screens":
+              urinalScreen.cameraControls = {
+                view: "3D",
+                position: [80, 80, 40],
+                zoom: urinalScreen.cameraControls.zoom,
+              };
+              break;
+
+            default:
+              stall.cameraControls = {
+                view: "3D",
+                position: [80, 80, 40],
+                zoom: stall.cameraControls.zoom,
+              };
+              break;
+          }
+
           break;
       }
       // Updating States

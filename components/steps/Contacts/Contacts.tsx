@@ -81,7 +81,10 @@ function Contacts() {
           ...rest,
           hasUrinalScreens: hasUrinalScreens === "not-selected" ? false : true,
           image_3D: `${process.env.NEXT_PUBLIC_API_BASE}/uploads/images/room3D.png`,
-          image_2D: stall.canvas2DImage,
+          image_2D:
+            stall.cameraControls.view === "3D"
+              ? stall.canvas3DImage
+              : stall.canvas2DImage,
           stall: {
             type: handleStallType(stall.layout.layoutOption),
             noOfStalls: stall.noOfStalls,
@@ -97,13 +100,26 @@ function Contacts() {
             alcoveDepth: stall.alcoveDepth,
             adaDepth: stall.adaDepth,
             stallConfig: stall.stallConfig.map(
-              ({ isOpened, doorSwing, ...rest }) => {
+              ({ isOpened, doorSwing, stallWidth, stallFraction, ...rest }) => {
                 return {
                   ...rest,
                   doorSwing: {
                     key: doorSwing,
                     name: handleDoorSwingName(doorSwing),
                   },
+                  stallWidth: stallWidth,
+                  stallFraction: stallFraction,
+                  totalStallWidth:
+                    stallFraction !== "0"
+                      ? (
+                          Math.abs(
+                            Number(stallFraction?.split("/")[0]) /
+                              Number(stallFraction?.split("/")[1])
+                          ) + Number(stallWidth)
+                        )
+                          .toFixed(2)
+                          .toString()
+                      : (Number(stallFraction) + Number(stallWidth)).toString(),
                 };
               }
             ),
@@ -122,7 +138,10 @@ function Contacts() {
                   noOfUrinalScreens: urinalScreen.noOfUrinalScreens,
                   cameraControls: urinalScreen.cameraControls,
                   urinal_3D: `${process.env.NEXT_PUBLIC_API_BASE}/uploads/images/urinal3D.png`,
-                  urinal_2D: urinalScreen.screens2DImage,
+                  urinal_2D:
+                    urinalScreen.cameraControls.view === "3D"
+                      ? urinalScreen.screens3DImage
+                      : urinalScreen.screens2DImage,
                   urinalScreenConfig: urinalScreen.urinalScreenConfig.map(
                     ({ isOpened, ...rest }) => {
                       return {

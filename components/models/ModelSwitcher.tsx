@@ -93,7 +93,7 @@ export default function ModelSwitcher({
     }
   }, [pulsate, isPulsate]);
   function handleChangeView(view: View) {
-    dispatch(changeView(view));
+    dispatch(changeView({ view, pathname }));
   }
   return (
     <>
