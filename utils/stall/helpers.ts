@@ -216,7 +216,8 @@ export const calculateStallConfig = (
       stallWidth: "36",
       stallFraction: "0",
       doorOpening: "24",
-      doorSwing: "rightIn",
+      doorSwing: "leftOut",
+      totalStallWidth:"0"
     });
   // Looping
   for (let i = 2; i <= noOfStalls; i++) {
@@ -230,7 +231,8 @@ export const calculateStallConfig = (
       stallWidth: "36",
       stallFraction: "0",
       doorOpening: "24",
-      doorSwing: "rightIn",
+      doorSwing: "leftOut",
+      totalStallWidth:"0"
     });
   }
   // Checking for ADA stall
@@ -255,7 +257,8 @@ export const calculateStallConfig = (
       stallWidth: "60",
       stallFraction: "1/2",
       doorOpening: "36",
-      doorSwing: layoutDirection === "Left" ? "leftOut" : "rightOut",
+      doorSwing: "leftOut",
+      totalStallWidth:"0"
     });
   }
   // Layout Direction - Left

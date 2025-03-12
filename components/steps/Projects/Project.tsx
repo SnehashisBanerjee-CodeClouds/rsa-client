@@ -1,11 +1,12 @@
 "use client";
 import React, { useCallback, useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Info } from "lucide-react";
 import {
   changeRoomConfig,
   handleStepLoading,
+  startOver,
   stepSubmit,
   updateNoOfStalls,
   updatePulsate,
@@ -27,10 +28,14 @@ import Option from "@/components/ui/Option";
 import Select from "@/components/ui/Select";
 import NextStep from "@/components/stepButtons/NextStep";
 import Modal from "@/components/ui/Modal";
+import { startOverContact } from "@/lib/slices/contactSlice";
 
 function Project() {
   const router = useRouter();
   const dispatch = useAppDispatch();
+  const pathName=usePathname()
+  const searchParams = useSearchParams();
+  const newQuoteId = searchParams.get("new-quote");
   const { selectedRoom, rooms, loadingProjectButton } = useAppSelector(
     (state) => state.room
   );
@@ -68,26 +73,37 @@ function Project() {
       interest: undefined,
     },
   });
-
+useEffect(()=>{
+  if(newQuoteId!==null) {
+    dispatch(startOver());
+    dispatch(startOverContact(""))
+    setTimeout(()=>{
+      router.replace(pathName)
+    },1000)
+  }
+},[newQuoteId])
   useEffect(() => {
-    dispatch(
-      fetchStepInputData({
-        reset: reset,
-        formData: {
-          restroom_name: title,
-          stall_number: noOfStalls,
-          interest: materialQuote,
-        },
-        stepValue: ["project", "layout", "measurement"],
-      })
-    );
-
-    dispatch(handleStepLoading({ stepName: "project", isLoading: false }));
-    setIsMounted(false);
-    return () => {
-      dispatch(updateLoadingState());
-    };
-  }, [dispatch]);
+    if(newQuoteId===null) {
+      dispatch(
+        fetchStepInputData({
+          reset: reset,
+          formData: {
+            restroom_name: title,
+            stall_number: noOfStalls,
+            interest: materialQuote,
+          },
+          stepValue: ["project", "layout", "measurement"],
+        })
+      );
+  
+      dispatch(handleStepLoading({ stepName: "project", isLoading: false }));
+      setIsMounted(false);
+      return () => {
+        dispatch(updateLoadingState());
+      };
+    }
+  
+  }, [dispatch,newQuoteId]);
   useEffect(() => {
     if (error) {
       reset({
