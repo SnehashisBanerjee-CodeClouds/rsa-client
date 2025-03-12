@@ -60,6 +60,7 @@ const initialStall: Stall = {
       stallFraction: "0",
       doorOpening: "24",
       doorSwing: "leftOut",
+      totalStallWidth:"0"
     },
   ],
   cameraControls: {

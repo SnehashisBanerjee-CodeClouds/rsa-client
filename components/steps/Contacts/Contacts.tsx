@@ -193,6 +193,7 @@ function Contacts() {
       phone_number: data.phone_number,
       rooms: updatePayload,
     };
+    console.log("final",finalPayload)
     if (isQuotationCreate) {
       await axiosInstance
         .post("/quotation/create", finalPayload)

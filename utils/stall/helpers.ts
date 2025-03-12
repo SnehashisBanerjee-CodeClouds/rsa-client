@@ -217,6 +217,7 @@ export const calculateStallConfig = (
       stallFraction: "0",
       doorOpening: "24",
       doorSwing: "leftOut",
+      totalStallWidth:"0"
     });
   // Looping
   for (let i = 2; i <= noOfStalls; i++) {
@@ -231,6 +232,7 @@ export const calculateStallConfig = (
       stallFraction: "0",
       doorOpening: "24",
       doorSwing: "leftOut",
+      totalStallWidth:"0"
     });
   }
   // Checking for ADA stall
@@ -256,6 +258,7 @@ export const calculateStallConfig = (
       stallFraction: "1/2",
       doorOpening: "36",
       doorSwing: "leftOut",
+      totalStallWidth:"0"
     });
   }
   // Layout Direction - Left

@@ -116,6 +116,7 @@ export interface StallConfig {
   stallFraction?: StallFraction;
   doorOpening?: DoorOpening;
   doorSwing?: DoorSwing;
+  totalStallWidth:string
 }
 // Urinal Screen Config
 export interface UrinalScreenConfig {

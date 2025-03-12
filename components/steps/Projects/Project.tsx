@@ -78,7 +78,7 @@ useEffect(()=>{
     dispatch(startOver());
     dispatch(startOverContact(""))
     setTimeout(()=>{
-      router.replace(pathName,{scroll:true})
+      router.replace(pathName)
     },1000)
   }
 },[newQuoteId])
