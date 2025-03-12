@@ -244,6 +244,7 @@ function Contacts() {
     setValue("phone_number", newValue);
     dispatch(updateQuotationValue({ isQuote: true }));
   }
+  console.log("location", window.l);
   return (
     <>
       <RoomOptions maxRoomNumber={0} />
