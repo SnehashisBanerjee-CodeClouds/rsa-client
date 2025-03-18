@@ -117,7 +117,7 @@ function Contacts() {
                               Number(stallFraction?.split("/")[1])
                           ) + Number(stallWidth)
                         )
-                          .toFixed(2)
+                          .toFixed(1)
                           .toString()
                       : (Number(stallFraction) + Number(stallWidth)).toString(),
                 };

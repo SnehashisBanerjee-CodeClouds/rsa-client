@@ -425,7 +425,7 @@ export default function Measurements({
               arrowRadius={arrowRadius}
               type="StallWidth"
             >
-              <animated.group position={[0, -arrowRadius, 0]}>
+              <animated.group position={[0,standardDepth==="48" || standardDepth==="54"? arrowRadius+1.1:-arrowRadius, 0]}>
                 <Background
                   width={
                     stallConfig[stallId]?.stallFraction &&
@@ -441,7 +441,7 @@ export default function Measurements({
                 <Text
                   position={[0, 0, 0.1]}
                   color="black"
-                  fontSize={0.55 + arrowRadius}
+                  fontSize={standardDepth==="48" || standardDepth==="54"?0.40+arrowRadius:0.55 + arrowRadius}
                   fontWeight={800}
                   anchorX="center"
                   anchorY="middle"

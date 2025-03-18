@@ -117,9 +117,9 @@ export default function Floor({
       }
     } else {
       // Calculating scaleZ according to standardDepth
-      matrix.scaleZ = parseFloat((1.01 + (+standardDepth - 62) * 0.0089 + ((+standardDepth - 78) * 0.0089)).toFixed(3));
+      matrix.scaleZ = parseFloat((1.03 + (+standardDepth - 62) * 0.0070 + ((+standardDepth - 78) * 0.0070)).toFixed(3));
       // Re-Calculating positionX according to standardDepth
-      matrix.positionX -= -parseFloat(((+standardDepth - 62) * 0.032 + ((+standardDepth - 78) * 0.032)).toFixed(3));
+      matrix.positionX -= -parseFloat(((+standardDepth - 62) * 0.040 + ((+standardDepth - 78) * 0.040)).toFixed(3));
     }
 
     // Is the Layout is Alcove
@@ -128,7 +128,7 @@ export default function Floor({
       if (isFirst && alcoveDepth) {
         matrix.positionX = 1.484;
         // Calculating scaleZ according to alcoveDepth
-        matrix.scaleZ = parseFloat((1.532 + (((+alcoveDepth - 98) * 0.02) - ((+alcoveDepth - 90) * 0.007)) + ((+standardDepth - 62) * 0.0061)).toFixed(3));
+        matrix.scaleZ = parseFloat((1.500 + (((+alcoveDepth - 98) * 0.02) - ((+alcoveDepth - 90) * 0.007)) + ((+standardDepth - 48) * 0.0080)).toFixed(3));
         // Re-Calculating positionX according to alcoveDepth
         matrix.positionX -= -parseFloat((((+alcoveDepth - 98) * 0.086) - ((+alcoveDepth - 90) * 0.031)).toFixed(3));
       }
