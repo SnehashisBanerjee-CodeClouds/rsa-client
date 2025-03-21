@@ -2200,7 +2200,7 @@ a {
   }
 }
 
-@media (min-width:1200px) and (max-width:1279px) {
+@media (min-width:1200px) and (max-width:1280px) {
   .b_btn.sc_b_btn {
       padding: 6px 16px;
       line-height: 1;
