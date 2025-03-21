@@ -5,6 +5,7 @@ import MainLayout from "@/components/mainLayout/MainLayout";
 import Header from "@/components/mainLayout/Header";
 import "@/public/assets/css/global.css";
 import { Toaster } from "react-hot-toast";
+import GoogleTagManager from "@/components/googleTagManager/GoogleTagManager";
 
 const manRope = Manrope({
   subsets: ["latin"],
@@ -41,6 +42,7 @@ export default function RootLayout({
             <Toaster position="top-right" />
           </MainLayout>
         </body>
+        <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GA_ID} />
       </html>
     </StoreProvider>
   );

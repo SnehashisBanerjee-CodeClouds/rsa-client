@@ -74,14 +74,31 @@ export default function Model() {
       const debounce = setTimeout(() => {
         if (canvasRef.current) {
           const canvasCapture = canvasRef.current.toDataURL("image/png");
+          const img = new Image();
+          img.src = canvasCapture;
+          img.onload = () => {
+            const canvas = document.createElement("canvas");
+            const ctx = canvas.getContext("2d");
+
+            // Set the canvas width and height to the desired size
+            const zoomedWidth = img.width * 1.15;
+            const zoomedHeight = img.height * 1.15;
+
+            canvas.width = zoomedWidth;
+            canvas.height = zoomedHeight;
+            // Draw the image on the canvas with the new width and height
+            ctx?.drawImage(img, 0, 0, zoomedWidth, zoomedHeight);
+            // Convert the canvas content back to base64
+            const resizedBase64 = canvas.toDataURL("image/png");
+            dispatch(
+              uploadCanvasAsImage({
+                view: view,
+                canvasImage: resizedBase64,
+                modelType: "stall",
+              })
+            );
+          };
           // Dispaching Canvas Image
-          dispatch(
-            uploadCanvasAsImage({
-              view: view,
-              canvasImage: canvasCapture,
-              modelType: "stall",
-            })
-          );
         }
       }, 1000);
 
@@ -98,6 +115,7 @@ export default function Model() {
     overallRoomWidth,
   ]);
 
+  // Put the sharpened image data back onto the canvas
   return (
     <>
       {canvasLoaded && (

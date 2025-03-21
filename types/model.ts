@@ -198,7 +198,7 @@ export type ModelType = "stalls" | "urinal-screens";
 // Urinal Screens
 export type HasUrinalScreens = boolean | "not-selected";
 export type UrinalScreenDepth = "18" | "24";
-export type StandardDepth = "62" | "112";
+export type StandardDepth = "62" | "112"|"48"|"54"|"57"|"60";
 export type ADADepth = "62" | "112";
 // Stall
 export interface Stall {

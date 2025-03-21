@@ -218,6 +218,10 @@ export default function RoomConfigurations({
                 dispatch(updateQuotationValue({ isQuote: true }));
               }}
             >
+              <option value="48">48</option>
+              <option value="54">54</option>
+              <option value="57">57</option>
+              <option value="60">60</option>
               {standardRoomDepthList?.map(
                 (depthData: StandardDepth | string, idx: number) => (
                   <option value={depthData} key={idx}>
@@ -272,6 +276,10 @@ export default function RoomConfigurations({
                 dispatch(updateQuotationValue({ isQuote: true }));
               }}
             >
+              <option value="48">48</option>
+              <option value="54">54</option>
+              <option value="57">57</option>
+              <option value="60">60</option>
               {standardRoomDepthList?.map(
                 (depthData: StandardDepth | string, idx: number) => (
                   <option value={depthData} key={idx}>
@@ -461,6 +469,5 @@ export default function RoomConfigurations({
         </div>
       </div>
     </div>
-    
   );
 }
