@@ -40,6 +40,6 @@
     "typescript": "^5"
   },
   "browserslist": [
-    ">0.1% and last 2 versions and not dead and supports es6-module"
+    ">0.1% and last 2 versions and not dead and supports es6-module", "iOS >= 10"
   ]
 }
