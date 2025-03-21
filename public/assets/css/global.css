@@ -2192,3 +2192,24 @@ a {
     font-size: 12px;
   }
 }
+
+
+@media (max-width:767px) {
+  .all_room {
+    position: static;
+  }
+}
+
+@media (min-width:1200px) and (max-width:1280px) {
+  .b_btn.sc_b_btn {
+      padding: 6px 16px;
+      line-height: 1;
+      font-size: 14px;
+      position: absolute;
+      left: 30px;
+      min-width: 130px;
+  }
+  .all_room.radio_check:has(.sc_b_btn){
+    top:-62px;
+  }
+}
