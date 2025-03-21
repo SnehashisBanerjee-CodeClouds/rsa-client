@@ -2138,4 +2138,57 @@ a {
   .material_name {
     font-size: 18px;
   }
+  .lyout_box{
+    height:90px;
+  }
+}
+
+.contactDetailsMb{
+  display: none;
+}
+
+@media (max-width:1199px) {
+  .mobile-steps .total_steps{
+    display: none;
+  }
+  .contactDetailsMb{
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 15px;
+    text-align: center;
+    background: #fff;
+    padding:5px;
+    border-radius: 4px;
+  }
+  .contactDetailsMb h2 {
+      font-size:11px;
+      font-weight: 500;
+      color: #000;
+  }
+  .contactDetailsMb .phoneHolder a {
+      font-size: 11px;
+  }
+  .contactDetailsMb .emailHolder a {
+    font-size: 10px;
+  }
+  .contactDetailsMb p {
+    line-height: 1;
+  }
+}
+
+
+@media (min-width:768px) and (max-width:1199px) {
+  .contactDetailsMb{
+    padding:10px;
+  }
+    .contactDetailsMb h2 {
+      font-size:14px;
+  }
+  .contactDetailsMb .phoneHolder a {
+      font-size: 13px;
+  }
+  .contactDetailsMb .emailHolder a {
+    font-size: 12px;
+  }
 }

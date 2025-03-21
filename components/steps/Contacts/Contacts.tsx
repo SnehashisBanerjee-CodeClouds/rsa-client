@@ -193,27 +193,27 @@ function Contacts() {
       phone_number: data.phone_number,
       rooms: updatePayload,
     };
-    console.log("final",finalPayload)
-    if (isQuotationCreate) {
-      await axiosInstance
-        .post("/quotation/create", finalPayload)
-        .then((res) => {
-          if (res.data.status === true) {
-            dispatch(updateQuotationValue({ isQuote: false }));
-            dispatch(
-              updateMaterialRoute({
-                routeVal: `/choose-materials?id=${res.data.data.id}`,
-              })
-            );
-            router.push(`/choose-materials?id=${res.data.data.id}`);
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } else {
-      router.push(materialRoute);
-    }
+    console.log("final",updatePayload)
+    // if (isQuotationCreate) {
+    //   await axiosInstance
+    //     .post("/quotation/create", finalPayload)
+    //     .then((res) => {
+    //       if (res.data.status === true) {
+    //         dispatch(updateQuotationValue({ isQuote: false }));
+    //         dispatch(
+    //           updateMaterialRoute({
+    //             routeVal: `/choose-materials?id=${res.data.data.id}`,
+    //           })
+    //         );
+    //         router.push(`/choose-materials?id=${res.data.data.id}`);
+    //       }
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //     });
+    // } else {
+    //   router.push(materialRoute);
+    // }
   }, []);
   if (isLoading) {
     return <ContactSkeleton />;

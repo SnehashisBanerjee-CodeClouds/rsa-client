@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { MeshDistortMaterial } from "@react-three/drei";
-import { animated, config, update, useSpring } from "@react-spring/three";
+import { animated, config,  useSpring } from "@react-spring/three";
 import { calculateScaleX } from "@/utils/calculations/models/stallWidth";
 import {
   ADADepth,
@@ -117,28 +117,46 @@ export default function Floor({
       }
     } else {
       // Calculating scaleZ according to standardDepth
-      matrix.scaleZ = parseFloat((1.03 + (+standardDepth - 62) * 0.0070 + ((+standardDepth - 78) * 0.0070)).toFixed(3));
+ matrix.scaleZ = parseFloat((1.03 + (+standardDepth - 62) * 0.0089 + ((+standardDepth - 78) * 0.0089)).toFixed(3));
       // Re-Calculating positionX according to standardDepth
-      matrix.positionX -= -parseFloat(((+standardDepth - 62) * 0.040 + ((+standardDepth - 78) * 0.040)).toFixed(3));
+      matrix.positionX -= -parseFloat(((+standardDepth - 62) * 0.032 + ((+standardDepth - 78) * 0.032)).toFixed(3));
     }
 
     // Is the Layout is Alcove
     if (isAlcove) {
       // If the Stall is First Stall
       if (isFirst && alcoveDepth) {
-        matrix.positionX = 1.484;
-        // Calculating scaleZ according to alcoveDepth
-        matrix.scaleZ = parseFloat((1.500 + (((+alcoveDepth - 98) * 0.02) - ((+alcoveDepth - 90) * 0.007)) + ((+standardDepth - 48) * 0.0080)).toFixed(3));
-        // Re-Calculating positionX according to alcoveDepth
-        matrix.positionX -= -parseFloat((((+alcoveDepth - 98) * 0.086) - ((+alcoveDepth - 90) * 0.031)).toFixed(3));
+        if(standardDepth==="48" || standardDepth==="54"||standardDepth==="57") {
+          matrix.positionX = 1.010;
+          // Calculating scaleZ according to alcoveDepth
+          matrix.scaleZ = parseFloat((1.500 + (((+alcoveDepth - 98) * 0.02) - ((+alcoveDepth - 90) * 0.007)) + ((+standardDepth - 62) * 0.0061)).toFixed(3));
+          // Re-Calculating positionX according to alcoveDepth
+          matrix.positionX -= -parseFloat((((+alcoveDepth - 98) * 0.086) - ((+alcoveDepth - 90) * 0.031)).toFixed(3));
+        } else {
+          matrix.positionX = 1.484;
+          // Calculating scaleZ according to alcoveDepth
+          matrix.scaleZ = parseFloat((1.532 + (((+alcoveDepth - 98) * 0.02) - ((+alcoveDepth - 90) * 0.007)) + ((+standardDepth - 62) * 0.0061)).toFixed(3));
+          // Re-Calculating positionX according to alcoveDepth
+          matrix.positionX -= -parseFloat((((+alcoveDepth - 98) * 0.086) - ((+alcoveDepth - 90) * 0.031)).toFixed(3));
+        }
+
       }
       // If the Stall is Ada Stall
       if (isAda) {
-        matrix.positionX = 2.544;
-        // Calculating scaleZ according to adaDepth
-        matrix.scaleZ = parseFloat(((1.778 + (+adaDepth - 112) * 0.025) - (((+adaDepth - 112) * 0.007)) + ((+standardDepth - 62) * 0.005)).toFixed(3));
-        // Re-Calculating positionX according to adaDepth
-        matrix.positionX -= -parseFloat((((+adaDepth - 112) * 0.096) - ((+adaDepth - 112) * 0.009)).toFixed(3));
+        if(standardDepth==="48" || standardDepth==="54"||standardDepth==="57"||standardDepth==="60") {
+          matrix.positionX = 2.200;
+          // Calculating scaleZ according to adaDepth
+          matrix.scaleZ = parseFloat(((1.710 + (+adaDepth - 112) * 0.025) - (((+adaDepth - 112) * 0.007)) + ((+standardDepth - 48) * 0.005)).toFixed(3));
+          // Re-Calculating positionX according to adaDepth
+          matrix.positionX -= -parseFloat((((+adaDepth - 112) * 0.096) - ((+adaDepth - 112) * 0.009)).toFixed(3));
+        } else {
+          matrix.positionX = 2.544;
+          // Calculating scaleZ according to adaDepth
+          matrix.scaleZ = parseFloat(((1.778 + (+adaDepth - 112) * 0.025) - (((+adaDepth - 112) * 0.007)) + ((+standardDepth - 62) * 0.005)).toFixed(3));
+          // Re-Calculating positionX according to adaDepth
+          matrix.positionX -= -parseFloat((((+adaDepth - 112) * 0.096) - ((+adaDepth - 112) * 0.009)).toFixed(3));
+        }
+   
       }
     }
     // Return Matrix...

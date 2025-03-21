@@ -286,7 +286,29 @@ export default function Measurements({
     }
     return val;
   }, [isSelected]);
+  const alcoveDepthSubtract=useMemo(()=>{
+    let newDepth;
+switch (standardDepth) {
+  case "48":
+    newDepth=56;
+    break;
+case "54":
+  newDepth=56;
 
+
+  break;
+  case "57":
+    newDepth=50;
+    break
+    case "60":
+    newDepth=50;
+    break
+  default:
+    newDepth=43;
+    break;
+}
+return newDepth
+  },[standardDepth])
   return (
     <>
       {/* ADA Depth Line Arrow */}
@@ -304,7 +326,7 @@ export default function Measurements({
             z: adaDepthRotationZ,
           }}
           calculus={+adaDepth}
-          subtractor={43}
+          subtractor={isAlcove ? alcoveDepthSubtract : 43}
           arrowRadius={arrowRadius}
           type={isAlcove ? "AdaDepthWithAlcove" : "AdaDepth"}
         >
@@ -324,7 +346,7 @@ export default function Measurements({
               anchorX="center"
               anchorY="middle"
             >
-              ADA Depth { +adaDepth}&rdquo;
+              ADA Depth {+adaDepth}&rdquo;
             </Text>
           </animated.group>
         </LineArrow>
@@ -344,7 +366,15 @@ export default function Measurements({
             z: adaDepthRotationZ,
           }}
           calculus={+alcoveDepth} // Actual value is +50, but for the correct calculation we are using +5 instead
-          subtractor={+alcoveDepth < 98 ? 41 : 48}
+          subtractor={
+            standardDepth === "48"
+              ? +alcoveDepth < 98
+                ? 48
+                : 58
+              : +alcoveDepth < 98
+              ? 41
+              : 48
+          }
           arrowRadius={arrowRadius}
           type="AlcoveDepth"
         >
@@ -425,12 +455,31 @@ export default function Measurements({
               arrowRadius={arrowRadius}
               type="StallWidth"
             >
-              <animated.group position={[0,standardDepth==="48" || standardDepth==="54"? arrowRadius+1.1:-arrowRadius, 0]}>
+              <animated.group
+                position={[
+                  standardDepth === "48" || standardDepth === "54"
+                    ? isAda
+                      ? -2.9
+                      : -1.6
+                    : 0,
+                  standardDepth === "48" || standardDepth === "54"
+                    ? arrowRadius + 1.6
+                    : -arrowRadius,
+                  0,
+                ]}
+                rotation={
+                  standardDepth === "48" || standardDepth === "54"
+                    ? [0, 0, 1.6 - 0.02]
+                    : [0, 0, 0]
+                }
+              >
                 <Background
                   width={
                     stallConfig[stallId]?.stallFraction &&
                     stallConfig[stallId]?.stallFraction != "0"
-                      ? 3.2 + arrowRadius
+                      ? standardDepth === "48" || standardDepth === "54"
+                        ? 1.7 + arrowRadius
+                        : 3.2 + arrowRadius
                       : 1.75 + arrowRadius
                   }
                   height={0.8 + arrowRadius}
@@ -441,7 +490,11 @@ export default function Measurements({
                 <Text
                   position={[0, 0, 0.1]}
                   color="black"
-                  fontSize={standardDepth==="48" || standardDepth==="54"?0.40+arrowRadius:0.55 + arrowRadius}
+                  fontSize={
+                    standardDepth === "48" || standardDepth === "54"
+                      ? 0.3 + arrowRadius
+                      : 0.55 + arrowRadius
+                  }
                   fontWeight={800}
                   anchorX="center"
                   anchorY="middle"

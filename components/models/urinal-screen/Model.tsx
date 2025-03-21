@@ -31,23 +31,36 @@ export default function Model() {
         if (canvasRef.current) {
           const canvasCapture = canvasRef.current.toDataURL("image/png");
           // Dispaching Canvas Image
-          dispatch(
-            uploadCanvasAsImage({
-              view: view,
-              canvasImage: canvasCapture,
-              modelType: "screen",
-            })
-          );
+          const img = new Image();
+          img.src = canvasCapture;
+          img.onload = () => {
+            const canvas = document.createElement("canvas");
+            const ctx = canvas.getContext("2d");
+
+            // Set the canvas width and height to the desired size
+            const zoomedWidth = img.width * 1.15;
+            const zoomedHeight = img.height * 1.15;
+
+            canvas.width = zoomedWidth;
+            canvas.height = zoomedHeight;
+            // Draw the image on the canvas with the new width and height
+            ctx?.drawImage(img, 0, 0, zoomedWidth, zoomedHeight);
+            // Convert the canvas content back to base64
+            const resizedBase64 = canvas.toDataURL("image/png");
+            dispatch(
+              uploadCanvasAsImage({
+                view: view,
+                canvasImage: resizedBase64,
+                modelType: "screen",
+              })
+            );
+          };
         }
       }, 1000);
 
       return () => clearTimeout(debounce);
     }
-  }, [
-    selectedRoom,
-    view,
-    urinalScreenConfig
-  ]);
+  }, [selectedRoom, view, urinalScreenConfig]);
 
   return (
     <>
@@ -62,11 +75,11 @@ export default function Model() {
           }}
           ref={canvasRef}
           className="px-2 h-full cursor-pointer pt-8"
-          fallback={(
+          fallback={
             <div className="flex items-center justify-center h-full w-full mx-2 bg-gray-100 rounded-lg">
               <span>Unable to load 3D Model...</span>
             </div>
-          )}
+          }
           camera={{ fov: 75, near: 0.1, far: 1000, position, zoom }}
           shadows
         >
